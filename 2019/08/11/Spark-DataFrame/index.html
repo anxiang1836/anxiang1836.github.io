@@ -20,7 +20,7 @@
 <meta property="og:description" content="①.思维导图首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。 DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于： 可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……  ②.数据的读入（比较RDD与DataFrame）12import findsparkfindspark.init()">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pvcbblyg0.bkt.clouddn.com/Spark%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E3%80%90DataFrame%E3%80%91-2.png">
-<meta property="og:updated_time" content="2019-08-11T10:07:21.429Z">
+<meta property="og:updated_time" content="2019-08-11T10:13:51.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PySpark之DataFrame">
 <meta name="twitter:description" content="①.思维导图首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。 DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于： 可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……  ②.数据的读入（比较RDD与DataFrame）12import findsparkfindspark.init()">
@@ -203,31 +203,31 @@
 <p>DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于：</p>
 <p>可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……</p>
 <p><img src="http://pvcbblyg0.bkt.clouddn.com/Spark%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E3%80%90DataFrame%E3%80%91-2.png" alt></p>
-<h2 id="②-数据的读入（比较RDD与DataFrame）"><a href="#②-数据的读入（比较RDD与DataFrame）" class="headerlink" title="②.数据的读入（比较RDD与DataFrame）"></a>②.数据的读入（比较RDD与DataFrame）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import findspark</span><br><span class="line">findspark.init()</span><br></pre></td></tr></table></figure>
+<h2 id="②-数据的读入（比较RDD与DataFrame）"><a href="#②-数据的读入（比较RDD与DataFrame）" class="headerlink" title="②.数据的读入（比较RDD与DataFrame）"></a>②.数据的读入（比较RDD与DataFrame）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> findspark</span><br><span class="line">findspark.init()</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-1-是使用RDD还是使用DataFrame？"><a href="#2-1-是使用RDD还是使用DataFrame？" class="headerlink" title="2.1.是使用RDD还是使用DataFrame？"></a>2.1.是使用RDD还是使用DataFrame？</h3><ul>
 <li><p>RDD：</p>
 <p>  RDD开始于SparkContext，如下：</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from pyspark import SparkContext</span><br><span class="line">from pyspark import SparkConf</span><br><span class="line">conf = SparkConf().setAppName(&apos;MyProject_1&apos;)</span><br><span class="line">spark_rdd = SparkContext.getOrCreate(conf)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf</span><br><span class="line">conf = SparkConf().setAppName(<span class="string">'MyProject_1'</span>)</span><br><span class="line">spark_rdd = SparkContext.getOrCreate(conf)</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>DataFrame:DataFrame开始与SparkSession，如下：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from pyspark.sql import SparkSession</span><br><span class="line">spark_dataframe = SparkSession.builder.appName(&quot;Python Spark Log Analysis&quot;).getOrCreate()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line">spark_dataframe = SparkSession.builder.appName(<span class="string">"Python Spark Log Analysis"</span>).getOrCreate()</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-2-从外部文件导入？"><a href="#2-2-从外部文件导入？" class="headerlink" title="2.2 从外部文件导入？"></a>2.2 从外部文件导入？</h3><ul>
 <li><p><strong>RDD：</strong></p>
 <p>  用spark_rdd.textFile(logFile)</p>
 </li>
 <li><p><strong>DataFrame：</strong></p>
-<p>  用spark_dataframe.read.text(logFile)</p>
-<p>  或者借助pd，用spark_dataframe.createDataFrame(df)</p>
+<p> 用spark_dataframe.read.text(logFile)</p>
+<p> 或者借助pd，用spark_dataframe.createDataFrame(df)</p>
 </li>
 </ul>
 <p>【补充】：Row的用法（这个是在RDD和DataFrame都通用的用法）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from pyspark.sql import Row</span><br><span class="line"></span><br><span class="line">data = (Row(</span><br><span class="line">        # group的的计数是从1开始计数的</span><br><span class="line">        host          = match.group(1),</span><br><span class="line">        client_identd = match.group(2),</span><br><span class="line">        user_id       = match.group(3),</span><br><span class="line">        date_time     = parse_apache_time(match.group(4)),</span><br><span class="line">        method        = match.group(5),</span><br><span class="line">        endpoint      = match.group(6),</span><br><span class="line">        protocol      = match.group(7),</span><br><span class="line">        response_code = int(match.group(8)),</span><br><span class="line">        content_size  = size</span><br><span class="line">    ), 1)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Row</span><br><span class="line"></span><br><span class="line">data = (Row(</span><br><span class="line">        <span class="comment"># group的的计数是从1开始计数的</span></span><br><span class="line">        host          = match.group(<span class="number">1</span>),</span><br><span class="line">        client_identd = match.group(<span class="number">2</span>),</span><br><span class="line">        user_id       = match.group(<span class="number">3</span>),</span><br><span class="line">        date_time     = parse_apache_time(match.group(<span class="number">4</span>)),</span><br><span class="line">        method        = match.group(<span class="number">5</span>),</span><br><span class="line">        endpoint      = match.group(<span class="number">6</span>),</span><br><span class="line">        protocol      = match.group(<span class="number">7</span>),</span><br><span class="line">        response_code = int(match.group(<span class="number">8</span>)),</span><br><span class="line">        content_size  = size</span><br><span class="line">    ), <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 
 <h2 id="③-数据操作（分析）"><a href="#③-数据操作（分析）" class="headerlink" title="③.数据操作（分析）"></a>③.数据操作（分析）</h2><p>这里面其实主要分成两种吧：</p>
 <ul>
@@ -239,43 +239,57 @@
 </li>
 </ul>
 <h3 id="3-1-DataFrame的各种API"><a href="#3-1-DataFrame的各种API" class="headerlink" title="3.1 DataFrame的各种API"></a>3.1 DataFrame的各种API</h3><p>这里面，我还是想按照pandas的操作种类，给Spark进行大致分成3种操作吧：</p>
-<p>1.选择和筛选:</p>
-<pre><code>这个算是对于数据的最近本操作吧，对应于pandas中的.loc[]。
-
-- df.select()
-- df.filter()</code></pre><p>2.分组和聚合：</p>
-<pre><code>- df.groupby(&quot;某一列&quot;).agg((&quot;A列&quot;,&quot;count&quot;),(&quot;B列&quot;，&quot;sum&quot;))
-
-当然还有其他的聚合操作，可以直接上来对于某一列进行操作的，这里面，对于DataFrame的操作，都在pyspark.sql.functions中，具体就查看去吧，内容是在太丰富，感觉根本记不住！！尴尬……</code></pre><p>3.对于列进行操作：</p>
-<pre><code>对于列进行操作这个就比较广义理解，可以是：
-
-    - 新建一列；
-    - 给列改名;
-    - 修改列数据的数据类型格式；
-    - ……
-
-用到的就是：
-
-- df.withColumn(参数1，参数2)
-
-    参数1：表示的是欲操作的列
-
-    参数2：表示的是欲操作的动作
-
-- df.withColumnRenamed(&apos;count&apos;, &apos;hostperday&apos;)</code></pre><p>4.表间操作：</p>
-<pre><code>表间操作其实主要还是表连接：
-
-- df_1.join(df_2, &apos;day&apos;, &apos;inner&apos;)
-
-    参数1：表示欲连接的表
-
-    参数2：表示连接on的字段
-
-    参数3：连接的方式</code></pre><h3 id="3-2-DataFrame支持的sql"><a href="#3-2-DataFrame支持的sql" class="headerlink" title="3.2 DataFrame支持的sql"></a>3.2 DataFrame支持的sql</h3><p>【兴奋点来了】！！</p>
+<p><strong>1.选择和筛选:</strong></p>
+<p>   这个算是对于数据的最近本操作吧，对应于pandas中的.loc[]。</p>
+<ul>
+<li>df.select()</li>
+<li>df.filter()</li>
+</ul>
+<p><strong>2.分组和聚合：</strong></p>
+<ul>
+<li><p>df.groupby(“某一列”).agg((“A列”,”count”),(“B列”，”sum”))</p>
+<p>当然还有其他的聚合操作，可以直接上来对于某一列进行操作的，这里面，对于DataFrame的操作，都在pyspark.sql.functions中，具体就查看去吧，内容是在太丰富，感觉根本记不住！！尴尬……</p>
+</li>
+</ul>
+<p><strong>3.对于列进行操作：</strong></p>
+<p>   对于列进行操作这个就比较广义理解，可以是：</p>
+<ul>
+<li><p>新建一列；</p>
+</li>
+<li><p>给列改名;</p>
+</li>
+<li><p>修改列数据的数据类型格式；</p>
+</li>
+<li><p>……</p>
+<p>用到的就是：</p>
+</li>
+<li><p>df.withColumn(参数1，参数2)</p>
+<p>参数1：表示的是欲操作的列</p>
+<p>参数2：表示的是欲操作的动作</p>
+</li>
+<li><p>df.withColumnRenamed(‘count’, ‘hostperday’)</p>
+</li>
+</ul>
+<p><strong>4.表间操作：</strong></p>
+<p>   表间操作其实主要还是表连接：</p>
+<ul>
+<li><p>df_1.join(df_2, ‘day’, ‘inner’)</p>
+<p>参数1：表示欲连接的表</p>
+<p>参数2：表示连接on的字段</p>
+<p>参数3：连接的方式</p>
+</li>
+</ul>
+<h3 id="3-2-DataFrame支持的sql"><a href="#3-2-DataFrame支持的sql" class="headerlink" title="3.2 DataFrame支持的sql"></a>3.2 DataFrame支持的sql</h3><p>【兴奋点来了】！！</p>
 <p>想要在Spark中使用sql语句，步骤总共分为2步：</p>
-<p>1.为欲操作的表创建视图</p>
-<pre><code>- df.createOrReplaceTempView(&quot;TABLE&quot;)</code></pre><p>2.为所欲为的写SQL语句</p>
-<pre><code>- spark.sql(&quot;select * from DESCRIBE&quot;).show()</code></pre>
+<p><strong>1.为欲操作的表创建视图</strong></p>
+<ul>
+<li>df.createOrReplaceTempView(“TABLE”)</li>
+</ul>
+<p><strong>2.为所欲为的写SQL语句</strong></p>
+<ul>
+<li>spark.sql(“select * from DESCRIBE”).show()</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
