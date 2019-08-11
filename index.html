@@ -239,7 +239,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-hello-world"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Spark-RDD"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -247,7 +247,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/08/11/hello-world/">Hello World</a>
+      <a class="article-title" href="/2019/08/11/Spark-RDD/">PySpark之RDD</a>
     </h1>
   
 
@@ -255,12 +255,12 @@
     
     <div class="article-meta">
       
-	<a href="/2019/08/11/hello-world/" class="article-date">
-	  <time datetime="2019-08-10T16:27:54.116Z" itemprop="datePublished">2019-08-11</time>
+	<a href="/2019/08/11/Spark-RDD/" class="article-date">
+	  <time datetime="2019-08-11T08:37:03.783Z" itemprop="datePublished">2019-08-11</time>
 	</a>
 
       
-    <a class="article-category-link" href="/categories/helloworld/">helloworld</a>
+    <a class="article-category-link" href="/categories/科学分析工具/">科学分析工具</a>
 
       
       
@@ -269,11 +269,41 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p class="article-excerpt-content">
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post...
+          首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图：
+①.思维导图
+②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表：
+验证正则表达式写的对不对的小工具网页：https://regexr.com/
+
+
+
+表达式
+含义
+表达式
+含义
+
+
+
+[abcd]
+匹配候选集
+(re)su(lt)
+分组，group按照从1编序
+
+
+\.
+匹配”.”
+.
+除\n之外所有的字符
+
+
+\d
+所有数字
+\D
+所有非数字
+
+...
         </p>
         <p class="article-more-link">
-          <a href="/2019/08/11/hello-world/#more">阅读全文</a>
+          <a href="/2019/08/11/Spark-RDD/#more">阅读全文</a>
         </p>
       
     </div>

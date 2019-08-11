@@ -3,26 +3,28 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>hello world | MaxMa</title>
+  <title>pyspark之rdd | MaxMa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="text">
+  <meta name="keywords" content="sparkRDDpyecharts正则表达式">
   
   
   
   
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="text">
+  <meta name="description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： ①.思维导图 ②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/    表达式 含义 表达式 含义    [abcd] 匹配候选集 (re)su(lt) 分组，group按照从1">
+<meta name="keywords" content="spark,RDD,pyecharts,正则表达式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://anxiang1836.github.io/2019/08/11/hello-world/index.html">
+<meta property="og:title" content="PySpark之RDD">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/08/11/Spark-RDD/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： ①.思维导图 ②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/    表达式 含义 表达式 含义    [abcd] 匹配候选集 (re)su(lt) 分组，group按照从1">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-11T07:27:38.518Z">
+<meta property="og:image" content="http://pvcbblyg0.bkt.clouddn.com/Spark%20%20%20%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%20%20%E3%80%90RDD%E3%80%91.png">
+<meta property="og:updated_time" content="2019-08-11T08:53:53.352Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="PySpark之RDD">
+<meta name="twitter:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： ①.思维导图 ②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/    表达式 含义 表达式 含义    [abcd] 匹配候选集 (re)su(lt) 分组，group按照从1">
+<meta name="twitter:image" content="http://pvcbblyg0.bkt.clouddn.com/Spark%20%20%20%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%20%20%E3%80%90RDD%E3%80%91.png">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
   
@@ -162,7 +164,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-hello-world" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Spark-RDD" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -170,7 +172,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      Hello World
+      PySpark之RDD
     </h1>
   
 
@@ -178,12 +180,12 @@
     
     <div class="article-meta">
       
-	<a href="/2019/08/11/hello-world/" class="article-date">
-	  <time datetime="2019-08-10T16:27:54.116Z" itemprop="datePublished">2019-08-11</time>
+	<a href="/2019/08/11/Spark-RDD/" class="article-date">
+	  <time datetime="2019-08-11T08:37:03.783Z" itemprop="datePublished">2019-08-11</time>
 	</a>
 
       
-    <a class="article-category-link" href="/categories/helloworld/">helloworld</a>
+    <a class="article-category-link" href="/categories/科学分析工具/">科学分析工具</a>
 
       
 	<a class="article-views">
@@ -197,19 +199,89 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <p>首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图：</p>
+<h2 id="①-思维导图"><a href="#①-思维导图" class="headerlink" title="①.思维导图"></a>①.思维导图</h2><p><img src="http://pvcbblyg0.bkt.clouddn.com/Spark%20%20%20%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%20%20%E3%80%90RDD%E3%80%91.png" alt></p>
+<h2 id="②-正则表达式"><a href="#②-正则表达式" class="headerlink" title="②.正则表达式"></a>②.正则表达式</h2><p>从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表：</p>
+<p>验证正则表达式写的对不对的小工具网页：<a href="https://regexr.com/" target="_blank" rel="noopener">https://regexr.com/</a></p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>含义</th>
+<th>表达式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[abcd]</td>
+<td>匹配候选集</td>
+<td>(re)su(lt)</td>
+<td>分组，group按照从1编序</td>
+</tr>
+<tr>
+<td>\.</td>
+<td>匹配”.”</td>
+<td>.</td>
+<td>除\n之外所有的字符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>所有数字</td>
+<td>\D</td>
+<td>所有非数字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>所有空白符</td>
+<td>\S</td>
+<td>所有非空白符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>A-Z a-z 0-9</td>
+<td>\w</td>
+<td>除A-Z a-z 0-9之外</td>
+</tr>
+<tr>
+<td>m{3}</td>
+<td>匹配3个m</td>
+<td>m*</td>
+<td>0个或多个</td>
+</tr>
+<tr>
+<td>m+</td>
+<td>1个或多个</td>
+<td>m?</td>
+<td>0个或1个</td>
+</tr>
+<tr>
+<td>^the</td>
+<td>匹配开头</td>
+<td>$</td>
+<td>匹配结尾</td>
+</tr>
+</tbody></table>
+<h2 id="③-读入数据"><a href="#③-读入数据" class="headerlink" title="③.读入数据"></a>③.读入数据</h2><p>调用textFile的API，这里需要划重点的是，需要多次反复用的数据，要记得.cache()进行缓存，从而减少不必要的I/O时间。</p>
+<h2 id="④-RDD操作"><a href="#④-RDD操作" class="headerlink" title="④.RDD操作"></a>④.RDD操作</h2><p>这里面需要注意的有一点：那就是Transformation和action的区别：</p>
+<ul>
+<li>Transformation：这个是惰性计算，当在程序中写完的时候，并不执行；</li>
+<li>Action：会激活上面没有完成的计算的Transformation。</li>
+</ul>
+<p>在思维导图中，列举的大部分常见的操作，如果还有需求的话，那就查API的速查表好了！！</p>
+<h2 id="⑤-数据统计可视化"><a href="#⑤-数据统计可视化" class="headerlink" title="⑤.数据统计可视化"></a>⑤.数据统计可视化</h2><p>这里我补充了一下pyecharts的工具库，可以支持在notebook中，json立可交互图形可视化。</p>
+<p>官方GitHub为：<a href="https://github.com/pyecharts/pyecharts" target="_blank" rel="noopener">https://github.com/pyecharts/pyecharts</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyecharts -U</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>如果不显示图的话，那么需要安装html5lib。</p>
+<p>pyecharts 的地图库</p>
+<p>【Anaconda Prompt命令行】pip install echarts-countries-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-provinces-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-cities-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-counties-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-misc-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-united-kingdom-pypkg</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts.charts <span class="keyword">import</span> Pie</span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> options <span class="keyword">as</span> opts</span><br><span class="line">%config InlineBackend.figure_format = <span class="string">'svg'</span></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">labels = [<span class="number">200</span>, <span class="number">500</span>, <span class="number">501</span>, <span class="number">302</span>, <span class="number">403</span>, <span class="number">304</span>, <span class="number">404</span>]</span><br><span class="line">fracs = [<span class="number">0.891149538976086</span>, <span class="number">1.911904537331848e-06</span>, <span class="number">1.720714083598663e-05</span>, <span class="number">0.01685025198901802</span>, </span><br><span class="line">         <span class="number">0.00010897855862791534</span>, <span class="number">0.08548635027620648</span>, <span class="number">0.006385761154688373</span>]</span><br><span class="line"></span><br><span class="line">pie = (</span><br><span class="line">        Pie()</span><br><span class="line">        .add(<span class="string">""</span>, [list(z) <span class="keyword">for</span> z <span class="keyword">in</span> zip(labels, [<span class="string">'%.4f'</span> % (x*<span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> fracs])])</span><br><span class="line">        .set_global_opts(title_opts=opts.TitleOpts(title=<span class="string">"返回状态码分析"</span>))</span><br><span class="line">        .set_series_opts(label_opts=opts.LabelOpts(formatter=<span class="string">"【&#123;b&#125;】: &#123;c&#125;%"</span>))</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">pie.render_notebook()</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
       
     </div>
@@ -244,7 +316,7 @@
       
       
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/text/">text</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RDD/">RDD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pyecharts/">pyecharts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则表达式/">正则表达式</a></li></ul>
 
       
 
@@ -261,7 +333,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#①-思维导图"><span class="nav-number">1.</span> <span class="nav-text">①.思维导图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#②-正则表达式"><span class="nav-number">2.</span> <span class="nav-text">②.正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#③-读入数据"><span class="nav-number">3.</span> <span class="nav-text">③.读入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#④-RDD操作"><span class="nav-number">4.</span> <span class="nav-text">④.RDD操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#⑤-数据统计可视化"><span class="nav-number">5.</span> <span class="nav-text">⑤.数据统计可视化</span></a></li></ol>
     
     </div>
   </aside>
