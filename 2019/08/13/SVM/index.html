@@ -21,7 +21,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/SVM.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190813004157.png">
-<meta property="og:updated_time" content="2019-08-12T18:51:55.044Z">
+<meta property="og:updated_time" content="2019-08-12T19:18:30.714Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【机器学习】支持向量机笔记">
 <meta name="twitter:description" content="手推的第一个机器学习算法，SVM应该算的上是传统机器学习算法中最难之一，在CNN随硬件性能提升大火之前，SVM几乎制霸着监督学习分类任务。 网上的关于SVM的教程、总结归纳贴也很多，但是别人记的笔记终究是在别人的记忆习惯下的，按照自己的思考方式以及出发点，才会逐渐构成自己的知识笔记，废话少说，开干。 PS：很多东西是自己的理解，当然，也有摘录自其它大佬的Blog，请多多指教。 ①.思维导图本笔记将">
@@ -213,19 +213,25 @@
 <p><img src="http://pw4sajtgy.bkt.clouddn.com/SVM.png" alt="SVM思维导图"></p>
 <h2 id="②-硬间隔SVM"><a href="#②-硬间隔SVM" class="headerlink" title="②.硬间隔SVM"></a>②.硬间隔SVM</h2><h3 id="2-1-感知机模型"><a href="#2-1-感知机模型" class="headerlink" title="2.1 感知机模型"></a>2.1 感知机模型</h3><p>感知机模型：在样本数据中找到一个超平面（线性决策边界），把所有的二分类类别给分离开。</p>
 <p><strong>Hypothesis：</strong></p>
-<p>$y=sign(w^Tx+b)$，其中，$$f(x)=\left{\begin{align}-1,x &amp;&lt; 0\\1,x&amp; \ge0\end{align}\right.$$</p>
+<p>$y=sign(w^Tx+b)$，其中，<script type="math/tex">f(x)=\left\{\begin{align}-1,x &< 0\\\\1,x& \ge0\end{align}\right.</script></p>
 <p>公式中的$w^Tx+b=0$，即是算法所需要确定的超平面。</p>
 <p><img src="http://pw4sajtgy.bkt.clouddn.com/20190813004157.png" alt="二分类任务示意图"></p>
 <p><strong>Cost Function:</strong></p>
-<p>感知机的优化目标是，希望被<strong>误分点</strong>到超平面的距离是最小的。其中，Cost可表示为$J(w,b)$，如下：<br>$$<br>J(w,b)=-\sum_{x\in M_{erro}}y_{i}(w\bullet x_{i}+b)<br>$$<br>【理解1】：因为当点被误分的时候，其预测出来的值与原始数据的值是反号的，因此，$\sum$符号外面取“-”号。</p>
+<p>感知机的优化目标是，希望被<strong>误分点</strong>到超平面的距离是最小的。其中，Cost可表示为$J(w,b)$，如下：</p>
+<script type="math/tex; mode=display">
+J(w,b)=-\sum_{x\in M_{erro}}y_{i}(w\bullet x_{i}+b)</script><p>【理解1】：因为当点被误分的时候，其预测出来的值与原始数据的值是反号的，因此，$\sum$符号外面取“-”号。</p>
 <p><strong>Goal：</strong></p>
 <p>因此，优化目标函数可表示为：</p>
-<p>$$<br>\mathop{\min}\limits_{w,b} \left(-\sum_{x\in M_{erro}}y_{i}(w\bullet x_{i}+b)\right)<br>$$</p>
-<p> <strong>Optimization：</strong></p>
+<script type="math/tex; mode=display">
+\mathop{\min}\limits_{w,b} \left(-\sum_{x\in M_{erro}}y_{i}(w\bullet x_{i}+b)\right)</script><p> <strong>Optimization：</strong></p>
 <p>我们依然可以用梯度下降的方式进行参数的更新优化，但是，注意到一个关键的点：我们无法像对线性回归那样使用BGD，因为，这里minimize的对象是被误分的点，因此，只能选用SGD，即针对一个每一个被误分的样本点进行一次参数更新。</p>
 <p>因此，会带来的问题就是：误分点的遍历顺序不同，可能会导致出现不同的结果。</p>
 <p>这也是感知机模型的一个缺陷：在众多的参数中，无法得知到底是哪个的泛化能力更强。</p>
-<p>【理解2】：在高中数学中，点$(x_{0},y_{0})$到直线$Ax+By+C=0$的距离d，应该为：<br>$$<br>d=\frac{Ax_{0}+By_{0}+C}{\sqrt{A^{2}+B^{2}}}<br>$$<br>对应到高维空间中，可表示为：<br>$$<br>d=\frac{w^{T}x+b}{||w||}<br>$$<br>【问题】：那么为什么在感知机中用的并不是上述归一化后距离呢？</p>
+<p>【理解2】：在高中数学中，点$(x_{0},y_{0})$到直线$Ax+By+C=0$的距离d，应该为：</p>
+<script type="math/tex; mode=display">
+d=\frac{Ax_{0}+By_{0}+C}{\sqrt{A^{2}+B^{2}}}</script><p>对应到高维空间中，可表示为：</p>
+<script type="math/tex; mode=display">
+d=\frac{w^{T}x+b}{||w||}</script><p>【问题】：那么为什么在感知机中用的并不是上述归一化后距离呢？</p>
 <p>答案很简单，因为归一化后的距离使得在迭代的时候，计算更加复杂，因为分子分母同时包含着位置参数，这无疑增加了巨大的计算负担。</p>
 <h3 id="2-2-支持向量与间隔-函数-几何"><a href="#2-2-支持向量与间隔-函数-几何" class="headerlink" title="2.2 支持向量与间隔(函数/几何)"></a>2.2 支持向量与间隔(函数/几何)</h3>
       
@@ -477,5 +483,20 @@
   
     <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
