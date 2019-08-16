@@ -11,19 +11,19 @@
   
   
   
-  <meta name="description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： ①.思维导图 ②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/    表达式 含义 表达式 含义    [abcd] 匹配候选集 (re)su(lt) 分组，group按照从1">
+  <meta name="description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： ①.思维导图 ②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/     表达式 含义 表达式 含义     [abcd] 匹配候选集 (re)su(lt) 分组，group按照">
 <meta name="keywords" content="spark,RDD,pyecharts,正则表达式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PySpark之RDD">
 <meta property="og:url" content="https://anxiang1836.github.io/2019/08/11/Spark-RDD/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： ①.思维导图 ②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/    表达式 含义 表达式 含义    [abcd] 匹配候选集 (re)su(lt) 分组，group按照从1">
+<meta property="og:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： ①.思维导图 ②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/     表达式 含义 表达式 含义     [abcd] 匹配候选集 (re)su(lt) 分组，group按照">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pvcbblyg0.bkt.clouddn.com/Spark%20%20%20%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%20%20%E3%80%90RDD%E3%80%91.png">
 <meta property="og:updated_time" content="2019-08-11T08:53:53.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PySpark之RDD">
-<meta name="twitter:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： ①.思维导图 ②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/    表达式 含义 表达式 含义    [abcd] 匹配候选集 (re)su(lt) 分组，group按照从1">
+<meta name="twitter:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： ①.思维导图 ②.正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/     表达式 含义 表达式 含义     [abcd] 匹配候选集 (re)su(lt) 分组，group按照">
 <meta name="twitter:image" content="http://pvcbblyg0.bkt.clouddn.com/Spark%20%20%20%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%20%20%E3%80%90RDD%E3%80%91.png">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
@@ -203,6 +203,7 @@
 <h2 id="①-思维导图"><a href="#①-思维导图" class="headerlink" title="①.思维导图"></a>①.思维导图</h2><p><img src="http://pvcbblyg0.bkt.clouddn.com/Spark%20%20%20%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%20%20%E3%80%90RDD%E3%80%91.png" alt></p>
 <h2 id="②-正则表达式"><a href="#②-正则表达式" class="headerlink" title="②.正则表达式"></a>②.正则表达式</h2><p>从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表：</p>
 <p>验证正则表达式写的对不对的小工具网页：<a href="https://regexr.com/" target="_blank" rel="noopener">https://regexr.com/</a></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -212,7 +213,8 @@
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>[abcd]</td>
 <td>匹配候选集</td>
 <td>(re)su(lt)</td>
@@ -260,7 +262,9 @@
 <td>$</td>
 <td>匹配结尾</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="③-读入数据"><a href="#③-读入数据" class="headerlink" title="③.读入数据"></a>③.读入数据</h2><p>调用textFile的API，这里需要划重点的是，需要多次反复用的数据，要记得.cache()进行缓存，从而减少不必要的I/O时间。</p>
 <h2 id="④-RDD操作"><a href="#④-RDD操作" class="headerlink" title="④.RDD操作"></a>④.RDD操作</h2><p>这里面需要注意的有一点：那就是Transformation和action的区别：</p>
 <ul>
@@ -271,7 +275,6 @@
 <h2 id="⑤-数据统计可视化"><a href="#⑤-数据统计可视化" class="headerlink" title="⑤.数据统计可视化"></a>⑤.数据统计可视化</h2><p>这里我补充了一下pyecharts的工具库，可以支持在notebook中，json立可交互图形可视化。</p>
 <p>官方GitHub为：<a href="https://github.com/pyecharts/pyecharts" target="_blank" rel="noopener">https://github.com/pyecharts/pyecharts</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyecharts -U</span><br></pre></td></tr></table></figure>
-
 <p>如果不显示图的话，那么需要安装html5lib。</p>
 <p>pyecharts 的地图库</p>
 <p>【Anaconda Prompt命令行】pip install echarts-countries-pypkg</p>
@@ -281,7 +284,6 @@
 <p>【Anaconda Prompt命令行】pip install echarts-china-misc-pypkg</p>
 <p>【Anaconda Prompt命令行】pip install echarts-united-kingdom-pypkg</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts.charts <span class="keyword">import</span> Pie</span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> options <span class="keyword">as</span> opts</span><br><span class="line">%config InlineBackend.figure_format = <span class="string">'svg'</span></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">labels = [<span class="number">200</span>, <span class="number">500</span>, <span class="number">501</span>, <span class="number">302</span>, <span class="number">403</span>, <span class="number">304</span>, <span class="number">404</span>]</span><br><span class="line">fracs = [<span class="number">0.891149538976086</span>, <span class="number">1.911904537331848e-06</span>, <span class="number">1.720714083598663e-05</span>, <span class="number">0.01685025198901802</span>, </span><br><span class="line">         <span class="number">0.00010897855862791534</span>, <span class="number">0.08548635027620648</span>, <span class="number">0.006385761154688373</span>]</span><br><span class="line"></span><br><span class="line">pie = (</span><br><span class="line">        Pie()</span><br><span class="line">        .add(<span class="string">""</span>, [list(z) <span class="keyword">for</span> z <span class="keyword">in</span> zip(labels, [<span class="string">'%.4f'</span> % (x*<span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> fracs])])</span><br><span class="line">        .set_global_opts(title_opts=opts.TitleOpts(title=<span class="string">"返回状态码分析"</span>))</span><br><span class="line">        .set_series_opts(label_opts=opts.LabelOpts(formatter=<span class="string">"【&#123;b&#125;】: &#123;c&#125;%"</span>))</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">pie.render_notebook()</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
