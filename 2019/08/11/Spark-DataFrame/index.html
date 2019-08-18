@@ -204,19 +204,16 @@
 <p>可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……</p>
 <p><img src="http://pvcbblyg0.bkt.clouddn.com/Spark%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E3%80%90DataFrame%E3%80%91-2.png" alt></p>
 <h2 id="②-数据的读入（比较RDD与DataFrame）"><a href="#②-数据的读入（比较RDD与DataFrame）" class="headerlink" title="②.数据的读入（比较RDD与DataFrame）"></a>②.数据的读入（比较RDD与DataFrame）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> findspark</span><br><span class="line">findspark.init()</span><br></pre></td></tr></table></figure>
-
 <h3 id="2-1-是使用RDD还是使用DataFrame？"><a href="#2-1-是使用RDD还是使用DataFrame？" class="headerlink" title="2.1.是使用RDD还是使用DataFrame？"></a>2.1.是使用RDD还是使用DataFrame？</h3><ul>
 <li><p>RDD：</p>
 <p>  RDD开始于SparkContext，如下：</p>
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf</span><br><span class="line">conf = SparkConf().setAppName(<span class="string">'MyProject_1'</span>)</span><br><span class="line">spark_rdd = SparkContext.getOrCreate(conf)</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>DataFrame:DataFrame开始与SparkSession，如下：</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line">spark_dataframe = SparkSession.builder.appName(<span class="string">"Python Spark Log Analysis"</span>).getOrCreate()</span><br></pre></td></tr></table></figure>
-
 <h3 id="2-2-从外部文件导入？"><a href="#2-2-从外部文件导入？" class="headerlink" title="2.2 从外部文件导入？"></a>2.2 从外部文件导入？</h3><ul>
 <li><p><strong>RDD：</strong></p>
 <p>  用spark_rdd.textFile(logFile)</p>
@@ -228,7 +225,6 @@
 </ul>
 <p>【补充】：Row的用法（这个是在RDD和DataFrame都通用的用法）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Row</span><br><span class="line"></span><br><span class="line">data = (Row(</span><br><span class="line">        <span class="comment"># group的的计数是从1开始计数的</span></span><br><span class="line">        host          = match.group(<span class="number">1</span>),</span><br><span class="line">        client_identd = match.group(<span class="number">2</span>),</span><br><span class="line">        user_id       = match.group(<span class="number">3</span>),</span><br><span class="line">        date_time     = parse_apache_time(match.group(<span class="number">4</span>)),</span><br><span class="line">        method        = match.group(<span class="number">5</span>),</span><br><span class="line">        endpoint      = match.group(<span class="number">6</span>),</span><br><span class="line">        protocol      = match.group(<span class="number">7</span>),</span><br><span class="line">        response_code = int(match.group(<span class="number">8</span>)),</span><br><span class="line">        content_size  = size</span><br><span class="line">    ), <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
 <h2 id="③-数据操作（分析）"><a href="#③-数据操作（分析）" class="headerlink" title="③.数据操作（分析）"></a>③.数据操作（分析）</h2><p>这里面其实主要分成两种吧：</p>
 <ul>
 <li><p><strong>DataFrame的各种API：</strong></p>
@@ -254,12 +250,9 @@
 <p><strong>3.对于列进行操作：</strong></p>
 <p>   对于列进行操作这个就比较广义理解，可以是：</p>
 <ul>
-<li><p>新建一列；</p>
-</li>
-<li><p>给列改名;</p>
-</li>
-<li><p>修改列数据的数据类型格式；</p>
-</li>
+<li>新建一列；</li>
+<li>给列改名;</li>
+<li>修改列数据的数据类型格式；</li>
 <li><p>……</p>
 <p>用到的就是：</p>
 </li>
@@ -332,6 +325,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/08/17/ML_summary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          机器学习理论整理
+        
+      </div>
+    </a>
   
   
     <a href="/2019/08/11/Spark-RDD/" id="article-nav-older" class="article-nav-link-wrap">
