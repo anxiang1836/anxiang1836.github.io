@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818200750.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211552.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211323.png">
-<meta property="og:updated_time" content="2019-08-18T13:47:51.750Z">
+<meta property="og:updated_time" content="2019-08-18T13:53:53.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习理论整理">
 <meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(">
@@ -441,11 +441,15 @@ tanh(x)=\frac{sinh(x)}{cosh(x)}=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}</script><p><im
 <script type="math/tex; mode=display">
 \mathop{min}_\alpha \frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}K(x^{(i)},x^{(j)})-\sum^{m}_{i=1}\alpha_{i}\\\\
 s.t \qquad \sum^{m}_{i=1}\alpha_{i}y^{(i)}=0 \qquad 0\le\alpha_{i}\le C(i=1,2,...,m)</script></li>
-<li><p>用SMO算法求出$\alpha$的值$\alpha^<em>=\{\alpha^{</em>}_{1},\alpha^{<em>}_{2},…,\alpha^{</em>}_{n}\}$</p>
+<li><p>用SMO算法求出$\alpha$的值<script type="math/tex">\alpha^*=\{\alpha^{*}_{1},\alpha^{*}_{2},...,\alpha^{*}_{n}\}</script></p>
 </li>
-<li>用$\alpha^{<em>}$表示$w^{</em>}$,$w^{<em>}=\sum^{m}_{i=1}\alpha^{</em>}y^{(i)}\phi(x^{(i)})$</li>
-<li>找出所有满足$0&lt;\alpha^{<em>}&lt;C$的所有$\alpha^{</em>}$分量，求得$b^{*}$</li>
-<li>最后分类决策函数：$sign(\sum^{m}_{i=1}\alpha^{<em>}_{i}y^{(i)}K(x^{(i)},x^{(j)})+b^{</em>})$</li>
+<li><p>用<script type="math/tex">\alpha^{*}</script>表示<script type="math/tex">w^{*}</script>,<script type="math/tex">w^{*}=\sum^{m}_{i=1}\alpha^{*}y^{(i)}\phi(x^{(i)})</script></p>
+</li>
+<li><p>找出所有满足<script type="math/tex">0<\alpha^{*}<C</script>的所有<script type="math/tex">\alpha^{*}</script>分量，求得<script type="math/tex">b^{*}</script></p>
+</li>
+<li><p>最后分类决策函数：</p>
+<script type="math/tex; mode=display">
+sign(\sum^{m}_{i=1}\alpha^{*}_{i}y^{(i)}K(x^{(i)},x^{(j)})+b^{*})</script></li>
 </ol>
 <p>参考资料：<a href="https://zhuanlan.zhihu.com/p/36379394" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36379394</a></p>
 <h4 id="Q9-SVR？"><a href="#Q9-SVR？" class="headerlink" title="Q9:SVR？"></a>Q9:SVR？</h4><p>主要思想：在决策边界的支持向量H1、H2间，不计算损失；当在支持向量外，才开始计算损失。</p>
