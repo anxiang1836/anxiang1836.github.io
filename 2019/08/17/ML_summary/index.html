@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818060833.png">
-<meta property="og:updated_time" content="2019-08-18T08:43:28.614Z">
+<meta property="og:updated_time" content="2019-08-18T09:09:26.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习理论整理">
 <meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m">
@@ -262,8 +262,7 @@
 <h4 id="Q3-共线性问题？"><a href="#Q3-共线性问题？" class="headerlink" title="Q3:共线性问题？"></a>Q3:共线性问题？</h4><p>线性回归分析时，容易出现变量之间彼此相关，这种情况被称作多重共线性问题。（女朋友在stata数值分析时常遇到的）</p>
 <p>评价指标——方差膨胀因子（VIF）</p>
 <p>VIF指的是变量之间存在多重共线性时的方差与不存在多重共线性时的方差之比，可以反映多重共线性导致的方差的增加程度。</p>
-<p>$$VIF=\frac{1}{1-R^2}$$</p>
-<p>为了得到每一个变量的VIF，我们需要以每一个变量对其余所有变量进行线性回归分析，对每一个变量得到各自的R2，再代入上面的式子，就可以得到每一个变量的VIF了。</p>
+<p>$$<br>VIF=\frac{1}{1-R^2}<br>$$<br>为了得到每一个变量的VIF，我们需要以每一个变量对其余所有变量进行线性回归分析，对每一个变量得到各自的R2，再代入上面的式子，就可以得到每一个变量的VIF了。</p>
 <ol>
 <li>多重共线性是普遍存在的，轻微的多重共线性问题可不采取措施，如果VIF值大于10说明共线性很严重，这种情况需要处理，如果VIF值在5以下不需要处理，如果VIF介于5~10之间视情况而定。</li>
 <li>出现共线性的解决方法：<ul>
