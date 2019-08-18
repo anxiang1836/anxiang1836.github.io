@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211552.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211323.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818223915.png">
-<meta property="og:updated_time" content="2019-08-18T14:50:44.117Z">
+<meta property="og:updated_time" content="2019-08-18T14:52:26.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习理论整理">
 <meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(">
@@ -507,7 +507,7 @@ y=\mathop{argmax}_{c_k}P(C=c_k)\prod_{i}P(X^{(i)}=x^{(i)}|Y=c_k)</script><hr>
 <p>步骤3：结合T个基学习器的结果。</p>
 <h4 id="Q10：bootstrap-sampling？"><a href="#Q10：bootstrap-sampling？" class="headerlink" title="Q10：bootstrap sampling？"></a>Q10：bootstrap sampling？</h4><p>这种自助采样法在通过多次采样后，依然会存在未被采样的样本为：</p>
 <script type="math/tex; mode=display">
-\mathop{lim}_{m\to\infin}(1-\frac{1}{m})^{m}=\frac{1}{e}\approx 0.368</script><p>因此，自助采样法多次采样出来的样本子集中约有63.2%的样本，有36.8%的样本未被采样到。</p>
+\mathop{lim}_{m\to\infty}(1-\frac{1}{m})^{m}=\frac{1}{e}\approx 0.368</script><p>因此，自助采样法多次采样出来的样本子集中约有63.2%的样本，有36.8%的样本未被采样到。</p>
 <h4 id="Q11-Bagging与RF比较？"><a href="#Q11-Bagging与RF比较？" class="headerlink" title="Q11:Bagging与RF比较？"></a>Q11:Bagging与RF比较？</h4><ul>
 <li><p>样本选择：</p>
 <p>都是有放回的随机选取子集（Bootstrap Sampling）</p>
