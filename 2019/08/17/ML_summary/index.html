@@ -20,7 +20,9 @@
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818060833.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818200750.png">
-<meta property="og:updated_time" content="2019-08-18T12:18:48.385Z">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211552.png">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211323.png">
+<meta property="og:updated_time" content="2019-08-18T13:47:51.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习理论整理">
 <meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(">
@@ -406,6 +408,9 @@ s.t \qquad \sum^{m}_{i=1}\alpha_{i}y^{(i)}=0 \qquad 0\le\alpha_{i}\le C(i=1,2,..
 <p>【加入核函数概念】</p>
 <p>核函数 定义为：$K(x,z)=\phi(x)\bullet\phi(z)$</p>
 <p>其中，$\phi(\centerdot)$为映射函数，即是对变量的特征变换。</p>
+<p>对于SVM的优化目标，引入非线性，可改写为：</p>
+<script type="math/tex; mode=display">
+\mathop{min}_\alpha \frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}K(x^{(i)},x^{(j)})-\sum^{m}_{i=1}\alpha_{i}\\\\</script><p>下面列举下一些常用的核函数：</p>
 <ul>
 <li><p>线性核函数</p>
 <p>$K(x,z)=x \bullet z$</p>
@@ -427,6 +432,55 @@ tanh(x)=\frac{sinh(x)}{cosh(x)}=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}</script><p><im
 </li>
 </ul>
 <hr>
+<h4 id="Q8-SVM算法过程？"><a href="#Q8-SVM算法过程？" class="headerlink" title="Q8:SVM算法过程？"></a>Q8:SVM算法过程？</h4><p>输入：$(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m)})$。其中，$x^{(i)}$是一个n维向量，$y^{(i)}$取值为1或-1。</p>
+<p>输出：分类决策函数</p>
+<p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818211552.png" style="zoom:60%"></p>
+<p>算法步骤：</p>
+<ol>
+<li><p>选择适当的核函数$K(x,z)$和惩罚因子C，构造优化目标函数：</p>
+<script type="math/tex; mode=display">
+\mathop{min}_\alpha \frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}K(x^{(i)},x^{(j)})-\sum^{m}_{i=1}\alpha_{i}\\\\
+s.t \qquad \sum^{m}_{i=1}\alpha_{i}y^{(i)}=0 \qquad 0\le\alpha_{i}\le C(i=1,2,...,m)</script></li>
+<li><p>用SMO算法求出$\alpha$的值$\alpha^<em>=\{\alpha^{</em>}_{1},\alpha^{<em>}_{2},…,\alpha^{</em>}_{n}\}$</p>
+</li>
+<li>用$\alpha^{<em>}$表示$w^{</em>}$,$w^{<em>}=\sum^{m}_{i=1}\alpha^{</em>}y^{(i)}\phi(x^{(i)})$</li>
+<li>找出所有满足$0&lt;\alpha^{<em>}&lt;C$的所有$\alpha^{</em>}$分量，求得$b^{*}$</li>
+<li>最后分类决策函数：$sign(\sum^{m}_{i=1}\alpha^{<em>}_{i}y^{(i)}K(x^{(i)},x^{(j)})+b^{</em>})$</li>
+</ol>
+<p>参考资料：<a href="https://zhuanlan.zhihu.com/p/36379394" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36379394</a></p>
+<h4 id="Q9-SVR？"><a href="#Q9-SVR？" class="headerlink" title="Q9:SVR？"></a>Q9:SVR？</h4><p>主要思想：在决策边界的支持向量H1、H2间，不计算损失；当在支持向量外，才开始计算损失。</p>
+<p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818211323.png" type="zoom:80%"></p>
+<p>Goal：</p>
+<script type="math/tex; mode=display">
+min\frac{1}{m}\sum^{m}_{i=1}max \left\{0,(|y^{(i)}\hat{y}^{(i)}|-\epsilon)\right\}+\frac{\lambda}{2}||w||^2_2</script><p>这里注意几点：</p>
+<ol>
+<li>其中合页损失函数中，取得是绝对值，因为，在计算损失的时候，是需要关注到绝对距离的，至于是在哪一侧（是否为正负）并不关系；</li>
+<li>在SVC中，是$1-y\hat{y}$，而SVR中是$|y\hat{y}|-\epsilon$。因为在SVC中，只有在Margin中的点才有损失，在支持向量外的无损失；而在SVR中，正好相反，在Margin中是不计算损失的，只有在支持向量外才计算损失。</li>
+</ol>
+<p>参考资料：<a href="https://zhuanlan.zhihu.com/p/36535299" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36535299</a></p>
+<hr>
+<h3 id="1-5-朴素贝叶斯"><a href="#1-5-朴素贝叶斯" class="headerlink" title="1.5 朴素贝叶斯"></a>1.5 朴素贝叶斯</h3><p>贝叶斯公式：</p>
+<script type="math/tex; mode=display">
+P(C|X)=\frac{P(C)P(X|C)}{P(X)}</script><p>更具体一点的理解，可以表示为：</p>
+<script type="math/tex; mode=display">
+P(属于某类|具有某特征)=\frac{P(属于某类)P(具有某特征|属于某类)}{P(具有某特征)}</script><p>在上面的公式中：</p>
+<ul>
+<li>$P(C)$表示样本属于某类的概率，叫做“先验概率”</li>
+<li>$P(X)$表示样本具有某种特征的概率</li>
+<li>$P(C|X)$表示已知样本具有某特征的情况下，属于某类的概率，叫做“后验概率”</li>
+<li>$P(X|C)$表示已知样本属于某类的情况下，具有某特征的概率</li>
+</ul>
+<p>朴素贝叶斯对条件概率作出了条件独立的假设：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+P(X=x|C=c_{k})&=P(X^{(1)}=x^{(1)},X^{(2)}=x^{(2)},...,X^{(n)}=x^{(n)}|C=c_{k})\\\\
+&=\prod^{n}_{i=1}P(X^{(i)}=x^{(i)}|C=c_{k})
+\end{align}</script><p>下面给出朴素贝叶斯的基本公式：</p>
+<script type="math/tex; mode=display">
+P(C=c_{k}|X=x)=\frac{P(C=c_{k})\prod_{i}P(X^{(i)}=x^{(i)}|C=c_{k})}{\sum_{k}\left[P(C=c_{k})\prod_{i}P(X^{(i)}=x^{(i)}|C=c_{k})\right]}</script><p>由于当类别不同时，分母都是一样的，那么，朴素贝叶斯分类器可表示为：</p>
+<script type="math/tex; mode=display">
+y=\mathop{argmax}_{c_k}P(C=c_k)\prod_{i}P(X^{(i)}=x^{(i)}|Y=c_k)</script><hr>
+<p>1.6</p>
 
       
     </div>
@@ -486,7 +540,7 @@ tanh(x)=\frac{sinh(x)}{cosh(x)}=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}</script><p><im
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-监督学习"><span class="nav-number">1.</span> <span class="nav-text">1.监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-线性回归"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q0-正则化？L1正则、L2正则？"><span class="nav-number">1.1.1.</span> <span class="nav-text">Q0:正则化？L1正则、L2正则？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q1-衡量线性回归的指标？"><span class="nav-number">1.1.2.</span> <span class="nav-text">Q1:衡量线性回归的指标？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q2-岭回归与Lasso回归？分别适用的场景呢？"><span class="nav-number">1.1.3.</span> <span class="nav-text">Q2:岭回归与Lasso回归？分别适用的场景呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q3-共线性问题？"><span class="nav-number">1.1.4.</span> <span class="nav-text">Q3:共线性问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-逻辑回归"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q4-损失函数-极大似然估计？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Q4:损失函数-极大似然估计？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q5-逻辑回归如何实现多分类？"><span class="nav-number">1.2.2.</span> <span class="nav-text">Q5:逻辑回归如何实现多分类？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SoftMax回归"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 SoftMax回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q6-SoftMax回归与逻辑回归的关系？"><span class="nav-number">1.3.1.</span> <span class="nav-text">Q6:SoftMax回归与逻辑回归的关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q7-SofMax回归-VS-k个逻辑回归？"><span class="nav-number">1.3.2.</span> <span class="nav-text">Q7:SofMax回归 VS. k个逻辑回归？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-SVM支持向量机"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 SVM支持向量机</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-监督学习"><span class="nav-number">1.</span> <span class="nav-text">1.监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-线性回归"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q0-正则化？L1正则、L2正则？"><span class="nav-number">1.1.1.</span> <span class="nav-text">Q0:正则化？L1正则、L2正则？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q1-衡量线性回归的指标？"><span class="nav-number">1.1.2.</span> <span class="nav-text">Q1:衡量线性回归的指标？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q2-岭回归与Lasso回归？分别适用的场景呢？"><span class="nav-number">1.1.3.</span> <span class="nav-text">Q2:岭回归与Lasso回归？分别适用的场景呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q3-共线性问题？"><span class="nav-number">1.1.4.</span> <span class="nav-text">Q3:共线性问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-逻辑回归"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q4-损失函数-极大似然估计？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Q4:损失函数-极大似然估计？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q5-逻辑回归如何实现多分类？"><span class="nav-number">1.2.2.</span> <span class="nav-text">Q5:逻辑回归如何实现多分类？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SoftMax回归"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 SoftMax回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q6-SoftMax回归与逻辑回归的关系？"><span class="nav-number">1.3.1.</span> <span class="nav-text">Q6:SoftMax回归与逻辑回归的关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q7-SofMax回归-VS-k个逻辑回归？"><span class="nav-number">1.3.2.</span> <span class="nav-text">Q7:SofMax回归 VS. k个逻辑回归？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-SVM支持向量机"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 SVM支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q8-SVM算法过程？"><span class="nav-number">1.4.1.</span> <span class="nav-text">Q8:SVM算法过程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q9-SVR？"><span class="nav-number">1.4.2.</span> <span class="nav-text">Q9:SVR？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-朴素贝叶斯"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 朴素贝叶斯</span></a></li></ol></li></ol>
     
     </div>
   </aside>
