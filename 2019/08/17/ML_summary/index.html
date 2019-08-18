@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818060833.png">
-<meta property="og:updated_time" content="2019-08-18T09:09:26.546Z">
+<meta property="og:updated_time" content="2019-08-18T09:20:20.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习理论整理">
 <meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m">
@@ -222,7 +222,7 @@
 <p><a href="https://www.zhihu.com/question/26485586" target="_blank" rel="noopener">https://www.zhihu.com/question/26485586</a></p>
 <h4 id="Q1-衡量线性回归的指标？"><a href="#Q1-衡量线性回归的指标？" class="headerlink" title="Q1:衡量线性回归的指标？"></a>Q1:衡量线性回归的指标？</h4><ul>
 <li>MSE：$\frac{1}{m}\sum^{m}<em>{i=1}(y</em>{test}^{(i)}-\hat{y}_{test}^{(i)})^{2}$</li>
-<li>RMSE：$\sqrt{\frac{1}{m}\sum^{m}<em>{i=1}(y</em>{test}^{(i)}-\hat{y}_{test}^{(i)})^{2}}$</li>
+<li>RMSE：$\sqrt{\frac{1}{m}\sum^{m}<em>{i=1}(y</em>{test}^{(i)}-\hat{y}_{test}^{(i)})^{2} }$</li>
 <li>MAE：$\frac{1}{m}\sum^{m}<em>{i=1}|y</em>{test}^{(i)}-\hat{y}_{test}^{(i)}|$</li>
 </ul>
 <p>分析比较：</p>
@@ -276,12 +276,12 @@
 <p>[1] <a href="https://www.jianshu.com/p/858732b7eae6" target="_blank" rel="noopener">https://www.jianshu.com/p/858732b7eae6</a></p>
 <p>[2] <a href="https://cloud.tencent.com/developer/news/71265" target="_blank" rel="noopener">https://cloud.tencent.com/developer/news/71265</a></p>
 <h3 id="1-2-逻辑回归"><a href="#1-2-逻辑回归" class="headerlink" title="1.2 逻辑回归"></a>1.2 逻辑回归</h3><p>逻辑回归是分类模型，完成二分类任务。正例为+1，负例为0。</p>
-<p>Hypothesis：<br>$$<br>h_{\theta}(x)=\hat{y}=\frac{1}{1+e^{-(\theta^{T}x)}}<br>$$<br>Cost Function：<br>$$<br>J(\theta)=-\frac{1}{m}\sum^{m}<em>{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]<br>$$<br>Goal:<br>$$<br>\mathop{argmin}</em>{\theta}-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]<br>$$</p>
+<p>Hypothesis：<br>$$<br>h_{\theta}(x)=\hat{y}=\frac{1}{1+e^{-(\theta^{T}x)} }<br>$$<br>Cost Function：<br>$$<br>J(\theta)=-\frac{1}{m}\sum^{m}<em>{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]<br>$$<br>Goal:<br>$$<br>\mathop{argmin}</em>{\theta}-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]<br>$$</p>
 <h4 id="Q4-损失函数-极大似然估计？"><a href="#Q4-损失函数-极大似然估计？" class="headerlink" title="Q4:损失函数-极大似然估计？"></a>Q4:损失函数-极大似然估计？</h4><p>想要比较感性的理解极大似然函数，我从这篇优质博文中，截取一个比较形象的图来解释：</p>
 <p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png" alt></p>
 <p><strong>最大似然估计的目的</strong>：利用已知的样本结果，反推最有可能（最大概率）导致这样结果的参数值。</p>
 <p>回到要解释的逻辑回归损失函数上来，我们要解决的问题是：我们已知了样本集$D$，而且假设样本集中的样本独立同分布（分布由Hypothesis给出），那么，导致这样的样本集$D$最有可能得参数值应该是什么？——很自然的引出极大似然估计。</p>
-<p>根据假设，样本的概率表达式：<br>$$<br>P(y=1|x;\theta)=h_\theta{(x)}\\<br>P(y=0|x;\theta)=1-h_\theta{(x)}<br>$$<br>将上述式子整合在一起，可表示为：<br>$$<br>P(y|x;\theta)=h_{\theta}(x)^{y}<em>[1-h_{\theta}(x)]^{1-y}<br>$$<br>步骤1：列出似然函数<br>$$<br>L(\theta)=\prod^{m}<em>{i=1}p(y^{(i)}|x^{(i)};\theta)=\prod^{m}</em>{i=1}h_{\theta}(x^{(i)})^{y^{(i)}}</em>[1-h_{\theta}(x^{(i)})]^{1-y^{(i)}}<br>$$<br>步骤2：转对数似然函数（因为连乘的形式很难进行求解）<br>$$<br>log(L(\theta))=\sum^{m}<em>{i=1}y^{(i)}log[h</em>{\theta}(x^{(i)})]+(1-y^{(i)})log[1-h_{\theta}(x^{(i)})]<br>$$<br>步骤3：当然是【极大】似然咯：<br>$$<br>\mathop{argmax}<em>{\theta}\mathop{log}(L(\theta))<br>$$<br>步骤4：由于我们希望预测值与真实值相差越小越好，那么给极大对数似然函数去相反数咯，再配上$\frac{1}{m}$常数，就可以得到逻辑回归的损失函数：<br>$$<br>J(\theta)=-\frac{1}{m}\sum^{m}</em>{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]<br>$$<br>参考资料：</p>
+<p>根据假设，样本的概率表达式：<br>$$<br>P(y=1|x;\theta)=h_\theta{(x)}\\<br>P(y=0|x;\theta)=1-h_\theta{(x)}<br>$$<br>将上述式子整合在一起，可表示为：<br>$$<br>P(y|x;\theta)=h_{\theta}(x)^{y}<em>[1-h_{\theta}(x)]^{1-y}<br>$$<br>步骤1：列出似然函数<br>$$<br>L(\theta)=\prod^{m}<em>{i=1}p(y^{(i)}|x^{(i)};\theta)=\prod^{m}</em>{i=1}h_{\theta}(x^{(i)})^{y^{(i)}}</em>[1-h_{\theta}(x^{(i)})]^{1-y^{(i)} }<br>$$<br>步骤2：转对数似然函数（因为连乘的形式很难进行求解）<br>$$<br>log(L(\theta))=\sum^{m}<em>{i=1}y^{(i)}log[h</em>{\theta}(x^{(i)})]+(1-y^{(i)})log[1-h_{\theta}(x^{(i)})]<br>$$<br>步骤3：当然是【极大】似然咯：<br>$$<br>\mathop{argmax}<em>{\theta}\mathop{log}(L(\theta))<br>$$<br>步骤4：由于我们希望预测值与真实值相差越小越好，那么给极大对数似然函数去相反数咯，再配上$\frac{1}{m}$常数，就可以得到逻辑回归的损失函数：<br>$$<br>J(\theta)=-\frac{1}{m}\sum^{m}</em>{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]<br>$$<br>参考资料：</p>
 <p><a href="https://blog.csdn.net/qq_39355550/article/details/81809467" target="_blank" rel="noopener">https://blog.csdn.net/qq_39355550/article/details/81809467</a></p>
 <h4 id="Q5-逻辑回归如何实现多分类？"><a href="#Q5-逻辑回归如何实现多分类？" class="headerlink" title="Q5:逻辑回归如何实现多分类？"></a>Q5:逻辑回归如何实现多分类？</h4><p>这里要引出概念<strong>“One Vs. Rest”</strong>和<strong>“One Vs. One”</strong>。</p>
 <ul>
