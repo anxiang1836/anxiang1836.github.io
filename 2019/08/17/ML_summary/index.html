@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818060833.png">
-<meta property="og:updated_time" content="2019-08-18T08:37:22.287Z">
+<meta property="og:updated_time" content="2019-08-18T08:43:28.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习理论整理">
 <meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m">
@@ -309,6 +309,7 @@
 <p>线性SVM–&gt;Cost Function：<br>$$<br>J(w,b)=max{0,1-y\hat{y}}\\<br>\hat{y}=sign(w^{T}x+b)<br>$$<br>线性SVM–&gt;Goal:（最大间隔）<br>$$<br>max\frac{2}{||w||<em>{2}} \qquad s.t\qquad y^{(i)}(w^{T}x^{(i)}+b)\ge1<br>$$<br>上式中，可以理解为最大化两个支持向量H1、H2间的距离（Margin），使得任意一个样本点到决策边界的距离大于到同侧支持向量的距离，（将上式中的函数距离可改写为几何距离，可理解的更加清晰）<br>$$<br>y^{(i)}(w^{T}x^{(i)}+b)\ge1 \Leftrightarrow y^{(i)}\frac{(w^{T}x^{(i)}+b)}{||w||</em>{2}}\ge\frac{1}{||w||<em>{2}}<br>$$<br>再将上述最大间隔的表示为等价的极小化形式：<br>$$<br>min\frac{1}{2}||w||^{2}</em>{2} \qquad s.t \qquad y^{(i)}(w^{T}x^{(i)}+b)\ge1<br>$$<br>拉格朗日函数：将原始带约束的优化问题转化为不带约束的优化问题。拉格朗日函数转化的一般形式为：<br>$$<br>minf(t) \qquad s.t \qquad g(t)\le0 \qquad h(t)=0\\<br>L(t,\alpha,\beta)=f(t)+\sum^{m}<em>{i=1} \alpha g(t)+\sum^{m}</em>{j=1} \beta h(t)<br>$$<br>最大间隔的极小化等价形式用拉格朗日函数表示为：<br>$$<br>L(w,b,\alpha)=\frac{1}{2}||w||^{2}<em>{2}-\sum^{m}</em>{i=1}\alpha[y^{(i)}(w^{T}x^{(i)}+b-1]<br>$$<br>那么原问题可表示为：<br>$$<br>\mathop{min}<em>{w,b}\mathop{max}</em>{\alpha}\frac{1}{2}||w||^{2}<em>{2}-\sum^{m}</em>{i=1}\alpha[y^{(i)}(w^{T}x^{(i)}+b-1]<br>$$<br>其对偶问题可以表示为：<br>$$<br>\mathop{max}<em>{\alpha}\mathop{min}</em>{w,b}\frac{1}{2}||w||^{2}<em>{2}-\sum^{m}</em>{i=1}\alpha[y^{(i)}(w^{T}x^{(i)}+b-1]<br>$$<br>这里默认认为是SVM是存在强对偶关系的。任何满足强对偶关系的问题，都满足KKT条件，KKT条件为：<br>$$<br>\frac{\partial L}{\partial w}=0 \qquad \frac{\partial L}{\partial b}=0 \qquad \alpha g(w,b)=0 \qquad h(w,b)=0<br>$$<br>将KKT条件带入对偶问题，可简化为：<br>$$<br>\mathop{max}<em>{\alpha}-\frac{1}{2}\sum^{m}</em>{i=1}\sum^{m}<em>{j=1}\alpha</em>{i}\alpha_{j}y^{(i)}y^{(j)}(x^{(i)T}x^{(j)})+\sum^{m}<em>{i=1}\alpha</em>{i}\\<br>s.t \qquad \sum^{m}<em>{i=1}\alpha</em>{i}y^{(i)}=0 \qquad \alpha_{i}\ge0,i=1,2,…,m<br>$$<br>上式表示为其等价的极小化形式：<br>$$<br>\mathop{min}<em>{\alpha}\frac{1}{2}\sum^{m}</em>{i=1}\sum^{m}<em>{j=1}\alpha</em>{i}\alpha_{j}y^{(i)}y^{(j)}(x^{(i)T}x^{(j)})-\sum^{m}<em>{i=1}\alpha</em>{i}\\<br>s.t \qquad \sum^{m}<em>{i=1}\alpha</em>{i}y^{(i)}=0 \qquad \alpha_{i}\ge0,i=1,2,…,m<br>$$</p>
 <hr>
 <p>【加入软间隔概念】</p>
+<p>Goal：<br>$$<br>max\left[\frac{2}{||w||<em>{2}}+\frac{C}{m}\sum^{m}</em>{i=1}(1-\xi_{i})\right] \qquad s.t\qquad y^{(i)}(w^{T}x^{(i)}+b)\ge1-\xi_{i} \qquad \xi_{i}\ge0<br>$$<br>上式的直观理解为：</p>
 
       
     </div>
