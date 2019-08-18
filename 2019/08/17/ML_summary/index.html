@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818060833.png">
-<meta property="og:updated_time" content="2019-08-18T10:37:03.838Z">
+<meta property="og:updated_time" content="2019-08-18T10:47:28.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习理论整理">
 <meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(">
@@ -401,7 +401,11 @@ L(w,b,\xi,\alpha,\beta)=\frac{1}{2}||w||^{2}_{2}+C\sum^{m}_{i=1}\xi_{i}-\sum^{m}
 s.t \qquad C-\alpha_{i}-\beta_{i}=0 \qquad \alpha_{i}\ge0 \qquad \beta_{i}\ge0</script><p>表示为极小化等价形式：</p>
 <script type="math/tex; mode=display">
 \mathop{min}_\alpha \frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}(x^{(i)T}x^{(j)})-\sum^{m}_{i=1}\alpha_{i}\\\\
-s.t \qquad \sum^{m}_{i=1}\alpha_{i}y^{(i)}=0 \qquad 0\le\alpha_{i}\le C(i=1,2,...,m)</script>
+s.t \qquad \sum^{m}_{i=1}\alpha_{i}y^{(i)}=0 \qquad 0\le\alpha_{i}\le C(i=1,2,...,m)</script><hr>
+<p>【加入核函数概念】</p>
+<p>核函数 定义为：$K(x,z)=\phi(x)\bullet\phi(z)$</p>
+<p>其中，$\phi(\centerdot)$为映射函数，即是对变量的特征变换。</p>
+
       
     </div>
     <footer class="article-footer">
