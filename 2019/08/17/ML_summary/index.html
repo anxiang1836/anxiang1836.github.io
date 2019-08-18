@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>【机器学习】理论整理(上)——监督学习 | MaxMa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="“监督学习”“集成学习”">
+  
+  
+  
+  
+  <meta name="description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集：">
+<meta name="keywords" content="“监督学习”,“集成学习”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【机器学习】理论整理(上)——监督学习">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/08/17/ML_summary/index.html">
+<meta property="og:site_name" content="MaxMa">
+<meta property="og:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818060833.png">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818200750.png">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211552.png">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211323.png">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818223915.png">
+<meta property="og:updated_time" content="2019-08-18T15:05:45.371Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【机器学习】理论整理(上)——监督学习">
+<meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集：">
+<meta name="twitter:image" content="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png">
+  
+    <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ML_summary" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      【机器学习】理论整理(上)——监督学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/08/17/ML_summary/" class="article-date">
+	  <time datetime="2019-08-16T19:54:33.515Z" itemprop="datePublished">2019-08-17</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：<a href="https://study.163.com/course/introduction.htm?courseId=1004570029&amp;_trace_c_p_k2_=48954150178f45e5bcdc42013d6d8971" target="_blank" rel="noopener">达叔的Coursera上的ML课程</a>、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）</p>
+<p>这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）</p>
+</blockquote>
+<p><img src="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png" style="zoom:75%"></p>
+<h2 id="1-监督学习"><a href="#1-监督学习" class="headerlink" title="1.监督学习"></a>1.监督学习</h2><h3 id="1-1-线性回归"><a href="#1-1-线性回归" class="headerlink" title="1.1 线性回归"></a>1.1 线性回归</h3><p>数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m)})\}$</p>
+<p>特征空间：$\{x_{1}^{(i)},x_{2}^{(i)},…,x_{n}^{(i)}\}$</p>
+<p>Hypothesis：$h_{\theta}(x)=\theta^{T}x \qquad \theta=\{\theta_0,\theta_1,…,\theta_n \} \qquad x^{(i)} = \{ 1,x^{(i)}_{1},x^{(i)}_{2},…,x^{(i)}_{n} \}$</p>
+<p>Cost Function:$J(\theta)=\frac{1}{m}\sum^{m}_{i=1}(\theta^{T}x^{(i)}-y^{(i)})^2$</p>
+<p>Goal：$\mathop{argmin}\limits_{\theta}\frac{1}{m}\sum^{m}_{i=1}(\theta^{T}x^{(i)}-y^{(i)})^2$</p>
+<h4 id="Q0-正则化？L1正则、L2正则？"><a href="#Q0-正则化？L1正则、L2正则？" class="headerlink" title="Q0:正则化？L1正则、L2正则？"></a>Q0:正则化？L1正则、L2正则？</h4><p>正则化是结构风险最小化策略的实现，即在经验风险上加一个正则化项（惩罚项），以控制模型的复杂程度，防止模型过拟合。</p>
+<ul>
+<li>L1正则：$||w||_{1}$</li>
+<li>L2正则：$||w||_{2}$</li>
+</ul>
+<p>L1正则与L2正则的区别：</p>
+<ol>
+<li>L1正则输出稀疏，会把不重要的特征直接置为0，L2不会；</li>
+<li>L1比L2鲁棒性更强，对异常值更不敏感；</li>
+<li>对于L1和L2，一般选用L2的原因，是因为L2可导，计算方便；此外，根据Quaro的data scientist <a href="https://www.quora.com/profile/Xavier-Amatriain" target="_blank" rel="noopener">Xavier Amatriain</a> 的经验，实际应用过程中，L1 nrom几乎没有比L2 norm表现好的时候，<strong>优先使用L2 norm</strong>是比较好的选择。</li>
+</ol>
+<p>参考资料：</p>
+<p><a href="https://www.zhihu.com/question/26485586" target="_blank" rel="noopener">https://www.zhihu.com/question/26485586</a></p>
+<h4 id="Q1-衡量线性回归的指标？"><a href="#Q1-衡量线性回归的指标？" class="headerlink" title="Q1:衡量线性回归的指标？"></a>Q1:衡量线性回归的指标？</h4><ul>
+<li>MSE：$\frac{1}{m}\sum^{m}_{i=1}(y_{test}^{(i)}-\hat{y}_{test}^{(i)})^{2}$</li>
+<li>RMSE：$\sqrt{\frac{1}{m}\sum^{m}_{i=1}(y_{test}^{(i)}-\hat{y}_{test}^{(i)})^{2} }$</li>
+<li>MAE：$\frac{1}{m}\sum^{m}_{i=1}|y_{test}^{(i)}-\hat{y}_{test}^{(i)}|$</li>
+</ul>
+<p>分析比较：</p>
+<ol>
+<li><p>【MSE/RMSE】 VS 【MAE】？</p>
+<ul>
+<li>对于Training：因为MAE使用求绝对值的方法，导致处处不可导，不方便来求极值（对于training），而MSE与RMSE是不存在这样的问题的；</li>
+<li>对Testing：是可以用MAE来衡量的。</li>
+</ul>
+</li>
+<li><p>【MSE】 VS 【RMSE】？</p>
+<p>MSE的量纲是有问题，会在原量纲上增加的平方；RMSE的量纲是与MAE的量纲相同，但是由于是先将误差平方后进行累加，再对其开根号，这其实是放大了较大误差之间的差距。</p>
+</li>
+</ol>
+<p>比如我们预测考试分数误差是10，预测房价误差是1w，我们无法评价我们的模型是更适合预测分数还是预测房价。下面引入<strong>R Squared</strong>：</p>
+<script type="math/tex; mode=display">
+R^{2}=1-\frac{\sum_{i}(\hat{y}^{(i)}-y^{(i)})^2}{\sum_{i}(\bar{y}-y^{(i)})^2}</script><p>其将回归结果规约到了0-1之间，允许对不同问题的预测结果进行对比比较：</p>
+<p>当$0&lt;R^2&lt;1$，其值越大，表示模型越好；</p>
+<p>当$R^2&lt;0$，表示我们学习到的模型还不如基准模型，此时很有可能我们数据不存在任何的线性关系</p>
+<p>可以发现，$R^2$的表达式中，分子就是MSE，分母是Var：$1-\frac{MSE(\hat{y},y)}{Var(y)}$</p>
+<p>参考资料：</p>
+<p><a href="https://blog.csdn.net/BigData_Mining/article/details/81122777" target="_blank" rel="noopener">https://blog.csdn.net/BigData_Mining/article/details/81122777</a></p>
+<h4 id="Q2-岭回归与Lasso回归？分别适用的场景呢？"><a href="#Q2-岭回归与Lasso回归？分别适用的场景呢？" class="headerlink" title="Q2:岭回归与Lasso回归？分别适用的场景呢？"></a>Q2:岭回归与Lasso回归？分别适用的场景呢？</h4><p>过拟合的模型，解决办法之一就是对模型进行正则化：限制参数大小。当线性回归过拟合时，权重系数$\theta$就会非常的大，可以理解为在线性回归的损失函数的基础上，加入正则项，来限制$\theta$不要过大。</p>
+<ul>
+<li><p>岭回归：$J(\theta)=\frac{1}{2m}\sum^{m}_{i=1}(\theta^{T}x^{(i)}-y^{(i)})^2+\frac{\lambda}{2}||\theta||^{2}$</p>
+</li>
+<li><p>Lasso回归：$J(\theta)=\frac{1}{2m}\sum^{m}_{i=1}(\theta^{T}x^{(i)}-y^{(i)})^2+\lambda||\theta||$</p>
+</li>
+</ul>
+<p>比较分析：</p>
+<p>【岭回归】or 【Lasso回归】？</p>
+<ol>
+<li>Lasso由于使用L1正则项，所以具有一定的特征选择功能，因为L1正则倾向于产生稀疏稀疏，它可以将一些“对标签没有用处”的特征对应的系数压缩为0，进而将对结果有较大影响的特征突显出来；而岭回归中L2正则项不具备这个功能，它只会讲一些无关特征的系数降到一个较小的值，但不会降为0。</li>
+<li>岭回归可以进行梯度下降法求解，Lasso回归因为使用L1正则因而无法。</li>
+</ol>
+<p>参考资料：</p>
+<p><a href="https://blog.csdn.net/Joker_sir5/article/details/82756089" target="_blank" rel="noopener">https://blog.csdn.net/Joker_sir5/article/details/82756089</a></p>
+<h4 id="Q3-共线性问题？"><a href="#Q3-共线性问题？" class="headerlink" title="Q3:共线性问题？"></a>Q3:共线性问题？</h4><p>线性回归分析时，容易出现变量之间彼此相关，这种情况被称作多重共线性问题。（女朋友在stata数值分析时常遇到的）</p>
+<p>评价指标——方差膨胀因子（VIF）</p>
+<p>VIF指的是变量之间存在多重共线性时的方差与不存在多重共线性时的方差之比，可以反映多重共线性导致的方差的增加程度。</p>
+<script type="math/tex; mode=display">
+VIF=\frac{1}{1-R^2}</script><p>为了得到每一个变量的VIF，我们需要以每一个变量对其余所有变量进行线性回归分析，对每一个变量得到各自的R2，再代入上面的式子，就可以得到每一个变量的VIF了。</p>
+<ol>
+<li>多重共线性是普遍存在的，轻微的多重共线性问题可不采取措施，如果VIF值大于10说明共线性很严重，这种情况需要处理，如果VIF值在5以下不需要处理，如果VIF介于5~10之间视情况而定。</li>
+<li>出现共线性的解决方法：<ul>
+<li>变量可移除，那么就手动移除存在共线性的变量中的一个；</li>
+<li>如果不想移除或无法移除，那么就使用岭回归，减小降低存在共线性的变量对预测值的影响。</li>
+</ul>
+</li>
+<li>如果模型仅用于预测，则只要拟合程度好，可不处理多重共线性问题，存在多重共线性的模型用于预测时，往往不影响预测结果。 </li>
+</ol>
+<p>参考资料：</p>
+<p>[1] <a href="https://www.jianshu.com/p/858732b7eae6" target="_blank" rel="noopener">https://www.jianshu.com/p/858732b7eae6</a></p>
+<p>[2] <a href="https://cloud.tencent.com/developer/news/71265" target="_blank" rel="noopener">https://cloud.tencent.com/developer/news/71265</a></p>
+<hr>
+<h3 id="1-2-逻辑回归"><a href="#1-2-逻辑回归" class="headerlink" title="1.2 逻辑回归"></a>1.2 逻辑回归</h3><p>逻辑回归是分类模型，完成二分类任务。正例为+1，负例为0。</p>
+<p>Hypothesis：</p>
+<script type="math/tex; mode=display">
+h_{\theta}(x)=\hat{y}=\frac{1}{1+e^{-(\theta^{T}x)} }</script><p>Cost Function：</p>
+<script type="math/tex; mode=display">
+J(\theta)=-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]</script><p>Goal:</p>
+<script type="math/tex; mode=display">
+\mathop{argmin}_{\theta}-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]</script><h4 id="Q4-损失函数-极大似然估计？"><a href="#Q4-损失函数-极大似然估计？" class="headerlink" title="Q4:损失函数-极大似然估计？"></a>Q4:损失函数-极大似然估计？</h4><p>想要比较感性的理解极大似然函数，我从这篇优质博文中，截取一个比较形象的图来解释：</p>
+<p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png" style="zoom:70%"></p>
+<p><strong>最大似然估计的目的</strong>：利用已知的样本结果，反推最有可能（最大概率）导致这样结果的参数值。</p>
+<p>回到要解释的逻辑回归损失函数上来，我们要解决的问题是：我们已知了样本集$D$，而且假设样本集中的样本独立同分布（分布由Hypothesis给出），那么，导致这样的样本集$D$最有可能得参数值应该是什么？——很自然的引出极大似然估计。</p>
+<p>根据假设，样本的概率表达式：</p>
+<script type="math/tex; mode=display">
+P(y=1|x;\theta)=h_\theta{(x)}\\\\
+P(y=0|x;\theta)=1-h_\theta{(x)}</script><p>将上述式子整合在一起，可表示为：</p>
+<script type="math/tex; mode=display">
+P(y|x;\theta)=h_{\theta}(x)^{y}*[1-h_{\theta}(x)]^{1-y}</script><p>步骤1：列出似然函数</p>
+<script type="math/tex; mode=display">
+L(\theta)=\prod^{m}_{i=1}p(y^{(i)}|x^{(i)};\theta)=\prod^{m}_{i=1}h_{\theta}(x^{(i)})^{y^{(i)}}*[1-h_{\theta}(x^{(i)})]^{1-y^{(i)} }</script><p>步骤2：转对数似然函数（因为连乘的形式很难进行求解）</p>
+<script type="math/tex; mode=display">
+log(L(\theta))=\sum^{m}_{i=1}y^{(i)}log[h_{\theta}(x^{(i)})]+(1-y^{(i)})log[1-h_{\theta}(x^{(i)})]</script><p>步骤3：当然是【极大】似然咯：</p>
+<script type="math/tex; mode=display">
+\mathop{argmax}_{\theta}\mathop{log}(L(\theta))</script><p>步骤4：由于我们希望预测值与真实值相差越小越好，那么给极大对数似然函数去相反数咯，再配上$\frac{1}{m}$常数，就可以得到逻辑回归的损失函数：</p>
+<script type="math/tex; mode=display">
+J(\theta)=-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]</script><p>参考资料：</p>
+<p><a href="https://blog.csdn.net/qq_39355550/article/details/81809467" target="_blank" rel="noopener">https://blog.csdn.net/qq_39355550/article/details/81809467</a></p>
+<h4 id="Q5-逻辑回归如何实现多分类？"><a href="#Q5-逻辑回归如何实现多分类？" class="headerlink" title="Q5:逻辑回归如何实现多分类？"></a>Q5:逻辑回归如何实现多分类？</h4><p>这里要引出概念<strong>“One Vs. Rest”</strong>和<strong>“One Vs. One”</strong>。</p>
+<ul>
+<li>One Vs. Rest：选取1个类为正例，其余为反例，进行训练。最后，预测的时候，由m个分类器进行投票。</li>
+<li>One Vs. One：在样本中每两个不同的类之间都做一个分类器。最后，预测的时候，由m(m-1)/2个分类器进行投票。</li>
+</ul>
+<p>两种策略的比较：</p>
+<ol>
+<li>OvR需要m个分类器，OvO需要m(m-1)/2个分类器，存储开销和测试时间通常OvO比OvR更大；</li>
+<li>但在训练时，OvO每个分类器仅用到2个类的样例（数据集的一个子集），而OvR每个分类器要用到整个数据集，因此，在类别很多的时候，OvO的训练时间开销通常要比OvR要小。</li>
+<li>预测性能，要具体分布具体而言，通常情况下，二者性能相似。</li>
+</ol>
+<p>参考资料：</p>
+<p>周志华《机器学习》——西瓜书</p>
+<hr>
+<h3 id="1-3-SoftMax回归"><a href="#1-3-SoftMax回归" class="headerlink" title="1.3 SoftMax回归"></a>1.3 SoftMax回归</h3><p>Hypothesis：</p>
+<script type="math/tex; mode=display">
+h_{\theta}(x^{(i)})=
+\left[
+\begin{matrix}
+p(y^{(i)}=1|x^{(i)};\theta)\\\\
+p(y^{(i)}=2|x^{(i)};\theta)\\\\
+...\\\\
+p(y^{(i)}=k|x^{(i)};\theta)\\\\\end{matrix}
+\right]=
+\frac{1}{\sum^{k}_{j=1}e^{\theta^{T}_{j}x^{(i)}}}
+\left[
+\begin{matrix}
+e^{\theta^{T}_{1}x^{(i)}}\\\\
+e^{\theta^{T}_{2}x^{(i)}}\\\\
+...\\\\
+e^{\theta^{T}_{k}x^{(i)}}\\\\
+\end{matrix}
+\right]</script><p>SoftMax回归将样本$x^{(i)}$标记为类别$j$的概率可表示为：</p>
+<script type="math/tex; mode=display">
+P(y^{(i)}=k|x^{(i)};\theta)=\frac{e^{\theta^{T}_{j}x^{(i)}}}{\sum^{k}_{l=1}e^{\theta^{T}_{l}x^{(i)}}}</script><p>Cost Function:</p>
+<script type="math/tex; mode=display">
+J(\theta)=-\frac{1}{m}\left[\sum^{m}_{i=1}\sum^{k}_{j=1}1\{y^{(i)}=k\}log\frac{e^{\theta^{T}_{j}x^{(i)}}}{\sum^{k}_{l=1}e^{\theta^{T}_{l}x^{(i)}}}\right]</script><p>下面来个图片，解释一下softmax的计算过程：图片来自台大李宏毅《一天搞懂深度学习》</p>
+<p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818060833.png" style="zoom:80%"></p>
+<h4 id="Q6-SoftMax回归与逻辑回归的关系？"><a href="#Q6-SoftMax回归与逻辑回归的关系？" class="headerlink" title="Q6:SoftMax回归与逻辑回归的关系？"></a>Q6:SoftMax回归与逻辑回归的关系？</h4><p>softmax回归是logistic回归的一般形式，logistic回归是softmax回归在$k=2$时的特殊形式。</p>
+<h4 id="Q7-SofMax回归-VS-k个逻辑回归？"><a href="#Q7-SofMax回归-VS-k个逻辑回归？" class="headerlink" title="Q7:SofMax回归 VS. k个逻辑回归？"></a>Q7:SofMax回归 VS. k个逻辑回归？</h4><ul>
+<li>如果数据集中k个类别的数据是互斥的，某个类别不可能同时属于2个类别，那么就用SoftMax回归；</li>
+<li>如果数据集中K个类别的数据不是互斥的，那么就建议使用k个逻辑回归分类器，然后进行投片判断是属于哪个分类。</li>
+</ul>
+<p>参考资料：<a href="https://blog.csdn.net/u012328159/article/details/72155874" target="_blank" rel="noopener">https://blog.csdn.net/u012328159/article/details/72155874</a></p>
+<hr>
+<h3 id="1-4-SVM支持向量机"><a href="#1-4-SVM支持向量机" class="headerlink" title="1.4 SVM支持向量机"></a>1.4 SVM支持向量机</h3><p>线性SVM—&gt;Hypothesis：</p>
+<script type="math/tex; mode=display">
+h_{w,b}(x)=sign(w^{T}x+b)\\\\
+sign(x)=\left\{\begin{align}-1,x<0\\\\+1,x\ge0\end{align}\right.</script><p>即为找到一个超平面$w^{T}x+b$将样本分为2个部分，正例部分为+1，负例部分为-1。</p>
+<p>线性SVM—&gt;Cost Function：</p>
+<script type="math/tex; mode=display">
+J(w,b)=max\{0,1-y\hat{y}\}\\\\
+\hat{y}=sign(w^{T}x+b)</script><p>线性SVM—&gt;Goal:（最大间隔）</p>
+<script type="math/tex; mode=display">
+max\frac{2}{||w||_{2}} \qquad s.t\qquad y^{(i)}(w^{T}x^{(i)}+b)\ge1</script><p>上式中，可以理解为最大化两个支持向量H1、H2间的距离（Margin），使得任意一个样本点到决策边界的距离大于到同侧支持向量的距离，（将上式中的函数距离可改写为几何距离，可理解的更加清晰）</p>
+<script type="math/tex; mode=display">
+y^{(i)}(w^{T}x^{(i)}+b)\ge1 \Leftrightarrow y^{(i)}\frac{(w^{T}x^{(i)}+b)}{||w||_{2}}\ge\frac{1}{||w||_{2}}</script><p>再将上述最大间隔的表示为等价的极小化形式：</p>
+<script type="math/tex; mode=display">
+min\frac{1}{2}||w||^{2}_{2} \qquad s.t \qquad y^{(i)}(w^{T}x^{(i)}+b)\ge1</script><p>拉格朗日函数：将原始带约束的优化问题转化为不带约束的优化问题。拉格朗日函数转化的一般形式为：</p>
+<script type="math/tex; mode=display">
+minf(t) \qquad s.t \qquad g(t)\le0 \qquad h(t)=0\\\\
+L(t,\alpha,\beta)=f(t)+\sum^{m}_{i=1} \alpha g(t)+\sum^{m}_{j=1} \beta h(t)</script><p>最大间隔的极小化等价形式用拉格朗日函数表示为：</p>
+<script type="math/tex; mode=display">
+L(w,b,\alpha)=\frac{1}{2}||w||^{2}_{2}-\sum^{m}_{i=1}\alpha[y^{(i)}(w^{T}x^{(i)}+b-1]</script><p>那么原问题可表示为：</p>
+<script type="math/tex; mode=display">
+\mathop{min}_{w,b}\mathop{max}_{\alpha}\frac{1}{2}||w||^{2}_{2}-\sum^{m}_{i=1}\alpha[y^{(i)}(w^{T}x^{(i)}+b-1]</script><p>其对偶问题可以表示为：</p>
+<script type="math/tex; mode=display">
+\mathop{max}_{\alpha}\mathop{min}_{w,b}\frac{1}{2}||w||^{2}_{2}-\sum^{m}_{i=1}\alpha[y^{(i)}(w^{T}x^{(i)}+b-1]</script><p>这里默认认为是SVM是存在强对偶关系的。任何满足强对偶关系的问题，都满足KKT条件，KKT条件为：</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial w}=0 \qquad \frac{\partial L}{\partial b}=0 \qquad \alpha g(w,b)=0 \qquad h(w,b)=0</script><p>将KKT条件带入对偶问题，可简化为：</p>
+<script type="math/tex; mode=display">
+\mathop{max}_{\alpha}-\frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}(x^{(i)T}x^{(j)})+\sum^{m}_{i=1}\alpha_{i}\\\\
+s.t \qquad \sum^{m}_{i=1}\alpha_{i}y^{(i)}=0 \qquad \alpha_{i}\ge0,i=1,2,...,m</script><p>上式表示为其等价的极小化形式：</p>
+<script type="math/tex; mode=display">
+\mathop{min}_{\alpha}\frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}(x^{(i)T}x^{(j)})-\sum^{m}_{i=1}\alpha_{i}\\\\
+s.t \qquad \sum^{m}_{i=1}\alpha_{i}y^{(i)}=0 \qquad \alpha_{i}\ge0,i=1,2,...,m</script><hr>
+<p>【加入软间隔——松弛变量$\xi$】</p>
+<p>Goal：</p>
+<script type="math/tex; mode=display">
+max\left[\frac{2}{||w||_{2}}+C\sum^{m}_{i=1}(1-\xi_{i})\right] \qquad s.t\qquad y^{(i)}(w^{T}x^{(i)}+b)\ge1-\xi_{i} \qquad \xi_{i}\ge0</script><p>上式的直观理解为：</p>
+<ul>
+<li>最大化支持向量间的距离</li>
+<li>最大化Margin内的点到决策边界的距离</li>
+</ul>
+<p>将其整理为极小化的等价形式：</p>
+<script type="math/tex; mode=display">
+min\left[\frac{1}{2}||w||^{2}_{2}+C\sum^{m}_{i=1}\xi_{i}\right]\\\\
+s.t \qquad y^{(i)}(w^{T}x^{(i)}+b)\ge1-\xi_{i}(i=1,2,...,m)\\\\
+\xi_{i}\ge0(i=1,2,...,m)</script><p>其中，C越大，Margin越小，模型更关注于误分点和噪声点。C的取值可使用交叉验证的方式进行求解。</p>
+<p>拉格朗日函数：</p>
+<script type="math/tex; mode=display">
+L(w,b,\xi,\alpha,\beta)=\frac{1}{2}||w||^{2}_{2}+C\sum^{m}_{i=1}\xi_{i}-\sum^{m}_{i=1}\alpha_{i}[y^{(i)}(w^{T}x^{(i)}+b)-1-\xi_{i}]-\sum^{m}_{i=1}\beta_{i}\xi_{i}</script><p>对偶问题化简为：</p>
+<script type="math/tex; mode=display">
+\mathop{max}_\alpha \sum^{m}_{i=1}\alpha_{i}-\frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}(x^{(i)T}x^{(j)})\\\\
+s.t \qquad C-\alpha_{i}-\beta_{i}=0 \qquad \alpha_{i}\ge0 \qquad \beta_{i}\ge0</script><p>表示为极小化等价形式：</p>
+<script type="math/tex; mode=display">
+\mathop{min}_\alpha \frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}(x^{(i)T}x^{(j)})-\sum^{m}_{i=1}\alpha_{i}\\\\
+s.t \qquad \sum^{m}_{i=1}\alpha_{i}y^{(i)}=0 \qquad 0\le\alpha_{i}\le C(i=1,2,...,m)</script><hr>
+<p>【加入核函数概念】</p>
+<p>核函数 定义为：$K(x,z)=\phi(x)\bullet\phi(z)$</p>
+<p>其中，$\phi(\centerdot)$为映射函数，即是对变量的特征变换。</p>
+<p>对于SVM的优化目标，引入非线性，可改写为：</p>
+<script type="math/tex; mode=display">
+\mathop{min}_\alpha \frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}K(x^{(i)},x^{(j)})-\sum^{m}_{i=1}\alpha_{i}\\\\</script><p>下面列举下一些常用的核函数：</p>
+<ul>
+<li><p>线性核函数</p>
+<p>$K(x,z)=x \bullet z$</p>
+</li>
+<li><p>多项式核函数</p>
+<p>$K(x,z)=(\alpha x \bullet y+\beta)^p$</p>
+<p>这里$\alpha$、$\beta$、$p$都需要调参</p>
+</li>
+<li><p>高斯核函数</p>
+<p>$K(x,y)=exp(-\alpha||x-z||^2)$</p>
+<p>这个就厉害了，可以将原始空间映射到无穷维空间上。(因为泰勒展开哟！)</p>
+<script type="math/tex; mode=display">
+e^{x}=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+…+\frac{x^n}{n!}+…</script></li>
+<li><p>Sigmoid核函数</p>
+<p>$K(x,z)=tanh(\alpha x \bullet z + r)$</p>
+<p>这里tanh是表示双曲函数中的一个函数。函数图像过原点，切经过1、3象限，严格单调增函数，取值限制在了$(-1,1)$之间。</p>
+<script type="math/tex; mode=display">
+tanh(x)=\frac{sinh(x)}{cosh(x)}=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}</script><p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818200750.png" style="zoom:50%"></p>
+</li>
+</ul>
+<hr>
+<h4 id="Q8-SVM算法过程？"><a href="#Q8-SVM算法过程？" class="headerlink" title="Q8:SVM算法过程？"></a>Q8:SVM算法过程？</h4><p>输入：$(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m)})$。其中，$x^{(i)}$是一个n维向量，$y^{(i)}$取值为1或-1。</p>
+<p>输出：分类决策函数</p>
+<p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818211552.png" style="zoom:60%"></p>
+<p>算法步骤：</p>
+<ol>
+<li><p>选择适当的核函数$K(x,z)$和惩罚因子C，构造优化目标函数：</p>
+<script type="math/tex; mode=display">
+\mathop{min}_\alpha \frac{1}{2}\sum^{m}_{i=1}\sum^{m}_{j=1}\alpha_{i}\alpha_{j}y^{(i)}y^{(j)}K(x^{(i)},x^{(j)})-\sum^{m}_{i=1}\alpha_{i}\\\\
+s.t \qquad \sum^{m}_{i=1}\alpha_{i}y^{(i)}=0 \qquad 0\le\alpha_{i}\le C(i=1,2,...,m)</script></li>
+<li><p>用SMO算法求出$\alpha$的值<script type="math/tex">\alpha^*=\{\alpha^{*}_{1},\alpha^{*}_{2},...,\alpha^{*}_{n}\}</script></p>
+</li>
+<li><p>用<script type="math/tex">\alpha^{*}</script>表示<script type="math/tex">w^{*}</script>,<script type="math/tex">w^{*}=\sum^{m}_{i=1}\alpha^{*}y^{(i)}\phi(x^{(i)})</script></p>
+</li>
+<li><p>找出所有满足<script type="math/tex">0<\alpha^{*}<C</script>的所有<script type="math/tex">\alpha^{*}</script>分量，求得<script type="math/tex">b^{*}</script></p>
+</li>
+<li><p>最后分类决策函数：</p>
+<script type="math/tex; mode=display">
+sign(\sum^{m}_{i=1}\alpha^{*}_{i}y^{(i)}K(x^{(i)},x^{(j)})+b^{*})</script></li>
+</ol>
+<p>参考资料：<a href="https://zhuanlan.zhihu.com/p/36379394" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36379394</a></p>
+<h4 id="Q9-SVR？"><a href="#Q9-SVR？" class="headerlink" title="Q9:SVR？"></a>Q9:SVR？</h4><p>主要思想：在决策边界的支持向量H1、H2间，不计算损失；当在支持向量外，才开始计算损失。</p>
+<p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818211323.png" type="zoom:80%"></p>
+<p>Goal：</p>
+<script type="math/tex; mode=display">
+min\frac{1}{m}\sum^{m}_{i=1}max \left\{0,(|y^{(i)}\hat{y}^{(i)}|-\epsilon)\right\}+\frac{\lambda}{2}||w||^2_2</script><p>这里注意几点：</p>
+<ol>
+<li>其中合页损失函数中，取得是绝对值，因为，在计算损失的时候，是需要关注到绝对距离的，至于是在哪一侧（是否为正负）并不关系；</li>
+<li>在SVC中，是$1-y\hat{y}$，而SVR中是$|y\hat{y}|-\epsilon$。因为在SVC中，只有在Margin中的点才有损失，在支持向量外的无损失；而在SVR中，正好相反，在Margin中是不计算损失的，只有在支持向量外才计算损失。</li>
+</ol>
+<p>参考资料：<a href="https://zhuanlan.zhihu.com/p/36535299" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36535299</a></p>
+<hr>
+<h3 id="1-5-朴素贝叶斯"><a href="#1-5-朴素贝叶斯" class="headerlink" title="1.5 朴素贝叶斯"></a>1.5 朴素贝叶斯</h3><p>贝叶斯公式：</p>
+<script type="math/tex; mode=display">
+P(C|X)=\frac{P(C)P(X|C)}{P(X)}</script><p>更具体一点的理解，可以表示为：</p>
+<script type="math/tex; mode=display">
+P(属于某类|具有某特征)=\frac{P(属于某类)P(具有某特征|属于某类)}{P(具有某特征)}</script><p>在上面的公式中：</p>
+<ul>
+<li>$P(C)$表示样本属于某类的概率，叫做“先验概率”</li>
+<li>$P(X)$表示样本具有某种特征的概率</li>
+<li>$P(C|X)$表示已知样本具有某特征的情况下，属于某类的概率，叫做“后验概率”</li>
+<li>$P(X|C)$表示已知样本属于某类的情况下，具有某特征的概率</li>
+</ul>
+<p>朴素贝叶斯对条件概率作出了条件独立的假设：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+P(X=x|C=c_{k})&=P(X^{(1)}=x^{(1)},X^{(2)}=x^{(2)},...,X^{(n)}=x^{(n)}|C=c_{k})\\\\
+&=\prod^{n}_{i=1}P(X^{(i)}=x^{(i)}|C=c_{k})
+\end{align}</script><p>下面给出朴素贝叶斯的基本公式：</p>
+<script type="math/tex; mode=display">
+P(C=c_{k}|X=x)=\frac{P(C=c_{k})\prod_{i}P(X^{(i)}=x^{(i)}|C=c_{k})}{\sum_{k}\left[P(C=c_{k})\prod_{i}P(X^{(i)}=x^{(i)}|C=c_{k})\right]}</script><p>由于当类别不同时，分母都是一样的，那么，朴素贝叶斯分类器可表示为：</p>
+<script type="math/tex; mode=display">
+y=\mathop{argmax}_{c_k}P(C=c_k)\prod_{i}P(X^{(i)}=x^{(i)}|Y=c_k)</script><hr>
+<h2 id="2-集成学习"><a href="#2-集成学习" class="headerlink" title="2.集成学习"></a>2.集成学习</h2><p>其实集成学习也应该算在监督学习之下的，但是为了凸显集成学习这部分的重要程度，所以从监督学习的部分拿出来，单独进行整理。</p>
+<p>集成学习可以分为2族：</p>
+<ul>
+<li>基学习器间不存在相互依赖关系的，可同时并行生成，代表作Bagging（Bootstrap Aggregating）、RF（Random Forest）；</li>
+<li>基学习器间存在相互依赖关系的，前一颗树的结果作为下一个树的输入，必须串行生成，代表作：Boosting族的AdaBoost、GBDT。GBDT的工程实现有：XGBoost与LightGBM。</li>
+</ul>
+<h3 id="2-1-Bagging与RF"><a href="#2-1-Bagging与RF" class="headerlink" title="2.1 Bagging与RF"></a>2.1 Bagging与RF</h3><ul>
+<li><strong>Bagging的主要思路为：</strong></li>
+</ul>
+<p>步骤1：采样出T个含有m个样本的样本子集，（采样方法：<strong>Bootstrap Sampling</strong>。随机取出一个样本放入采样集中，然后放回再进行下一次采样）；</p>
+<p>步骤2：用这T个样本训练出T个基学习器；</p>
+<p>步骤3：结合T个基学习器的结果：对分类任务，采用简单投票法；对回归任务，采用简单平均法。</p>
+<p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818223915.png" style="zoom:80%"></p>
+<ul>
+<li><strong>RF（Random Forest，随机森林）的主要思路：</strong></li>
+</ul>
+<p>以决策树为基学习器，对Bagging做了微小的改动：在样本扰动的基础上，引入属性扰动。</p>
+<p>步骤1：采样出T个含有m个样本的样本子集；</p>
+<p>步骤2：用这T个样本训练基学习器，其中，在决策树进行选择最优属性前，随机选择一个包含k个特征的特征子集，（有n个特征，一般<script type="math/tex">k=log_{2}n</script>）在这个特征子集上进行选择；</p>
+<p>步骤3：结合T个基学习器的结果。</p>
+<h4 id="Q10：bootstrap-sampling？"><a href="#Q10：bootstrap-sampling？" class="headerlink" title="Q10：bootstrap sampling？"></a>Q10：bootstrap sampling？</h4><p>这种自助采样法在通过多次采样后，依然会存在未被采样的样本为：</p>
+<script type="math/tex; mode=display">
+\mathop{lim}_{m\to\infty}(1-\frac{1}{m})^{m}=\frac{1}{e}\approx 0.368</script><p>因此，自助采样法多次采样出来的样本子集中约有63.2%的样本，有36.8%的样本未被采样到。</p>
+<h4 id="Q11-Bagging与RF比较？"><a href="#Q11-Bagging与RF比较？" class="headerlink" title="Q11:Bagging与RF比较？"></a>Q11:Bagging与RF比较？</h4><ul>
+<li><p>样本选择：</p>
+<p>都是有放回的随机选取子集（Bootstrap Sampling）</p>
+</li>
+<li><p>个体决策树的属性：</p>
+<ol>
+<li><p>Bagging每颗个体决策树的结点要对所有属性进行考察；</p>
+</li>
+<li><p>随机森林的个体决策树的结点对一部分属性进行考察；</p>
+</li>
+</ol>
+</li>
+<li><p>泛化性能：</p>
+<p>随着基学习器的数量增加，Bagging和随机森林泛化性能都有所增加。</p>
+<p>在基学习器（个体决策树）数量很少时，随机森林性能较差，因为只包含若干属性，但随着学习器的增加，性能很快就会变好，且强于Bagging。</p>
+</li>
+</ul>
+<p>参考资料：<a href="https://blog.csdn.net/lilu916/article/details/78098077" target="_blank" rel="noopener">https://blog.csdn.net/lilu916/article/details/78098077</a></p>
+<h3 id="2-2-AdaBoost"><a href="#2-2-AdaBoost" class="headerlink" title="2.2 AdaBoost"></a>2.2 AdaBoost</h3><p>AdaBoost属于Boosting算法中非常经典的代表算法，</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80NTk2OS8yMjQ4MA==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/“监督学习”/">“监督学习”</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/“集成学习”/">“集成学习”</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/11/Spark-DataFrame/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">PySpark之DataFrame</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-监督学习"><span class="nav-number">1.</span> <span class="nav-text">1.监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-线性回归"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q0-正则化？L1正则、L2正则？"><span class="nav-number">1.1.1.</span> <span class="nav-text">Q0:正则化？L1正则、L2正则？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q1-衡量线性回归的指标？"><span class="nav-number">1.1.2.</span> <span class="nav-text">Q1:衡量线性回归的指标？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q2-岭回归与Lasso回归？分别适用的场景呢？"><span class="nav-number">1.1.3.</span> <span class="nav-text">Q2:岭回归与Lasso回归？分别适用的场景呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q3-共线性问题？"><span class="nav-number">1.1.4.</span> <span class="nav-text">Q3:共线性问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-逻辑回归"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q4-损失函数-极大似然估计？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Q4:损失函数-极大似然估计？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q5-逻辑回归如何实现多分类？"><span class="nav-number">1.2.2.</span> <span class="nav-text">Q5:逻辑回归如何实现多分类？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SoftMax回归"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 SoftMax回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q6-SoftMax回归与逻辑回归的关系？"><span class="nav-number">1.3.1.</span> <span class="nav-text">Q6:SoftMax回归与逻辑回归的关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q7-SofMax回归-VS-k个逻辑回归？"><span class="nav-number">1.3.2.</span> <span class="nav-text">Q7:SofMax回归 VS. k个逻辑回归？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-SVM支持向量机"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 SVM支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q8-SVM算法过程？"><span class="nav-number">1.4.1.</span> <span class="nav-text">Q8:SVM算法过程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q9-SVR？"><span class="nav-number">1.4.2.</span> <span class="nav-text">Q9:SVR？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-朴素贝叶斯"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 朴素贝叶斯</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-集成学习"><span class="nav-number">2.</span> <span class="nav-text">2.集成学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Bagging与RF"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Bagging与RF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q10：bootstrap-sampling？"><span class="nav-number">2.1.1.</span> <span class="nav-text">Q10：bootstrap sampling？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q11-Bagging与RF比较？"><span class="nav-number">2.1.2.</span> <span class="nav-text">Q11:Bagging与RF比较？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-AdaBoost"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 AdaBoost</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2019 MaxMa All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            MaxMa
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 MaxMa All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
