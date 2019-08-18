@@ -9,20 +9,20 @@
   
   
   
-  <meta name="description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(">
+  <meta name="description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习理论整理">
 <meta property="og:url" content="https://anxiang1836.github.io/2019/08/17/ML_summary/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(">
+<meta property="og:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818060833.png">
-<meta property="og:updated_time" content="2019-08-17T22:24:00.892Z">
+<meta property="og:updated_time" content="2019-08-18T08:30:57.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习理论整理">
-<meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(">
+<meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m">
 <meta name="twitter:image" content="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
@@ -199,12 +199,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：<a href="https://study.163.com/course/introduction.htm?courseId=1004570029&amp;_trace_c_p_k2_=48954150178f45e5bcdc42013d6d8971" target="_blank" rel="noopener">达叔的Coursera上的ML课程</a>、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）</p>
+<p>对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：<a href="https://study.163.com/course/introduction.htm?courseId=1004570029&_trace_c_p_k2_=48954150178f45e5bcdc42013d6d8971" target="_blank" rel="noopener">达叔的Coursera上的ML课程</a>、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）</p>
 </blockquote>
 <p><img src="http://pw4sajtgy.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png" alt></p>
-<h2 id="1-监督学习"><a href="#1-监督学习" class="headerlink" title="1.监督学习"></a>1.监督学习</h2><h3 id="1-1-线性回归"><a href="#1-1-线性回归" class="headerlink" title="1.1 线性回归"></a>1.1 线性回归</h3><p>数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m)})\}$</p>
-<p>特征空间：$\{x_{1}^{(i)},x_{2}^{(i)},…,x_{n}^{(i)}\}$</p>
-<p>Hypothesis：$h_{\theta}(x)=\theta^{T}x \qquad \theta=\{\theta_0,\theta_1,…,\theta_n \} \qquad x^{(i)} = \{1,x^{(i)}_{1},x^{(i)}_{2},…,x^{(i)}_{n}\}$</p>
+<h2 id="1-监督学习"><a href="#1-监督学习" class="headerlink" title="1.监督学习"></a>1.监督学习</h2><h3 id="1-1-线性回归"><a href="#1-1-线性回归" class="headerlink" title="1.1 线性回归"></a>1.1 线性回归</h3><p>数据集：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m)})}$</p>
+<p>特征空间：${x_{1}^{(i)},x_{2}^{(i)},…,x_{n}^{(i)}}$</p>
+<p>Hypothesis：$h_{\theta}(x)=\theta^{T}x \qquad \theta={\theta_0,\theta_1,…,\theta_n } \qquad x^{(i)} = {1,x^{(i)}<em>{1},x^{(i)}</em>{2},…,x^{(i)}_{n}}$</p>
 <p>Cost Function:$J(\theta)=\frac{1}{m}\sum^{m}_{i=1}(\theta^{T}x^{(i)}-y^{(i)})^2$</p>
 <p>Goal：$\mathop{argmin}\limits_{\theta}\frac{1}{m}\sum^{m}_{i=1}(\theta^{T}x^{(i)}-y^{(i)})^2$</p>
 <h4 id="Q0-正则化？L1正则、L2正则？"><a href="#Q0-正则化？L1正则、L2正则？" class="headerlink" title="Q0:正则化？L1正则、L2正则？"></a>Q0:正则化？L1正则、L2正则？</h4><p>正则化是结构风险最小化策略的实现，即在经验风险上加一个正则化项（惩罚项），以控制模型的复杂程度，防止模型过拟合。</p>
@@ -221,9 +221,9 @@
 <p>参考资料：</p>
 <p><a href="https://www.zhihu.com/question/26485586" target="_blank" rel="noopener">https://www.zhihu.com/question/26485586</a></p>
 <h4 id="Q1-衡量线性回归的指标？"><a href="#Q1-衡量线性回归的指标？" class="headerlink" title="Q1:衡量线性回归的指标？"></a>Q1:衡量线性回归的指标？</h4><ul>
-<li>MSE：$\frac{1}{m}\sum^{m}_{i=1}(y_{test}^{(i)}-\hat{y}_{test}^{(i)})^{2}$</li>
-<li>RMSE：$\sqrt{\frac{1}{m}\sum^{m}_{i=1}(y_{test}^{(i)}-\hat{y}_{test}^{(i)})^{2}}$</li>
-<li>MAE：$\frac{1}{m}\sum^{m}_{i=1}|y_{test}^{(i)}-\hat{y}_{test}^{(i)}|$</li>
+<li>MSE：$\frac{1}{m}\sum^{m}<em>{i=1}(y</em>{test}^{(i)}-\hat{y}_{test}^{(i)})^{2}$</li>
+<li>RMSE：$\sqrt{\frac{1}{m}\sum^{m}<em>{i=1}(y</em>{test}^{(i)}-\hat{y}_{test}^{(i)})^{2}}$</li>
+<li>MAE：$\frac{1}{m}\sum^{m}<em>{i=1}|y</em>{test}^{(i)}-\hat{y}_{test}^{(i)}|$</li>
 </ul>
 <p>分析比较：</p>
 <ol>
@@ -238,8 +238,7 @@
 </li>
 </ol>
 <p>比如我们预测考试分数误差是10，预测房价误差是1w，我们无法评价我们的模型是更适合预测分数还是预测房价。下面引入<strong>R Squared</strong>：</p>
-<script type="math/tex; mode=display">
-R^{2}=1-\frac{\sum_{i}(\hat{y}^{(i)}-y^{(i)})^2}{\sum_{i}(\bar{y}-y^{(i)})^2}</script><p>其将回归结果规约到了0-1之间，允许对不同问题的预测结果进行对比比较：</p>
+<p>$$<br>R^{2}=1-\frac{\sum_{i}(\hat{y}^{(i)}-y^{(i)})^2}{\sum_{i}(\bar{y}-y^{(i)})^2}<br>$$<br>其将回归结果规约到了0-1之间，允许对不同问题的预测结果进行对比比较：</p>
 <p>当$0&lt;R^2&lt;1$，其值越大，表示模型越好；</p>
 <p>当$R^2&lt;0$，表示我们学习到的模型还不如基准模型，此时很有可能我们数据不存在任何的线性关系</p>
 <p>可以发现，$R^2$的表达式中，分子就是MSE，分母是Var：$1-\frac{MSE(\hat{y},y)}{Var(y)}$</p>
@@ -263,7 +262,8 @@ R^{2}=1-\frac{\sum_{i}(\hat{y}^{(i)}-y^{(i)})^2}{\sum_{i}(\bar{y}-y^{(i)})^2}</s
 <h4 id="Q3-共线性问题？"><a href="#Q3-共线性问题？" class="headerlink" title="Q3:共线性问题？"></a>Q3:共线性问题？</h4><p>线性回归分析时，容易出现变量之间彼此相关，这种情况被称作多重共线性问题。（女朋友在stata数值分析时常遇到的）</p>
 <p>评价指标——方差膨胀因子（VIF）</p>
 <p>VIF指的是变量之间存在多重共线性时的方差与不存在多重共线性时的方差之比，可以反映多重共线性导致的方差的增加程度。</p>
-<script type="math/tex; mode=display">VIF=\frac{1}{1-R^2}</script><p>为了得到每一个变量的VIF，我们需要以每一个变量对其余所有变量进行线性回归分析，对每一个变量得到各自的R2，再代入上面的式子，就可以得到每一个变量的VIF了。</p>
+<p>$$VIF=\frac{1}{1-R^2}$$</p>
+<p>为了得到每一个变量的VIF，我们需要以每一个变量对其余所有变量进行线性回归分析，对每一个变量得到各自的R2，再代入上面的式子，就可以得到每一个变量的VIF了。</p>
 <ol>
 <li>多重共线性是普遍存在的，轻微的多重共线性问题可不采取措施，如果VIF值大于10说明共线性很严重，这种情况需要处理，如果VIF值在5以下不需要处理，如果VIF介于5~10之间视情况而定。</li>
 <li>出现共线性的解决方法：<ul>
@@ -276,31 +276,13 @@ R^{2}=1-\frac{\sum_{i}(\hat{y}^{(i)}-y^{(i)})^2}{\sum_{i}(\bar{y}-y^{(i)})^2}</s
 <p>参考资料：</p>
 <p>[1] <a href="https://www.jianshu.com/p/858732b7eae6" target="_blank" rel="noopener">https://www.jianshu.com/p/858732b7eae6</a></p>
 <p>[2] <a href="https://cloud.tencent.com/developer/news/71265" target="_blank" rel="noopener">https://cloud.tencent.com/developer/news/71265</a></p>
-<h3 id="1-2-逻辑回归"><a href="#1-2-逻辑回归" class="headerlink" title="1.2 逻辑回归"></a>1.2 逻辑回归</h3><p>逻辑回归是分类模型，完成二分类任务。</p>
-<p>Hypothesis：</p>
-<script type="math/tex; mode=display">
-h_{\theta}(x)=\hat{y}=\frac{1}{1+e^{-(\theta^{T}x)}}</script><p>Cost Function：</p>
-<script type="math/tex; mode=display">
-J(\theta)=-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]</script><p>Goal:</p>
-<script type="math/tex; mode=display">
-\mathop{argmin}_{\theta}-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]</script><h4 id="Q4-损失函数-极大似然估计？"><a href="#Q4-损失函数-极大似然估计？" class="headerlink" title="Q4:损失函数-极大似然估计？"></a>Q4:损失函数-极大似然估计？</h4><p>想要比较感性的理解极大似然函数，我从这篇优质博文中，截取一个比较形象的图来解释：</p>
+<h3 id="1-2-逻辑回归"><a href="#1-2-逻辑回归" class="headerlink" title="1.2 逻辑回归"></a>1.2 逻辑回归</h3><p>逻辑回归是分类模型，完成二分类任务。正例为+1，负例为0。</p>
+<p>Hypothesis：<br>$$<br>h_{\theta}(x)=\hat{y}=\frac{1}{1+e^{-(\theta^{T}x)}}<br>$$<br>Cost Function：<br>$$<br>J(\theta)=-\frac{1}{m}\sum^{m}<em>{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]<br>$$<br>Goal:<br>$$<br>\mathop{argmin}</em>{\theta}-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]<br>$$</p>
+<h4 id="Q4-损失函数-极大似然估计？"><a href="#Q4-损失函数-极大似然估计？" class="headerlink" title="Q4:损失函数-极大似然估计？"></a>Q4:损失函数-极大似然估计？</h4><p>想要比较感性的理解极大似然函数，我从这篇优质博文中，截取一个比较形象的图来解释：</p>
 <p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818050112.png" alt></p>
 <p><strong>最大似然估计的目的</strong>：利用已知的样本结果，反推最有可能（最大概率）导致这样结果的参数值。</p>
 <p>回到要解释的逻辑回归损失函数上来，我们要解决的问题是：我们已知了样本集$D$，而且假设样本集中的样本独立同分布（分布由Hypothesis给出），那么，导致这样的样本集$D$最有可能得参数值应该是什么？——很自然的引出极大似然估计。</p>
-<p>根据假设，样本的概率表达式：</p>
-<script type="math/tex; mode=display">
-P(y=1|x;\theta)=h_\theta{(x)}\\\\
-P(y=0|x;\theta)=1-h_\theta{(x)}</script><p>将上述式子整合在一起，可表示为：</p>
-<script type="math/tex; mode=display">
-P(y|x;\theta)=h_{\theta}(x)^{y}*[1-h_{\theta}(x)]^{1-y}</script><p>步骤1：列出似然函数</p>
-<script type="math/tex; mode=display">
-L(\theta)=\prod^{m}_{i=1}p(y^{(i)}|x^{(i)};\theta)=\prod^{m}_{i=1}h_{\theta}(x^{(i)})^{y^{(i)}}*[1-h_{\theta}(x^{(i)})]^{1-y^{(i)}}</script><p>步骤2：转对数似然函数（因为连乘的形式很难进行求解）</p>
-<script type="math/tex; mode=display">
-log(L(\theta))=\sum^{m}_{i=1}y^{(i)}log[h_{\theta}(x^{(i)})]+(1-y^{(i)})log[1-h_{\theta}(x^{(i)})]</script><p>步骤3：当然是【极大】似然咯：</p>
-<script type="math/tex; mode=display">
-\mathop{argmax}_{\theta}\mathop{log}(L(\theta))</script><p>步骤4：由于我们希望预测值与真实值相差越小越好，那么给极大对数似然函数去相反数咯，再配上$\frac{1}{m}$常数，就可以得到逻辑回归的损失函数：</p>
-<script type="math/tex; mode=display">
-J(\theta)=-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]</script><p>参考资料：</p>
+<p>根据假设，样本的概率表达式：<br>$$<br>P(y=1|x;\theta)=h_\theta{(x)}\\<br>P(y=0|x;\theta)=1-h_\theta{(x)}<br>$$<br>将上述式子整合在一起，可表示为：<br>$$<br>P(y|x;\theta)=h_{\theta}(x)^{y}<em>[1-h_{\theta}(x)]^{1-y}<br>$$<br>步骤1：列出似然函数<br>$$<br>L(\theta)=\prod^{m}<em>{i=1}p(y^{(i)}|x^{(i)};\theta)=\prod^{m}</em>{i=1}h_{\theta}(x^{(i)})^{y^{(i)}}</em>[1-h_{\theta}(x^{(i)})]^{1-y^{(i)}}<br>$$<br>步骤2：转对数似然函数（因为连乘的形式很难进行求解）<br>$$<br>log(L(\theta))=\sum^{m}<em>{i=1}y^{(i)}log[h</em>{\theta}(x^{(i)})]+(1-y^{(i)})log[1-h_{\theta}(x^{(i)})]<br>$$<br>步骤3：当然是【极大】似然咯：<br>$$<br>\mathop{argmax}<em>{\theta}\mathop{log}(L(\theta))<br>$$<br>步骤4：由于我们希望预测值与真实值相差越小越好，那么给极大对数似然函数去相反数咯，再配上$\frac{1}{m}$常数，就可以得到逻辑回归的损失函数：<br>$$<br>J(\theta)=-\frac{1}{m}\sum^{m}</em>{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]<br>$$<br>参考资料：</p>
 <p><a href="https://blog.csdn.net/qq_39355550/article/details/81809467" target="_blank" rel="noopener">https://blog.csdn.net/qq_39355550/article/details/81809467</a></p>
 <h4 id="Q5-逻辑回归如何实现多分类？"><a href="#Q5-逻辑回归如何实现多分类？" class="headerlink" title="Q5:逻辑回归如何实现多分类？"></a>Q5:逻辑回归如何实现多分类？</h4><p>这里要引出概念<strong>“One Vs. Rest”</strong>和<strong>“One Vs. One”</strong>。</p>
 <ul>
@@ -315,29 +297,7 @@ J(\theta)=-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-
 </ol>
 <p>参考资料：</p>
 <p>周志华《机器学习》——西瓜书</p>
-<h3 id="1-3-SoftMax回归"><a href="#1-3-SoftMax回归" class="headerlink" title="1.3 SoftMax回归"></a>1.3 SoftMax回归</h3><p>Hypothesis：</p>
-<script type="math/tex; mode=display">
-h_{\theta}(x^{(i)})=
-\left[
-\begin{matrix}
-p(y^{(i)}=1|x^{(i)};\theta)\\\\
-p(y^{(i)}=2|x^{(i)};\theta)\\\\
-...\\\\
-p(y^{(i)}=k|x^{(i)};\theta)\\\\\end{matrix}
-\right]=
-\frac{1}{\sum^{k}_{j=1}e^{\theta^{T}_{j}x^{(i)}}}
-\left[
-\begin{matrix}
-e^{\theta^{T}_{1}x^{(i)}}\\\\
-e^{\theta^{T}_{2}x^{(i)}}\\\\
-...\\\\
-e^{\theta^{T}_{k}x^{(i)}}\\\\
-\end{matrix}
-\right]</script><p>SoftMax回归将样本$x^{(i)}$标记为类别$j$的概率可表示为：</p>
-<script type="math/tex; mode=display">
-P(y^{(i)}=k|x^{(i)};\theta)=\frac{e^{\theta^{T}_{j}x^{(i)}}}{\sum^{k}_{l=1}e^{\theta^{T}_{l}x^{(i)}}}</script><p>Cost Function:</p>
-<script type="math/tex; mode=display">
-J(\theta)=-\frac{1}{m}\left[\sum^{m}_{i=1}\sum^{k}_{j=1}1\{y^{(i)}=k\}log\frac{e^{\theta^{T}_{j}x^{(i)}}}{\sum^{k}_{l=1}e^{\theta^{T}_{l}x^{(i)}}}\right]</script><p>下面来个图片，解释一下softmax的计算过程：图片来自台大李宏毅《一天搞懂深度学习》</p>
+<h3 id="1-3-SoftMax回归"><a href="#1-3-SoftMax回归" class="headerlink" title="1.3 SoftMax回归"></a>1.3 SoftMax回归</h3><p>Hypothesis：<br>$$<br>h_{\theta}(x^{(i)})=<br>\left[<br>\begin{matrix}<br>p(y^{(i)}=1|x^{(i)};\theta)\\<br>p(y^{(i)}=2|x^{(i)};\theta)\\<br>…\\<br>p(y^{(i)}=k|x^{(i)};\theta)\\\end{matrix}<br>\right]=<br>\frac{1}{\sum^{k}<em>{j=1}e^{\theta^{T}</em>{j}x^{(i)}}}<br>\left[<br>\begin{matrix}<br>e^{\theta^{T}<em>{1}x^{(i)}}\\<br>e^{\theta^{T}</em>{2}x^{(i)}}\\<br>…\\<br>e^{\theta^{T}<em>{k}x^{(i)}}\\<br>\end{matrix}<br>\right]<br>$$<br>SoftMax回归将样本$x^{(i)}$标记为类别$j$的概率可表示为：<br>$$<br>P(y^{(i)}=k|x^{(i)};\theta)=\frac{e^{\theta^{T}</em>{j}x^{(i)}}}{\sum^{k}<em>{l=1}e^{\theta^{T}</em>{l}x^{(i)}}}<br>$$<br>Cost Function:<br>$$<br>J(\theta)=-\frac{1}{m}\left[\sum^{m}<em>{i=1}\sum^{k}</em>{j=1}1{y^{(i)}=k}log\frac{e^{\theta^{T}<em>{j}x^{(i)}}}{\sum^{k}</em>{l=1}e^{\theta^{T}_{l}x^{(i)}}}\right]<br>$$<br>下面来个图片，解释一下softmax的计算过程：图片来自台大李宏毅《一天搞懂深度学习》</p>
 <p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818060833.png" alt></p>
 <h4 id="Q6-SoftMax回归与逻辑回归的关系？"><a href="#Q6-SoftMax回归与逻辑回归的关系？" class="headerlink" title="Q6:SoftMax回归与逻辑回归的关系？"></a>Q6:SoftMax回归与逻辑回归的关系？</h4><p>softmax回归是logistic回归的一般形式，logistic回归是softmax回归在$k=2$时的特殊形式。</p>
 <h4 id="Q7-SofMax回归-VS-k个逻辑回归？"><a href="#Q7-SofMax回归-VS-k个逻辑回归？" class="headerlink" title="Q7:SofMax回归 VS. k个逻辑回归？"></a>Q7:SofMax回归 VS. k个逻辑回归？</h4><ul>
@@ -345,6 +305,10 @@ J(\theta)=-\frac{1}{m}\left[\sum^{m}_{i=1}\sum^{k}_{j=1}1\{y^{(i)}=k\}log\frac{e
 <li>如果数据集中K个类别的数据不是互斥的，那么就建议使用k个逻辑回归分类器，然后进行投片判断是属于哪个分类。</li>
 </ul>
 <p>参考资料：<a href="https://blog.csdn.net/u012328159/article/details/72155874" target="_blank" rel="noopener">https://blog.csdn.net/u012328159/article/details/72155874</a></p>
+<h3 id="1-4-SVM支持向量机"><a href="#1-4-SVM支持向量机" class="headerlink" title="1.4 SVM支持向量机"></a>1.4 SVM支持向量机</h3><p>线性SVM–&gt;Hypothesis：<br>$$<br>h_{w,b}(x)=sign(w^{T}x+b)\\<br>sign(x)=\left{\begin{align}-1,x&lt;0\\+1,x\ge0\end{align}\right.<br>$$<br>即为找到一个超平面$w^{T}x+b$将样本分为2个部分，正例部分为+1，负例部分为-1。</p>
+<p>线性SVM–&gt;Cost Function：<br>$$<br>J(w,b)=max{0,1-y\hat{y}}\\<br>\hat{y}=sign(w^{T}x+b)<br>$$<br>线性SVM–&gt;Goal:（最大间隔）<br>$$<br>max\frac{2}{||w||<em>{2}} \qquad s.t\qquad y^{(i)}(w^{T}x^{(i)}+b)\ge1<br>$$<br>上式中，可以理解为最大化两个支持向量H1、H2间的距离（Margin），使得任意一个样本点到决策边界的距离大于到同侧支持向量的距离，（将上式中的函数距离可改写为几何距离，可理解的更加清晰）<br>$$<br>y^{(i)}(w^{T}x^{(i)}+b)\ge1 \Leftrightarrow y^{(i)}\frac{(w^{T}x^{(i)}+b)}{||w||</em>{2}}\ge\frac{1}{||w||<em>{2}}<br>$$<br>再将上述最大间隔的表示为等价的极小化形式：<br>$$<br>min\frac{1}{2}||w||^{2}</em>{2} \qquad s.t \qquad y^{(i)}(w^{T}x^{(i)}+b)\ge1<br>$$<br>拉格朗日函数：将原始带约束的优化问题转化为不带约束的优化问题。拉格朗日函数转化的一般形式为：<br>$$<br>minf(t) \qquad s.t \qquad g(t)\le0 \qquad h(t)=0\\<br>L(t,\alpha,\beta)=f(t)+\sum^{m}<em>{i=1} \alpha g(t)+\sum^{m}</em>{j=1} \beta h(t)<br>$$<br>最大间隔的极小化等价形式用拉格朗日函数表示为：<br>$$<br>L(w,b,\alpha)=\frac{1}{2}||w||^{2}<em>{2}-\sum^{m}</em>{i=1}\alpha[y^{(i)}(w^{T}x^{(i)}+b-1]<br>$$<br>那么原问题可表示为：<br>$$<br>\mathop{min}<em>{w,b}\mathop{max}</em>{\alpha}\frac{1}{2}||w||^{2}<em>{2}-\sum^{m}</em>{i=1}\alpha[y^{(i)}(w^{T}x^{(i)}+b-1]<br>$$<br>其对偶问题可以表示为：<br>$$<br>\mathop{max}<em>{\alpha}\mathop{min}</em>{w,b}\frac{1}{2}||w||^{2}<em>{2}-\sum^{m}</em>{i=1}\alpha[y^{(i)}(w^{T}x^{(i)}+b-1]<br>$$<br>这里默认认为是SVM是存在强对偶关系的。任何满足强对偶关系的问题，都满足KKT条件，KKT条件为：<br>$$<br>\frac{\partial L}{\partial w}=0 \qquad \frac{\partial L}{\partial b}=0 \qquad \alpha g(w,b)=0 \qquad h(w,b)=0<br>$$<br>将KKT条件带入对偶问题，可简化为：<br>$$<br>\mathop{max}<em>{\alpha}-\frac{1}{2}\sum^{m}</em>{i=1}\sum^{m}<em>{j=1}\alpha</em>{i}\alpha_{j}y^{(i)}y^{(j)}(x^{(i)T}x^{(j)})+\sum^{m}<em>{i=1}\alpha</em>{i}\\<br>s.t \qquad \sum^{m}<em>{i=1}\alpha</em>{i}y^{(i)}=0 \qquad \alpha_{i}\ge0,i=1,2,…,m<br>$$<br>上式表示为其等价的极小化形式：<br>$$<br>\mathop{min}<em>{\alpha}\frac{1}{2}\sum^{m}</em>{i=1}\sum^{m}<em>{j=1}\alpha</em>{i}\alpha_{j}y^{(i)}y^{(j)}(x^{(i)T}x^{(j)})-\sum^{m}<em>{i=1}\alpha</em>{i}\\<br>s.t \qquad \sum^{m}<em>{i=1}\alpha</em>{i}y^{(i)}=0 \qquad \alpha_{i}\ge0,i=1,2,…,m<br>$$</p>
+<hr>
+<p>【加入软间隔概念】</p>
 
       
     </div>
@@ -404,7 +368,7 @@ J(\theta)=-\frac{1}{m}\left[\sum^{m}_{i=1}\sum^{k}_{j=1}1\{y^{(i)}=k\}log\frac{e
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-监督学习"><span class="nav-number">1.</span> <span class="nav-text">1.监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-线性回归"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q0-正则化？L1正则、L2正则？"><span class="nav-number">1.1.1.</span> <span class="nav-text">Q0:正则化？L1正则、L2正则？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q1-衡量线性回归的指标？"><span class="nav-number">1.1.2.</span> <span class="nav-text">Q1:衡量线性回归的指标？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q2-岭回归与Lasso回归？分别适用的场景呢？"><span class="nav-number">1.1.3.</span> <span class="nav-text">Q2:岭回归与Lasso回归？分别适用的场景呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q3-共线性问题？"><span class="nav-number">1.1.4.</span> <span class="nav-text">Q3:共线性问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-逻辑回归"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q4-损失函数-极大似然估计？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Q4:损失函数-极大似然估计？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q5-逻辑回归如何实现多分类？"><span class="nav-number">1.2.2.</span> <span class="nav-text">Q5:逻辑回归如何实现多分类？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SoftMax回归"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 SoftMax回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q6-SoftMax回归与逻辑回归的关系？"><span class="nav-number">1.3.1.</span> <span class="nav-text">Q6:SoftMax回归与逻辑回归的关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q7-SofMax回归-VS-k个逻辑回归？"><span class="nav-number">1.3.2.</span> <span class="nav-text">Q7:SofMax回归 VS. k个逻辑回归？</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-监督学习"><span class="nav-number">1.</span> <span class="nav-text">1.监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-线性回归"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q0-正则化？L1正则、L2正则？"><span class="nav-number">1.1.1.</span> <span class="nav-text">Q0:正则化？L1正则、L2正则？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q1-衡量线性回归的指标？"><span class="nav-number">1.1.2.</span> <span class="nav-text">Q1:衡量线性回归的指标？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q2-岭回归与Lasso回归？分别适用的场景呢？"><span class="nav-number">1.1.3.</span> <span class="nav-text">Q2:岭回归与Lasso回归？分别适用的场景呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q3-共线性问题？"><span class="nav-number">1.1.4.</span> <span class="nav-text">Q3:共线性问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-逻辑回归"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q4-损失函数-极大似然估计？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Q4:损失函数-极大似然估计？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q5-逻辑回归如何实现多分类？"><span class="nav-number">1.2.2.</span> <span class="nav-text">Q5:逻辑回归如何实现多分类？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SoftMax回归"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 SoftMax回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q6-SoftMax回归与逻辑回归的关系？"><span class="nav-number">1.3.1.</span> <span class="nav-text">Q6:SoftMax回归与逻辑回归的关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q7-SofMax回归-VS-k个逻辑回归？"><span class="nav-number">1.3.2.</span> <span class="nav-text">Q7:SofMax回归 VS. k个逻辑回归？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-SVM支持向量机"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 SVM支持向量机</span></a></li></ol></li></ol>
     
     </div>
   </aside>
