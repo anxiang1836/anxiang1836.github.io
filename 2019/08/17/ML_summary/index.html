@@ -22,7 +22,8 @@
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818200750.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211552.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211323.png">
-<meta property="og:updated_time" content="2019-08-18T13:53:53.164Z">
+<meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818223915.png">
+<meta property="og:updated_time" content="2019-08-18T14:43:02.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习理论整理">
 <meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）   1.监督学习1.1 线性回归数据集：$\{(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(">
@@ -484,7 +485,48 @@ P(X=x|C=c_{k})&=P(X^{(1)}=x^{(1)},X^{(2)}=x^{(2)},...,X^{(n)}=x^{(n)}|C=c_{k})\\
 P(C=c_{k}|X=x)=\frac{P(C=c_{k})\prod_{i}P(X^{(i)}=x^{(i)}|C=c_{k})}{\sum_{k}\left[P(C=c_{k})\prod_{i}P(X^{(i)}=x^{(i)}|C=c_{k})\right]}</script><p>由于当类别不同时，分母都是一样的，那么，朴素贝叶斯分类器可表示为：</p>
 <script type="math/tex; mode=display">
 y=\mathop{argmax}_{c_k}P(C=c_k)\prod_{i}P(X^{(i)}=x^{(i)}|Y=c_k)</script><hr>
-<p>1.6</p>
+<h1 id="2-集成学习"><a href="#2-集成学习" class="headerlink" title="2.集成学习"></a>2.集成学习</h1><p>其实集成学习也应该算在监督学习之下的，但是为了凸显集成学习这部分的重要程度，所以从监督学习的部分拿出来，单独进行整理。</p>
+<p>集成学习可以分为2族：</p>
+<ul>
+<li>基学习器间不存在相互依赖关系的，可同时并行生成，代表作Bagging（Bootstrap Aggregating）、RF（Random Forest）；</li>
+<li>基学习器间存在相互依赖关系的，前一颗树的结果作为下一个树的输入，必须串行生成，代表作：Boosting族的AdaBoost、GBDT。GBDT的工程实现有：XGBoost与LightGBM。</li>
+</ul>
+<h3 id="2-1-Bagging与RF"><a href="#2-1-Bagging与RF" class="headerlink" title="2.1 Bagging与RF"></a>2.1 Bagging与RF</h3><ul>
+<li><strong>Bagging的主要思路为：</strong></li>
+</ul>
+<p>步骤1：采样出T个含有m个样本的样本子集，（采样方法：<strong>Bootstrap Sampling</strong>。随机取出一个样本放入采样集中，然后放回再进行下一次采样）；</p>
+<p>步骤2：用这T个样本训练出T个基学习器；</p>
+<p>步骤3：结合T个基学习器的结果：对分类任务，采用简单投票法；对回归任务，采用简单平均法。</p>
+<p><img src="http://pw4sajtgy.bkt.clouddn.com/20190818223915.png" style="zoom:80%"></p>
+<ul>
+<li><strong>RF（Random Forest，随机森林）的主要思路：</strong></li>
+</ul>
+<p>以决策树为基学习器，对Bagging做了微小的改动：在样本扰动的基础上，引入属性扰动。</p>
+<p>步骤1：采样出T个含有m个样本的样本子集；</p>
+<p>步骤2：用这T个样本训练基学习器，其中，在决策树进行选择最优属性前，随机选择一个包含k个特征的特征子集，（有n个特征，一般<script type="math/tex">k=log_{2}n</script>）在这个特征子集上进行选择；</p>
+<p>步骤3：结合T个基学习器的结果。</p>
+<h4 id="Q10：bootstrap-sampling？"><a href="#Q10：bootstrap-sampling？" class="headerlink" title="Q10：bootstrap sampling？"></a>Q10：bootstrap sampling？</h4><p>这种自助采样法在通过多次采样后，依然会存在未被采样的样本为：</p>
+<script type="math/tex; mode=display">
+\mathop{lim}_{m\to\infin}(1-\frac{1}{m})^{m}=\frac{1}{e}\approx 0.368</script><p>因此，自助采样法多次采样出来的样本子集中约有63.2%的样本，有36.8%的样本未被采样到。</p>
+<h4 id="Q11-Bagging与RF比较？"><a href="#Q11-Bagging与RF比较？" class="headerlink" title="Q11:Bagging与RF比较？"></a>Q11:Bagging与RF比较？</h4><ul>
+<li><p>样本选择：</p>
+<p>都是有放回的随机选取子集（Bootstrap Sampling）</p>
+</li>
+<li><p>个体决策树的属性：</p>
+<ol>
+<li><p>Bagging每颗个体决策树的结点要对所有属性进行考察；</p>
+</li>
+<li><p>随机森林的个体决策树的结点对一部分属性进行考察；</p>
+</li>
+</ol>
+</li>
+<li><p>泛化性能：</p>
+<p>随着基学习器的数量增加，Bagging和随机森林泛化性能都有所增加。</p>
+<p>在基学习器（个体决策树）数量很少时，随机森林性能较差，因为只包含若干属性，但随着学习器的增加，性能很快就会变好，且强于Bagging。</p>
+</li>
+</ul>
+<p>参考资料：<a href="https://blog.csdn.net/lilu916/article/details/78098077" target="_blank" rel="noopener">https://blog.csdn.net/lilu916/article/details/78098077</a></p>
+<h2 id="2-2-AdaBoost"><a href="#2-2-AdaBoost" class="headerlink" title="2.2 AdaBoost"></a>2.2 AdaBoost</h2><p>AdaBoost属于Boosting算法中非常经典的代表算法，</p>
 
       
     </div>
@@ -544,7 +586,7 @@ y=\mathop{argmax}_{c_k}P(C=c_k)\prod_{i}P(X^{(i)}=x^{(i)}|Y=c_k)</script><hr>
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-监督学习"><span class="nav-number">1.</span> <span class="nav-text">1.监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-线性回归"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q0-正则化？L1正则、L2正则？"><span class="nav-number">1.1.1.</span> <span class="nav-text">Q0:正则化？L1正则、L2正则？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q1-衡量线性回归的指标？"><span class="nav-number">1.1.2.</span> <span class="nav-text">Q1:衡量线性回归的指标？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q2-岭回归与Lasso回归？分别适用的场景呢？"><span class="nav-number">1.1.3.</span> <span class="nav-text">Q2:岭回归与Lasso回归？分别适用的场景呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q3-共线性问题？"><span class="nav-number">1.1.4.</span> <span class="nav-text">Q3:共线性问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-逻辑回归"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q4-损失函数-极大似然估计？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Q4:损失函数-极大似然估计？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q5-逻辑回归如何实现多分类？"><span class="nav-number">1.2.2.</span> <span class="nav-text">Q5:逻辑回归如何实现多分类？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SoftMax回归"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 SoftMax回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q6-SoftMax回归与逻辑回归的关系？"><span class="nav-number">1.3.1.</span> <span class="nav-text">Q6:SoftMax回归与逻辑回归的关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q7-SofMax回归-VS-k个逻辑回归？"><span class="nav-number">1.3.2.</span> <span class="nav-text">Q7:SofMax回归 VS. k个逻辑回归？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-SVM支持向量机"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 SVM支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q8-SVM算法过程？"><span class="nav-number">1.4.1.</span> <span class="nav-text">Q8:SVM算法过程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q9-SVR？"><span class="nav-number">1.4.2.</span> <span class="nav-text">Q9:SVR？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-朴素贝叶斯"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 朴素贝叶斯</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-监督学习"><span class="nav-number">1.</span> <span class="nav-text">1.监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-线性回归"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q0-正则化？L1正则、L2正则？"><span class="nav-number">1.1.1.</span> <span class="nav-text">Q0:正则化？L1正则、L2正则？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q1-衡量线性回归的指标？"><span class="nav-number">1.1.2.</span> <span class="nav-text">Q1:衡量线性回归的指标？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q2-岭回归与Lasso回归？分别适用的场景呢？"><span class="nav-number">1.1.3.</span> <span class="nav-text">Q2:岭回归与Lasso回归？分别适用的场景呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q3-共线性问题？"><span class="nav-number">1.1.4.</span> <span class="nav-text">Q3:共线性问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-逻辑回归"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q4-损失函数-极大似然估计？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Q4:损失函数-极大似然估计？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q5-逻辑回归如何实现多分类？"><span class="nav-number">1.2.2.</span> <span class="nav-text">Q5:逻辑回归如何实现多分类？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SoftMax回归"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 SoftMax回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q6-SoftMax回归与逻辑回归的关系？"><span class="nav-number">1.3.1.</span> <span class="nav-text">Q6:SoftMax回归与逻辑回归的关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q7-SofMax回归-VS-k个逻辑回归？"><span class="nav-number">1.3.2.</span> <span class="nav-text">Q7:SofMax回归 VS. k个逻辑回归？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-SVM支持向量机"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 SVM支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q8-SVM算法过程？"><span class="nav-number">1.4.1.</span> <span class="nav-text">Q8:SVM算法过程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q9-SVR？"><span class="nav-number">1.4.2.</span> <span class="nav-text">Q9:SVR？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-朴素贝叶斯"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 朴素贝叶斯</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-集成学习"><span class="nav-number"></span> <span class="nav-text">2.集成学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Bagging与RF"><span class="nav-number">0.1.</span> <span class="nav-text">2.1 Bagging与RF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q10：bootstrap-sampling？"><span class="nav-number">0.1.1.</span> <span class="nav-text">Q10：bootstrap sampling？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q11-Bagging与RF比较？"><span class="nav-number">0.1.2.</span> <span class="nav-text">Q11:Bagging与RF比较？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-AdaBoost"><span class="nav-number">1.</span> <span class="nav-text">2.2 AdaBoost</span></a></li></ol>
     
     </div>
   </aside>
