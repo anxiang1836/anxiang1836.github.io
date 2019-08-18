@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211552.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818211323.png">
 <meta property="og:image" content="http://pw4sajtgy.bkt.clouddn.com/20190818223915.png">
-<meta property="og:updated_time" content="2019-08-18T17:56:04.174Z">
+<meta property="og:updated_time" content="2019-08-18T17:57:24.080Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【机器学习】理论整理(上)——监督学习">
 <meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集：">
@@ -263,7 +263,7 @@ R^{2}=1-\frac{\sum_{i}(\hat{y}^{(i)}-y^{(i)})^2}{\sum_{i}(\bar{y}-y^{(i)})^2}</s
 <p>比较分析：</p>
 <p>【岭回归】or 【Lasso回归】？</p>
 <ol>
-<li>Lasso由于使用L1正则项，所以具有一定的特征选择功能，因为L1正则倾向于产生稀疏稀疏，它可以将一些“对标签没有用处”的特征对应的系数压缩为0，进而将对结果有较大影响的特征突显出来；而岭回归中L2正则项不具备这个功能，它只会讲一些无关特征的系数降到一个较小的值，但不会降为0。</li>
+<li>Lasso由于使用L1正则项，所以具有一定的特征选择功能，因为L1正则倾向于产生稀疏输出，它可以将一些“对标签没有用处”的特征对应的系数压缩为0，进而将对结果有较大影响的特征突显出来；而岭回归中L2正则项不具备这个功能，它只会讲一些无关特征的系数降到一个较小的值，但不会降为0。</li>
 <li>岭回归可以进行梯度下降法求解，Lasso回归因为使用L1正则因而无法。</li>
 </ol>
 <p>参考资料：</p>
