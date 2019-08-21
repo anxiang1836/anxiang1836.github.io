@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/logo.jpg)
+<div align=center>![](https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/logo.jpg)
 
 此博客记录自己的学习心得与体会，就是那种看着自己长大的感觉咯！哈哈
 
