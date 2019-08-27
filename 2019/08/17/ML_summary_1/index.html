@@ -11,13 +11,13 @@
   
   
   
-  <meta name="description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集：">
+  <meta name="description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的∑《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集">
 <meta name="keywords" content="监督学习,集成学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【机器学习】理论整理(上)——监督学习">
 <meta property="og:url" content="https://anxiang1836.github.io/2019/08/17/ML_summary_1/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集：">
+<meta property="og:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的∑《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821223004.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222824.png">
@@ -26,10 +26,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821223059.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222936.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821223048.png">
-<meta property="og:updated_time" content="2019-08-21T14:41:52.615Z">
+<meta property="og:updated_time" content="2019-08-27T14:36:17.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【机器学习】理论整理(上)——监督学习">
-<meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集：">
+<meta name="twitter:description" content="对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：达叔的Coursera上的ML课程、西瓜书、李航的∑《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~） 这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）   1.监督学习1.1 线性回归数据集">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821223004.png">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
@@ -206,7 +206,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：<a href="https://study.163.com/course/introduction.htm?courseId=1004570029&amp;_trace_c_p_k2_=48954150178f45e5bcdc42013d6d8971" target="_blank" rel="noopener">达叔的Coursera上的ML课程</a>、西瓜书、李航的《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）</p>
+<p>对我在这一阶段机器学习的理论学习部分进行一个总结，主要的学习依靠为：<a href="https://study.163.com/course/introduction.htm?courseId=1004570029&amp;_trace_c_p_k2_=48954150178f45e5bcdc42013d6d8971" target="_blank" rel="noopener">达叔的Coursera上的ML课程</a>、西瓜书、李航的∑《统计学习方法》。我将我自己针对这部分的主要点和重点进行整理，并附上我在学习过程中查阅到的一些优质博文（就不来回搬运了，吼吼~~）</p>
 <p>这一部分为机器学习理论整理的上半部分：包括监督学习、集成学习（因为集成学习比较重要，所以，给单独列出来了）</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821223004.png" style="zoom:70%"></p>
@@ -606,6 +606,15 @@ F(x)=sign(\sum^{T}_{t=1}\alpha_tG_t(x))</script></li>
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/08/27/Mac_zsh/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          【工具篇】Mac终端美化：iterm2 + zsh + oh~my~zsh 设置教程
+        
+      </div>
+    </a>
   
   
     <a href="/2019/08/11/Spark-DataFrame/" id="article-nav-older" class="article-nav-link-wrap">

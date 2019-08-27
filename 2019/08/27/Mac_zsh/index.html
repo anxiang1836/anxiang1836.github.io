@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>【工具篇】mac终端美化：iterm2 + zsh + oh~my~zsh 设置教程 | MaxMa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="zsh">
+  
+  
+  
+  
+  <meta name="description" content="mac自带的terminal终端没有文件名高亮等功能，而且界面不是很好看，故今晚学舍友折腾了终端，可以让自己使用起来更加方便，看起来更加舒服。 通过简单地百度和整理，自己这边也是用上了非常舒服好用的terminal。 先上最后效果咯，见下图！  配置方法1.下载安装iterm2官方的下载地址为：https://www.iterm2.com/ 这个就是一个app，安装的步骤和安装mac上其他应用是一">
+<meta name="keywords" content="zsh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【工具篇】Mac终端美化：iterm2 + zsh + oh~my~zsh 设置教程">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/08/27/Mac_zsh/index.html">
+<meta property="og:site_name" content="MaxMa">
+<meta property="og:description" content="mac自带的terminal终端没有文件名高亮等功能，而且界面不是很好看，故今晚学舍友折腾了终端，可以让自己使用起来更加方便，看起来更加舒服。 通过简单地百度和整理，自己这边也是用上了非常舒服好用的terminal。 先上最后效果咯，见下图！  配置方法1.下载安装iterm2官方的下载地址为：https://www.iterm2.com/ 这个就是一个app，安装的步骤和安装mac上其他应用是一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827224025.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827231326.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827231654.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827231823.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827233014.png">
+<meta property="og:updated_time" content="2019-08-27T15:33:15.848Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【工具篇】Mac终端美化：iterm2 + zsh + oh~my~zsh 设置教程">
+<meta name="twitter:description" content="mac自带的terminal终端没有文件名高亮等功能，而且界面不是很好看，故今晚学舍友折腾了终端，可以让自己使用起来更加方便，看起来更加舒服。 通过简单地百度和整理，自己这边也是用上了非常舒服好用的terminal。 先上最后效果咯，见下图！  配置方法1.下载安装iterm2官方的下载地址为：https://www.iterm2.com/ 这个就是一个app，安装的步骤和安装mac上其他应用是一">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827224025.png">
+  
+    <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Mac_zsh" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      【工具篇】Mac终端美化：iterm2 + zsh + oh~my~zsh 设置教程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/08/27/Mac_zsh/" class="article-date">
+	  <time datetime="2019-08-27T14:37:12.382Z" itemprop="datePublished">2019-08-27</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/实用工具/">实用工具</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>mac自带的terminal终端没有文件名高亮等功能，而且界面不是很好看，故今晚学舍友折腾了终端，可以让自己使用起来更加方便，看起来更加舒服。</p>
+<p>通过简单地百度和整理，自己这边也是用上了非常舒服好用的terminal。</p>
+<p>先上最后效果咯，见下图！</p>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827224025.png" style="zoom:70%"></p>
+<h2 id="配置方法"><a href="#配置方法" class="headerlink" title="配置方法"></a>配置方法</h2><h3 id="1-下载安装iterm2"><a href="#1-下载安装iterm2" class="headerlink" title="1.下载安装iterm2"></a>1.下载安装iterm2</h3><p>官方的下载地址为：<a href="https://www.iterm2.com/" target="_blank" rel="noopener">https://www.iterm2.com/</a></p>
+<p>这个就是一个app，安装的步骤和安装mac上其他应用是一样的，直接放到Application中就OK了。</p>
+<h4 id="为什么要用iterm2？"><a href="#为什么要用iterm2？" class="headerlink" title="为什么要用iterm2？"></a>为什么要用iterm2？</h4><p>因为原始的terminal不能美化呀，这个iterm2是可以美化的，懂了吧？</p>
+<h3 id="2-切换shell为zsh"><a href="#2-切换shell为zsh" class="headerlink" title="2.切换shell为zsh"></a>2.切换shell为zsh</h3><p>据说，mac上这个shell是世界上最好用的shell没有之一，我也不知道是真的假的，反正网上是这么说的，我也自行百度了一下，是Z-Shell，不过，因为Linux不是很擅长，所以也没有很懂到底因为什么说Z-Shell很棒！</p>
+<p>附上Z-Shell维基百科吧，等以后想起来，再去学习学习。<a href="https://zh.wikipedia.org/wiki/Z_shell" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Z_shell</a></p>
+<p><strong>【步骤1】</strong>：</p>
+<p>打开iterm2，输入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+<p><strong>【步骤2】：</strong></p>
+<p>推出重新进入iterm2，输入如下，查看是否切换成功。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $SHELL</span><br></pre></td></tr></table></figure>
+<p>如果返回结果为“zsh”，那么就是切换成功了。</p>
+<h3 id="3-安装oh-my-zsh"><a href="#3-安装oh-my-zsh" class="headerlink" title="3.安装oh-my-zsh"></a>3.安装oh-my-zsh</h3><p>由于zsh的配置太过复杂，起初只有极客才在用，有个穷极无聊的程序员可能是实在看不下去广大猿友一直只能使用单调的bash, 于是他创建了一个名为<code>oh-my-zsh</code>的开源项目。</p>
+<p>GitHub：<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="noopener">https://github.com/robbyrussell/oh-my-zsh</a></p>
+<p><strong>【步骤1】</strong>：</p>
+<p>在根目录下，直接输入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span><br></pre></td></tr></table></figure>
+<p><strong>【步骤2】</strong>：</p>
+<p>安装有些主题所需要的字体库，因为如果缺失字体的话，iterm2中会显示乱码。</p>
+<p>GitHub：<a href="https://github.com/powerline/fonts" target="_blank" rel="noopener">https://github.com/powerline/fonts</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># clone</span><br><span class="line">git clone https://github.com/powerline/fonts.git --depth=1</span><br><span class="line"></span><br><span class="line"># install</span><br><span class="line">cd fonts</span><br><span class="line">./install.sh</span><br><span class="line"></span><br><span class="line"># clean-up a bit</span><br><span class="line">cd ..</span><br><span class="line">rm -rf fonts</span><br></pre></td></tr></table></figure>
+<p>安装好之后，选择一款Powerline字体了：iterm2 -&gt; Preferences -&gt; Profiles -&gt; Text -&gt; Font -&gt; Change Font</p>
+<p>（我用的是Meslo LG L DZ for Powerline）</p>
+<h3 id="4-安装主题-powerlevel9k"><a href="#4-安装主题-powerlevel9k" class="headerlink" title="4.安装主题-powerlevel9k"></a>4.安装主题-powerlevel9k</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k</span><br></pre></td></tr></table></figure>
+<p>这个主题就是本篇前面最开始展示的那个主题，非常的实用，还好看。</p>
+<h3 id="5-配置-zshrc"><a href="#5-配置-zshrc" class="headerlink" title="5.配置~/.zshrc"></a>5.配置~/.zshrc</h3><p>这里就是为这个zsh进行简单的配置，让其装配上华丽的外表和实用的性能。</p>
+<p>在/User/MaxMa/路径下，按“command”+“shift”+“.”，就可以显示系统文件和文件夹，选择.zshrc文件，进行如下修改。</p>
+<h4 id="5-1-设置主题并隐藏计算机名称"><a href="#5-1-设置主题并隐藏计算机名称" class="headerlink" title="5.1 设置主题并隐藏计算机名称"></a>5.1 设置主题并隐藏计算机名称</h4><p>将上述下载好的主题配置到配置文件中，同时，由于在默认情况下，会在命令行前显示特别长的用户计算机的前缀，没啥用，所以就给隐去了，输入命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ZSH_THEME="powerlevel9k/powerlevel9k"</span><br><span class="line">DEFAULT_USER=$USER</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827231326.png" style="zoom:85%"></p>
+<h4 id="5-2-配置anaconda的命令"><a href="#5-2-配置anaconda的命令" class="headerlink" title="5.2 配置anaconda的命令"></a>5.2 配置anaconda的命令</h4><p>在默认情况下，输入什么anaconda下的命令，什么jupyter都不起作用，需要将其配置到配置文件中，输入命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=/anaconda3/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827231654.png" style="zoom:85%"></p>
+<h4 id="5-3-关键命令高亮"><a href="#5-3-关键命令高亮" class="headerlink" title="5.3 关键命令高亮"></a>5.3 关键命令高亮</h4><p>这个插件可以让ls/vim等命令高丽显示。效果图如下：</p>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827231823.png" style="zoom:70%"></p>
+<p>【步骤】：</p>
+<p>在iterm2中输入如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git</span><br><span class="line">echo "source $&#123;(q-)PWD&#125;/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" &gt;&gt; $&#123;ZDOTDIR:-$HOME&#125;/.zshrc</span><br></pre></td></tr></table></figure>
+<p>注意这个源文件不可以删除，要不然启动的时候就找不到，无法高亮显示了。</p>
+<h4 id="5-4-设置主题显示当前激活的conda-env"><a href="#5-4-设置主题显示当前激活的conda-env" class="headerlink" title="5.4 设置主题显示当前激活的conda-env"></a>5.4 设置主题显示当前激活的conda-env</h4><p>因为在Mac中默认的terminal是可以显示当前激活的conda环境的，在这里默认并没有，我还是研究后给设置上，省的在安装工具包的时候搞错；另外，一并也设置上，隐藏主题中右侧显示的“无用”信息——“history time“。</p>
+<p>在整个.zshrc文件的最后，添加如下的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 设置 oh-my-zsh powerlevel9k 主题左边元素显示</span><br><span class="line"><span class="meta">#</span> POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator context anaconda dir rbenv vcs)</span><br><span class="line">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(anaconda context dir vcs)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 设置 oh-my-zsh powerlevel9k 主题右边元素显示</span><br><span class="line">POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190827233014.png" style="zoom:85%"></p>
+<p>PS：其实这个主题还支持很多其他的类似像上述的个性化配置，附上链接，以后再有需求的话，直接上了。</p>
+<p>GitHub：<a href="https://github.com/Powerlevel9k/powerlevel9k" target="_blank" rel="noopener">https://github.com/Powerlevel9k/powerlevel9k</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80NTk2OS8yMjQ4MA==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zsh/">zsh</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/17/ML_summary_1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">【机器学习】理论整理(上)——监督学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置方法"><span class="nav-number">1.</span> <span class="nav-text">配置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下载安装iterm2"><span class="nav-number">1.1.</span> <span class="nav-text">1.下载安装iterm2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要用iterm2？"><span class="nav-number">1.1.1.</span> <span class="nav-text">为什么要用iterm2？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-切换shell为zsh"><span class="nav-number">1.2.</span> <span class="nav-text">2.切换shell为zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装oh-my-zsh"><span class="nav-number">1.3.</span> <span class="nav-text">3.安装oh-my-zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-安装主题-powerlevel9k"><span class="nav-number">1.4.</span> <span class="nav-text">4.安装主题-powerlevel9k</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-配置-zshrc"><span class="nav-number">1.5.</span> <span class="nav-text">5.配置~/.zshrc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-设置主题并隐藏计算机名称"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 设置主题并隐藏计算机名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-配置anaconda的命令"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 配置anaconda的命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-关键命令高亮"><span class="nav-number">1.5.3.</span> <span class="nav-text">5.3 关键命令高亮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-设置主题显示当前激活的conda-env"><span class="nav-number">1.5.4.</span> <span class="nav-text">5.4 设置主题显示当前激活的conda-env</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2019 MaxMa All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            MaxMa
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 MaxMa All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
