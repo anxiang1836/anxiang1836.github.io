@@ -11,23 +11,23 @@
   
   
   
-  <meta name="description" content="在网易云课堂上，找了一个TF2.0的API入门教程，授课人为【日月光华】，课程费用很便宜200块左右。  本系列将整理我在部分的课程的学习和练习笔记。 1.API—-tf.keras基础一般的用法分为5个步骤：  声明model为Sequential()模型 1model = tf.keras.Sequential()  给model从“输入”到“输出”按顺序添加各层（包括层的类型、激活函数、神经">
+  <meta name="description" content="本系列将整理我在Tensorflow2.0课程的学习笔记。 由于tf 1.0和tf 2.0的版本更新变化很大，所以，我就直接放弃1.0的学习啦，直接转战2.0了。 【课程】：在网易云课堂上的TF2.0的入门与实战 【授课人】：@日月光华   1.API—-tf.keras基础一般的用法分为5个步骤：  声明model为Sequential()模型 1model = tf.keras.Sequen">
 <meta name="keywords" content="tf.keras">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【日月光华】TensorFlow2.0(一)--tf.keras">
 <meta property="og:url" content="https://anxiang1836.github.io/2019/08/31/Tensorflow2_1/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="在网易云课堂上，找了一个TF2.0的API入门教程，授课人为【日月光华】，课程费用很便宜200块左右。  本系列将整理我在部分的课程的学习和练习笔记。 1.API—-tf.keras基础一般的用法分为5个步骤：  声明model为Sequential()模型 1model = tf.keras.Sequential()  给model从“输入”到“输出”按顺序添加各层（包括层的类型、激活函数、神经">
+<meta property="og:description" content="本系列将整理我在Tensorflow2.0课程的学习笔记。 由于tf 1.0和tf 2.0的版本更新变化很大，所以，我就直接放弃1.0的学习啦，直接转战2.0了。 【课程】：在网易云课堂上的TF2.0的入门与实战 【授课人】：@日月光华   1.API—-tf.keras基础一般的用法分为5个步骤：  声明model为Sequential()模型 1model = tf.keras.Sequen">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190831190156.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_6_1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_8_0.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_42_0.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_47_0.png">
-<meta property="og:updated_time" content="2019-08-31T16:29:27.238Z">
+<meta property="og:updated_time" content="2019-08-31T16:44:06.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【日月光华】TensorFlow2.0(一)--tf.keras">
-<meta name="twitter:description" content="在网易云课堂上，找了一个TF2.0的API入门教程，授课人为【日月光华】，课程费用很便宜200块左右。  本系列将整理我在部分的课程的学习和练习笔记。 1.API—-tf.keras基础一般的用法分为5个步骤：  声明model为Sequential()模型 1model = tf.keras.Sequential()  给model从“输入”到“输出”按顺序添加各层（包括层的类型、激活函数、神经">
+<meta name="twitter:description" content="本系列将整理我在Tensorflow2.0课程的学习笔记。 由于tf 1.0和tf 2.0的版本更新变化很大，所以，我就直接放弃1.0的学习啦，直接转战2.0了。 【课程】：在网易云课堂上的TF2.0的入门与实战 【授课人】：@日月光华   1.API—-tf.keras基础一般的用法分为5个步骤：  声明model为Sequential()模型 1model = tf.keras.Sequen">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190831190156.png">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
@@ -203,9 +203,13 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在<a href="https://study.163.com/" target="_blank" rel="noopener">网易云课堂</a>上，找了一个<a href="https://study.163.com/course/courseMain.htm?courseId=1004573006&amp;share=1&amp;shareId=1397138252" target="_blank" rel="noopener">TF2.0的API入门教程</a>，授课人为【日月光华】，课程费用很便宜200块左右。</p>
+        <blockquote>
+<p>本系列将整理我在Tensorflow2.0课程的学习笔记。</p>
+<p>由于tf 1.0和tf 2.0的版本更新变化很大，所以，我就直接放弃1.0的学习啦，直接转战2.0了。</p>
+<p>【课程】：在<a href="https://study.163.com/" target="_blank" rel="noopener">网易云课堂</a>上的<a href="https://study.163.com/course/courseMain.htm?courseId=1004573006&amp;share=1&amp;shareId=1397138252" target="_blank" rel="noopener">TF2.0的入门与实战</a></p>
+<p>【授课人】：<a href="https://study.163.com/instructor/1019173582.htm?_trace_c_p_k2_=e6ba91c5609a49d9a4ea1882ea483f74" target="_blank" rel="noopener">@日月光华</a></p>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190831190156.png" style="zoom 80%"></p>
-<p>本系列将整理我在部分的课程的学习和练习笔记。</p>
+</blockquote>
 <h1 id="1-API—-tf-keras基础"><a href="#1-API—-tf-keras基础" class="headerlink" title="1.API—-tf.keras基础"></a>1.API—-tf.keras基础</h1><p>一般的用法分为5个步骤：</p>
 <ol>
 <li><p>声明model为Sequential()模型</p>
@@ -334,7 +338,7 @@
 <p>作图代码与上面的作图代码一样，这里就不再重复书写了。</p>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_47_0.png" style="zoom 85%"></p>
 <p>可以看到，这样作出来的模型就是过拟合了！</p>
-<h1 id="3-API-tf-keras高级"><a href="#3-API-tf-keras高级" class="headerlink" title="3.API-tf.keras高级"></a>3.API-tf.keras高级</h1><p>一般顺序模型，就可以按照Sequential()顺序添加就可以了。</p>
+<h1 id="3-API-tf-keras函数式"><a href="#3-API-tf-keras函数式" class="headerlink" title="3.API-tf.keras函数式"></a>3.API-tf.keras函数式</h1><p>一般顺序模型，就可以按照Sequential()顺序添加就可以了。</p>
 <p>那么，如果，所需要构建的模型是分叉的呢？那么我们应该怎么办呢？</p>
 <h3 id="Q6：函数式编程"><a href="#Q6：函数式编程" class="headerlink" title="Q6：函数式编程"></a>Q6：函数式编程</h3><p>这里面引入API提供的<strong>函数式编程</strong>。下面给出一个小例子，来展示函数式编程的例子：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras</span><br><span class="line"></span><br><span class="line">input1 = keras.Input(shape=(<span class="number">28</span>,<span class="number">28</span>))</span><br><span class="line">input2 = keras.Input(shape=(<span class="number">28</span>,<span class="number">28</span>))</span><br><span class="line"><span class="comment"># 与input1和input2分别连接</span></span><br><span class="line">x1 = keras.Flatten()(input1)</span><br><span class="line">x2 = keras.Flatten()(input2)</span><br><span class="line"><span class="comment"># 将x1、x2进行合并</span></span><br><span class="line">x = keras.layers.concatenate([x1,x2])</span><br><span class="line"><span class="comment"># 对x进行全连接</span></span><br><span class="line">x = keras.layers.Dense(<span class="number">32</span>,activation=<span class="string">'relu'</span>)(x)</span><br><span class="line"><span class="comment"># 对x进行逻辑回归输出</span></span><br><span class="line">out = keras.layers.Dense(<span class="number">1</span>,activation=<span class="string">'sigmoid'</span>)(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终定义模型的输入和输出</span></span><br><span class="line">model = keras.Model(inputs=[input1,input2],outputs=out)</span><br></pre></td></tr></table></figure>
@@ -401,7 +405,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-API—-tf-keras基础"><span class="nav-number">1.</span> <span class="nav-text">1.API—-tf.keras基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-fashion-mnist分类练习"><span class="nav-number">2.</span> <span class="nav-text">2.fashion_mnist分类练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1数据读取"><span class="nav-number">2.1.</span> <span class="nav-text">2.1数据读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-数据归一化"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数据归一化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-按label类型分情况训练"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 按label类型分情况训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-label为序列编码"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 label为序列编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-label为One-Hot编码"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2 label为One-Hot编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q1：evaluate和predict区别"><span class="nav-number">2.3.3.</span> <span class="nav-text">Q1：evaluate和predict区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q2：网络容量"><span class="nav-number">2.3.4.</span> <span class="nav-text">Q2：网络容量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q3：提高网络的拟合能力"><span class="nav-number">2.3.5.</span> <span class="nav-text">Q3：提高网络的拟合能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q4：超参数选择的原则"><span class="nav-number">2.3.6.</span> <span class="nav-text">Q4：超参数选择的原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Dropout防止过拟合"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Dropout防止过拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fit中添加validation-data"><span class="nav-number">2.4.1.</span> <span class="nav-text">fit中添加validation_data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q5：过拟合-amp-amp-欠拟合"><span class="nav-number">2.4.2.</span> <span class="nav-text">Q5：过拟合&amp;&amp;欠拟合</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-API-tf-keras高级"><span class="nav-number">3.</span> <span class="nav-text">3.API-tf.keras高级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q6：函数式编程"><span class="nav-number">3.0.1.</span> <span class="nav-text">Q6：函数式编程</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-API—-tf-keras基础"><span class="nav-number">1.</span> <span class="nav-text">1.API—-tf.keras基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-fashion-mnist分类练习"><span class="nav-number">2.</span> <span class="nav-text">2.fashion_mnist分类练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1数据读取"><span class="nav-number">2.1.</span> <span class="nav-text">2.1数据读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-数据归一化"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数据归一化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-按label类型分情况训练"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 按label类型分情况训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-label为序列编码"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 label为序列编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-label为One-Hot编码"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2 label为One-Hot编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q1：evaluate和predict区别"><span class="nav-number">2.3.3.</span> <span class="nav-text">Q1：evaluate和predict区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q2：网络容量"><span class="nav-number">2.3.4.</span> <span class="nav-text">Q2：网络容量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q3：提高网络的拟合能力"><span class="nav-number">2.3.5.</span> <span class="nav-text">Q3：提高网络的拟合能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q4：超参数选择的原则"><span class="nav-number">2.3.6.</span> <span class="nav-text">Q4：超参数选择的原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Dropout防止过拟合"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Dropout防止过拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fit中添加validation-data"><span class="nav-number">2.4.1.</span> <span class="nav-text">fit中添加validation_data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q5：过拟合-amp-amp-欠拟合"><span class="nav-number">2.4.2.</span> <span class="nav-text">Q5：过拟合&amp;&amp;欠拟合</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-API-tf-keras函数式"><span class="nav-number">3.</span> <span class="nav-text">3.API-tf.keras函数式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q6：函数式编程"><span class="nav-number">3.0.1.</span> <span class="nav-text">Q6：函数式编程</span></a></li></ol></li></ol></li></ol>
     
     </div>
   </aside>
@@ -590,20 +594,5 @@
   
     <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
