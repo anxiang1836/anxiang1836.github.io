@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_8_0.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_42_0.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_47_0.png">
-<meta property="og:updated_time" content="2019-08-31T15:01:42.854Z">
+<meta property="og:updated_time" content="2019-08-31T15:11:28.370Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【日月光华】TensorFlow2.0(一)--tf.keras">
 <meta name="twitter:description" content="在网易云课堂上，找了一个TF2.0的API入门教程，授课人为【日月光华】，课程费用很便宜200块左右。  1.API—-tf.keras基础一般的用法分为5个步骤：  声明model为Sequential()模型 1model = tf.keras.Sequential()  给model从“输入”到“输出”按顺序添加各层（包括层的类型、激活函数、神经元个数等） 123model.add(tf.k">
@@ -230,42 +230,14 @@
 <h1 id="2-fashion-mnist数据集分类练习"><a href="#2-fashion-mnist数据集分类练习" class="headerlink" title="2.fashion_mnist数据集分类练习"></a>2.fashion_mnist数据集分类练习</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
 <h2 id="2-1数据读取并查看"><a href="#2-1数据读取并查看" class="headerlink" title="2.1数据读取并查看"></a>2.1数据读取并查看</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(train_image, train_label), (test_image, test_label) = tf.keras.datasets.fashion_mnist.load_data()</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_image.shape,train_label.shape</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((60000, 28, 28), (60000,))</span><br></pre></td></tr></table></figure>
+<p>【输出】：((60000, 28, 28), (60000,))</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test_image.shape, test_label.shape</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((10000, 28, 28), (10000,))</span><br></pre></td></tr></table></figure>
+<p>【输出】：((10000, 28, 28), (10000,))</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>]=(<span class="number">45</span>,<span class="number">3</span>)</span><br><span class="line">plt.imshow(train_image[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_6_1.png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将label进行转为pd，进行数据操作</span></span><br><span class="line">index_of_trainLabel = pd.DataFrame(train_label)</span><br><span class="line">index_of_trainLabel.columns = [<span class="string">'label'</span>]</span><br><span class="line">index_of_trainLabel.head(<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Label</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>9</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr>
-<td>3</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将label进行转为pd，进行数据操作</span></span><br><span class="line">index_of_trainLabel = pd.DataFrame(train_label)</span><br><span class="line">index_of_trainLabel.columns = [<span class="string">'label'</span>]</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简单查看一下整个数据集中的10张</span></span><br><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>]=(<span class="number">12</span>,<span class="number">10</span>)</span><br><span class="line"><span class="comment"># category = 类别号</span></span><br><span class="line"><span class="keyword">for</span> category <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="comment"># 在category类别下，有哪些数据</span></span><br><span class="line">    label_list = index_of_trainLabel[index_of_trainLabel[<span class="string">'label'</span>]== category].index.to_list()</span><br><span class="line">    <span class="keyword">for</span> l <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">11</span>):</span><br><span class="line">        plt.subplot(<span class="number">10</span>,<span class="number">10</span>,(category)*<span class="number">10</span> + l)</span><br><span class="line">        <span class="comment"># 选择在label_list中的前10个输出</span></span><br><span class="line">        plt.imshow(train_image[label_list[l]])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_8_0.png" style="zoom 85%"></p>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_8_0.png" style="zoom 70%"></p>
 <h2 id="2-2-数据归一化"><a href="#2-2-数据归一化" class="headerlink" title="2.2 数据归一化"></a>2.2 数据归一化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据的归一化（因为是从0-255，所以直接按照比例缩放就完了）</span></span><br><span class="line">train_image = train_image/<span class="number">255</span></span><br><span class="line">test_image = test_image/<span class="number">255</span></span><br></pre></td></tr></table></figure>
 <h2 id="2-3-label转为序列编码—训练"><a href="#2-3-label转为序列编码—训练" class="headerlink" title="2.3 label转为序列编码—训练"></a>2.3 label转为序列编码—训练</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.Sequential()</span><br><span class="line"><span class="comment"># 直接把图片展成为28*28的向量</span></span><br><span class="line">model.add(tf.keras.layers.Flatten(input_shape=(<span class="number">28</span>,<span class="number">28</span>)))  <span class="comment"># 28*28</span></span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">128</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>))</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.summary()</span><br></pre></td></tr></table></figure>
@@ -273,51 +245,31 @@
 <h3 id="当label是序列数据（如，1、2、3…-）"><a href="#当label是序列数据（如，1、2、3…-）" class="headerlink" title="当label是序列数据（如，1、2、3…..）"></a>当label是序列数据（如，1、2、3…..）</h3><p>LossFunction = ‘sparse_categorical_crossentropy’</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model.compile(optimizer=<span class="string">'adam'</span>,</span><br><span class="line">              loss=<span class="string">'sparse_categorical_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'acc'</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(train_image, train_label, epochs=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>Epoch 1/5
-60000/60000 [==============================] - 4s 58us/sample - loss: 0.4998 - acc: 0.82502s - loss: 0.6197 - acc: 
-Epoch 2/5
-60000/60000 [==============================] - 3s 55us/sample - loss: 0.3754 - acc: 0.86483s - loss: 
-Epoch 3/5
-60000/60000 [==============================] - 3s 53us/sample - loss: 0.3374 - acc: 0.87840s - loss: 0.3368 -
-Epoch 4/5
-60000/60000 [==============================] - 3s 56us/sample - loss: 0.3113 - acc: 0.88460s - loss: 0.3119 - acc: 0.88 - ETA: 0s - loss: 0.3122 - acc: 0.
-Epoch 5/5
-60000/60000 [==============================] - 3s 54us/sample - loss: 0.2942 - acc: 0.8913
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss,accuracy = model.evaluate(test_image, test_label)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss,accuracy = model.evaluate(test_image, test_label)</span><br></pre></td></tr></table></figure>
 <pre><code>10000/10000 [==============================] - 0s 40us/sample - loss: 0.3421 - acc: 0.8761
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"在测试集上的Loss为：&#123;&#125;,Acc为：&#123;&#125;"</span>.format(loss,accuracy))</span><br></pre></td></tr></table></figure>
-<pre><code>在测试集上的Loss为：0.3420594166994095,Acc为：0.8761000037193298
-</code></pre><h2 id="2-4-label转为One-Hot编码—训练"><a href="#2-4-label转为One-Hot编码—训练" class="headerlink" title="2.4 label转为One-Hot编码—训练"></a>2.4 label转为One-Hot编码—训练</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_label</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([9, 0, 0, ..., 3, 0, 5], dtype=uint8)</span><br></pre></td></tr></table></figure>
+<p>【输出】：在测试集上的Loss为：0.3420594166994095,Acc为：0.8761000037193298</p>
+<h2 id="2-4-label转为One-Hot编码—训练"><a href="#2-4-label转为One-Hot编码—训练" class="headerlink" title="2.4 label转为One-Hot编码—训练"></a>2.4 label转为One-Hot编码—训练</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_label</span><br></pre></td></tr></table></figure>
+<p>【输出】：array([9, 0, 0, …, 3, 0, 5], dtype=uint8)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将顺序编码转换为One-Hot编码</span></span><br><span class="line">train_label_onehot = tf.keras.utils.to_categorical(train_label)</span><br><span class="line">test_label_onehot = tf.keras.utils.to_categorical(test_label)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看一下转换为OneHot之后的数据</span></span><br><span class="line">train_label_onehot[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict_keys([&apos;loss&apos;, &apos;acc&apos;, &apos;val_loss&apos;, &apos;val_acc&apos;])</span><br></pre></td></tr></table></figure>
+<p>【输出】：dict_keys([‘loss’, ‘acc’, ‘val_loss’, ‘val_acc’])</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.Sequential()</span><br><span class="line">model.add(tf.keras.layers.Flatten(input_shape=(<span class="number">28</span>,<span class="number">28</span>)))  <span class="comment"># 28*28</span></span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">128</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>))</span><br></pre></td></tr></table></figure>
 <h3 id="给Adam优化器设置lr"><a href="#给Adam优化器设置lr" class="headerlink" title="给Adam优化器设置lr"></a>给Adam优化器设置lr</h3><p>optimizer=tf.keras.optimizers.Adam(learning_rate=0.01)</p>
 <h3 id="当label是One-Hot数据"><a href="#当label是One-Hot数据" class="headerlink" title="当label是One-Hot数据"></a>当label是One-Hot数据</h3><p>LossFunction = ‘categorical_crossentropy’</p>
 <p>【Tips】：在一个方法调用时，按shift+tab可以查看API的描述</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=<span class="number">0.01</span>),</span><br><span class="line">              loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'acc'</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(train_image, train_label_onehot, epochs=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>Epoch 1/5
-60000/60000 [==============================] - 3s 58us/sample - loss: 0.5305 - acc: 0.8122
-Epoch 2/5
-60000/60000 [==============================] - 3s 55us/sample - loss: 0.4440 - acc: 0.84050s - loss: 0.4455 - acc: 
-Epoch 3/5
-60000/60000 [==============================] - 3s 56us/sample - loss: 0.4168 - acc: 0.85020s - loss: 0.4186
-Epoch 4/5
-60000/60000 [==============================] - 3s 56us/sample - loss: 0.4110 - acc: 0.8518TA: 1s - 
-Epoch 5/5
-60000/60000 [==============================] - 3s 54us/sample - loss: 0.3983 - acc: 0.8560
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用predict来进行预测</span></span><br><span class="line">predict = model.predict(test_image)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用predict来进行预测</span></span><br><span class="line">predict = model.predict(test_image)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(test_image.shape,predict.shape)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(10000, 28, 28) (10000, 10)</span><br></pre></td></tr></table></figure>
+<p>【输出】：(10000, 28, 28) (10000, 10)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">predict[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
 <pre><code>array([1.9299150e-13, 5.0559784e-23, 9.1170503e-19, 4.4142470e-22,
        9.1442269e-17, 8.5615501e-02, 1.4840338e-16, 5.4630977e-03,
        8.3949581e-10, 9.0892136e-01], dtype=float32)
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"预测的值为：&#123;&#125;，测试数据的值为：&#123;&#125;"</span>.format(np.argmax(predict[<span class="number">0</span>]),test_label[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
-<pre><code>预测的值为：9，测试数据的值为：9
-</code></pre><h2 id="2-5-model-evaluate-amp-amp-model-predict"><a href="#2-5-model-evaluate-amp-amp-model-predict" class="headerlink" title="2.5 model.evaluate &amp;&amp; model.predict?"></a>2.5 model.evaluate &amp;&amp; model.predict?</h2><p>在上面的2个例子中，分别用到了evaluate和predict。下面来分别解释一下两个API的作用：</p>
+<p>【输出】：预测的值为：9，测试数据的值为：9</p>
+<h2 id="2-5-model-evaluate-amp-amp-model-predict"><a href="#2-5-model-evaluate-amp-amp-model-predict" class="headerlink" title="2.5 model.evaluate &amp;&amp; model.predict?"></a>2.5 model.evaluate &amp;&amp; model.predict?</h2><p>在上面的2个例子中，分别用到了evaluate和predict。下面来分别解释一下两个API的作用：</p>
 <ul>
 <li><p>model.evaluate:</p>
 <p>  输入数据和标签,输出损失和精确度.</p>
@@ -386,29 +338,8 @@ Non-trainable params: 0
 _________________________________________________________________
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=<span class="number">0.001</span>),</span><br><span class="line">              loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'acc'</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <h3 id="fit中添加validation-data"><a href="#fit中添加validation-data" class="headerlink" title="fit中添加validation_data"></a>fit中添加validation_data</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">history = model.fit(train_image, train_label_onehot, </span><br><span class="line">                    epochs=<span class="number">10</span>, </span><br><span class="line">                    validation_data=(test_image, test_label_onehot))</span><br></pre></td></tr></table></figure>
-<pre><code>Train on 60000 samples, validate on 10000 samples
-Epoch 1/10
-60000/60000 [==============================] - 5s 90us/sample - loss: 0.8603 - acc: 0.6825 - val_loss: 0.5309 - val_acc: 0.8158
-Epoch 2/10
-60000/60000 [==============================] - 5s 83us/sample - loss: 0.6107 - acc: 0.7824 - val_loss: 0.4715 - val_acc: 0.8335
-Epoch 3/10
-60000/60000 [==============================] - 5s 80us/sample - loss: 0.5581 - acc: 0.8034 - val_loss: 0.4615 - val_acc: 0.8328
-Epoch 4/10
-60000/60000 [==============================] - 5s 83us/sample - loss: 0.5383 - acc: 0.8133 - val_loss: 0.4285 - val_acc: 0.8474
-Epoch 5/10
-60000/60000 [==============================] - 5s 81us/sample - loss: 0.5172 - acc: 0.8203 - val_loss: 0.4190 - val_acc: 0.8469s: 0.5211  - ETA: 0s - loss: 0.
-Epoch 6/10
-60000/60000 [==============================] - 5s 80us/sample - loss: 0.5083 - acc: 0.8221 - val_loss: 0.4199 - val_acc: 0.8521
-Epoch 7/10
-60000/60000 [==============================] - 5s 77us/sample - loss: 0.4925 - acc: 0.8266 - val_loss: 0.4064 - val_acc: 0.8531
-Epoch 8/10
-60000/60000 [==============================] - 5s 83us/sample - loss: 0.4852 - acc: 0.8302 - val_loss: 0.4131 - val_acc: 0.8521
-Epoch 9/10
-60000/60000 [==============================] - 5s 81us/sample - loss: 0.4790 - acc: 0.8315 - val_loss: 0.4110 - val_acc: 0.8550
-Epoch 10/10
-60000/60000 [==============================] - 5s 80us/sample - loss: 0.4781 - acc: 0.8340 - val_loss: 0.4017 - val_acc: 0.8628
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history.history.keys()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict_keys([&apos;loss&apos;, &apos;acc&apos;, &apos;val_loss&apos;, &apos;val_acc&apos;])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history.history.keys()</span><br></pre></td></tr></table></figure>
+<p>【输出】：dict_keys([‘loss’, ‘acc’, ‘val_loss’, ‘val_acc’])</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>]=(<span class="number">10</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ACC的子图</span></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'acc'</span>),label=<span class="string">'train_acc'</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'val_acc'</span>),label=<span class="string">'val_acc'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Loss的子图</span></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'loss'</span>),label=<span class="string">'train_loss'</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'val_loss'</span>),label=<span class="string">'val_loss'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_42_0.png" style="zoom 85%"></p>
 <h2 id="2-9-过拟合-amp-amp-欠拟合"><a href="#2-9-过拟合-amp-amp-欠拟合" class="headerlink" title="2.9 过拟合&amp;&amp;欠拟合"></a>2.9 过拟合&amp;&amp;欠拟合</h2><ul>
@@ -418,28 +349,7 @@ Epoch 10/10
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.Sequential()</span><br><span class="line">model.add(tf.keras.layers.Flatten(input_shape=(<span class="number">28</span>,<span class="number">28</span>)))  <span class="comment"># 28*28</span></span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">32</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>))</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=<span class="number">0.001</span>),</span><br><span class="line">              loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'acc'</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">history = model.fit(train_image, train_label_onehot, </span><br><span class="line">                    epochs=<span class="number">10</span>, </span><br><span class="line">                    validation_data=(test_image, test_label_onehot))</span><br></pre></td></tr></table></figure>
-<pre><code>Train on 60000 samples, validate on 10000 samples
-Epoch 1/10
-60000/60000 [==============================] - 3s 52us/sample - loss: 0.5577 - acc: 0.8064 - val_loss: 0.4612 - val_acc: 0.8375
-Epoch 2/10
-60000/60000 [==============================] - 3s 46us/sample - loss: 0.4196 - acc: 0.8514 - val_loss: 0.4736 - val_acc: 0.8381
-Epoch 3/10
-60000/60000 [==============================] - 3s 50us/sample - loss: 0.3891 - acc: 0.8624 - val_loss: 0.4020 - val_acc: 0.8574
-Epoch 4/10
-60000/60000 [==============================] - 3s 48us/sample - loss: 0.3670 - acc: 0.8694 - val_loss: 0.3981 - val_acc: 0.8612
-Epoch 5/10
-60000/60000 [==============================] - 3s 46us/sample - loss: 0.3529 - acc: 0.8734 - val_loss: 0.3905 - val_acc: 0.8601
-Epoch 6/10
-60000/60000 [==============================] - 3s 48us/sample - loss: 0.3386 - acc: 0.8784 - val_loss: 0.3777 - val_acc: 0.8656ETA: 0s - loss: 0.3372 - a
-Epoch 7/10
-60000/60000 [==============================] - 3s 48us/sample - loss: 0.3290 - acc: 0.8812 - val_loss: 0.3885 - val_acc: 0.8598
-Epoch 8/10
-60000/60000 [==============================] - 3s 48us/sample - loss: 0.3183 - acc: 0.8840 - val_loss: 0.3775 - val_acc: 0.8667
-Epoch 9/10
-60000/60000 [==============================] - 3s 47us/sample - loss: 0.3102 - acc: 0.8870 - val_loss: 0.3749 - val_acc: 0.8686
-Epoch 10/10
-60000/60000 [==============================] - 3s 47us/sample - loss: 0.3028 - acc: 0.8899 - val_loss: 0.3610 - val_acc: 0.8726
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>]=(<span class="number">10</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ACC的子图</span></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'acc'</span>),label=<span class="string">'train_acc'</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'val_acc'</span>),label=<span class="string">'val_acc'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Loss的子图</span></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'loss'</span>),label=<span class="string">'train_loss'</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'val_loss'</span>),label=<span class="string">'val_loss'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>]=(<span class="number">10</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ACC的子图</span></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'acc'</span>),label=<span class="string">'train_acc'</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'val_acc'</span>),label=<span class="string">'val_acc'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Loss的子图</span></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'loss'</span>),label=<span class="string">'train_loss'</span>)</span><br><span class="line">plt.plot(history.epoch,history.history.get(<span class="string">'val_loss'</span>),label=<span class="string">'val_loss'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_47_0.png" style="zoom 85%"></p>
 <p>可以看到，这样作出来的模型就是过拟合了！</p>
 
