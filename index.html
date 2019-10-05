@@ -239,6 +239,69 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-P1-朴素贝叶斯-语种识别器"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/10/05/P1-朴素贝叶斯-语种识别器/">【项目整理】用朴素贝叶斯完成语种识别器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/10/05/P1-朴素贝叶斯-语种识别器/" class="article-date">
+	  <time datetime="2019-10-05T12:43:48.293Z" itemprop="datePublished">2019-10-05</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a><a class="article-category-link" href="/categories/机器学习/项目整理/">项目整理</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p class="article-excerpt-content">
+          [TOC]
+项目背景及主要内容
+这个项目算是一个超简单的小例子，是基于机器学习[朴素贝叶斯]）的一个小项目，项目完成的任务类型为文本分类。
+主要包含内容为：
+
+0.用正则表达式，进行清洗数据（即删除信息中的无关内容，提高训练数据的纯度）
+1.用BOW/TF-IDF，进行表征字符级的文本和n-gram；
+2.用朴素贝叶斯算法，进行构建6个不同语种的分类模型；
+3.用flask，进行项目的web部署。
+
+
+数据介绍数据取自于Twitter，包含English, French, German, ...
+        </p>
+        <p class="article-more-link">
+          <a href="/2019/10/05/P1-朴素贝叶斯-语种识别器/#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-Tensorflow2_1"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -746,5 +809,20 @@ RDD：
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
   
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
