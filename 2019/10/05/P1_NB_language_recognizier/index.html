@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>【项目整理】用朴素贝叶斯完成语种识别器 | MaxMa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="文本分类朴素贝叶斯">
+  
+  
+  
+  
+  <meta name="description" content="项目背景及主要内容 这个项目算是一个超简单的小例子，是基于机器学习[朴素贝叶斯]）的一个小项目，项目完成的任务类型为文本分类。 主要包含内容为：  0.用正则表达式，进行清洗数据（即删除信息中的无关内容，提高训练数据的纯度） 1.用BOW/TF-IDF，进行表征字符级的文本和n-gram； 2.用朴素贝叶斯算法，进行构建6个不同语种的分类模型； 3.用flask，进行项目的web部署。   数据介">
+<meta name="keywords" content="文本分类,朴素贝叶斯">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【项目整理】用朴素贝叶斯完成语种识别器">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/10/05/P1_NB_language_recognizier/index.html">
+<meta property="og:site_name" content="MaxMa">
+<meta property="og:description" content="项目背景及主要内容 这个项目算是一个超简单的小例子，是基于机器学习[朴素贝叶斯]）的一个小项目，项目完成的任务类型为文本分类。 主要包含内容为：  0.用正则表达式，进行清洗数据（即删除信息中的无关内容，提高训练数据的纯度） 1.用BOW/TF-IDF，进行表征字符级的文本和n-gram； 2.用朴素贝叶斯算法，进行构建6个不同语种的分类模型； 3.用flask，进行项目的web部署。   数据介">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-05T12:55:15.436Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【项目整理】用朴素贝叶斯完成语种识别器">
+<meta name="twitter:description" content="项目背景及主要内容 这个项目算是一个超简单的小例子，是基于机器学习[朴素贝叶斯]）的一个小项目，项目完成的任务类型为文本分类。 主要包含内容为：  0.用正则表达式，进行清洗数据（即删除信息中的无关内容，提高训练数据的纯度） 1.用BOW/TF-IDF，进行表征字符级的文本和n-gram； 2.用朴素贝叶斯算法，进行构建6个不同语种的分类模型； 3.用flask，进行项目的web部署。   数据介">
+  
+    <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-P1_NB_language_recognizier" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      【项目整理】用朴素贝叶斯完成语种识别器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/10/05/P1_NB_language_recognizier/" class="article-date">
+	  <time datetime="2019-10-05T12:43:48.293Z" itemprop="datePublished">2019-10-05</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a><a class="article-category-link" href="/categories/机器学习/项目整理/">项目整理</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="项目背景及主要内容"><a href="#项目背景及主要内容" class="headerlink" title="项目背景及主要内容"></a>项目背景及主要内容</h2><blockquote>
+<p>这个项目算是一个超简单的小例子，是基于机器学习[朴素贝叶斯]）的一个小项目，项目完成的任务类型为文本分类。</p>
+<p>主要包含内容为：</p>
+<ul>
+<li>0.用正则表达式，进行清洗数据（即删除信息中的无关内容，提高训练数据的纯度）</li>
+<li>1.用BOW/TF-IDF，进行表征字符级的文本和n-gram；</li>
+<li>2.用朴素贝叶斯算法，进行构建6个不同语种的分类模型；</li>
+<li>3.用flask，进行项目的web部署。</li>
+</ul>
+</blockquote>
+<h2 id="数据介绍"><a href="#数据介绍" class="headerlink" title="数据介绍"></a>数据介绍</h2><p>数据取自于Twitter，包含English, French, German, Spanish, Italian 和 Dutch 6种语言。</p>
+<h3 id="方法一：用pandas读入csv"><a href="#方法一：用pandas读入csv" class="headerlink" title="方法一：用pandas读入csv"></a>方法一：用pandas读入csv</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">pd.set_option(<span class="string">'display.max_colwidth'</span>,<span class="number">500</span>)</span><br><span class="line">data = pd.read_csv(<span class="string">"./P1_data/data.csv"</span>,header=<span class="literal">None</span>)</span><br><span class="line">data.columns=[<span class="string">'test'</span>,<span class="string">'language'</span>]</span><br><span class="line">data[:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>test</th>
+      <th>language</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1 december wereld aids dag voorlichting in zuidafrika over bieten taboes en optimisme</td>
+      <td>nl</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1 millón de afectados ante las inundaciones en sri lanka unicef está distribuyendo ayuda de emergencia srilanka</td>
+      <td>es</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1 millón de fans en facebook antes del 14 de febrero y paty miki dani y berta se tiran en paracaídas qué harías tú porunmillondefans</td>
+      <td>es</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1 satellite galileo sottoposto ai test presso lesaestec nl galileo navigation space in inglese</td>
+      <td>it</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>10 der welt sind bei</td>
+      <td>de</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 id="方法二：用open的方式，直接按行进行读取"><a href="#方法二：用open的方式，直接按行进行读取" class="headerlink" title="方法二：用open的方式，直接按行进行读取"></a>方法二：用open的方式，直接按行进行读取</h3><p>下面这种方法不知道为什么，通过open的方式读入的数据是有乱码情况的。所以，就直接用pandas读csv吧。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">file = open(<span class="string">"./P1_data/data.csv"</span>)</span><br><span class="line">data_1 = file.readlines()</span><br><span class="line">file.close()</span><br><span class="line">data_1[:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>[&#39;1 december wereld aids dag voorlichting in zuidafrika over bieten taboes en optimisme,nl\n&#39;,
+ &#39;1 mill贸n de afectados ante las inundaciones en sri lanka unicef est谩 distribuyendo ayuda de emergencia srilanka,es\n&#39;,
+ &#39;1 mill贸n de fans en facebook antes del 14 de febrero y paty miki dani y berta se tiran en paraca铆das qu茅 har铆as t煤 porunmillondefans,es\n&#39;,
+ &#39;1 satellite galileo sottoposto ai test presso lesaestec nl galileo navigation space in inglese,it\n&#39;,
+ &#39;10 der welt sind bei,de\n&#39;]
+</code></pre><h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><h3 id="训练集与测试集的切分"><a href="#训练集与测试集的切分" class="headerlink" title="训练集与测试集的切分"></a>训练集与测试集的切分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">X_train,X_test,y_train,y_test = train_test_split(data[<span class="string">'test'</span>],data[<span class="string">'language'</span>],test_size=<span class="number">0.25</span>,random_state=<span class="number">2019</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list(X_train[:<span class="number">5</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>[&#39;buckle up theres a turbulent new episode of flyingwildalaska coming your way starting at 9p ep&#39;,
+ &#39;de week waarin de contouren van een nieuw geheim verdrag zich begonnen af te tekenen&#39;,
+ &#39;ministerraad deed vandaag mee aan paarse vrijdag tegen homofobie premier rutte droeg een paarse stropdas&#39;,
+ &#39;regard exclusif sur lintervention de lunion européenne dans le conflit russie géorgie webdocdiplo&#39;,
+ &#39;verdacht pakketje park eindhoven mogelijk een explosief&#39;]
+</code></pre><h3 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_noise</span><span class="params">(document)</span>:</span></span><br><span class="line">    <span class="comment"># ‘|’ 表示同时生效</span></span><br><span class="line">    noise_pattern = re.compile(<span class="string">'|'</span>.join([<span class="string">"http\S+"</span>, <span class="string">"\@\w+"</span>, <span class="string">"\#\w+"</span>]))</span><br><span class="line">    <span class="comment"># re.sub() 就是把识别到的pattern替换成空""</span></span><br><span class="line">    clean_text = re.sub(noise_pattern, <span class="string">""</span>, document)</span><br><span class="line">    <span class="comment"># 移除首末的空格</span></span><br><span class="line">    <span class="keyword">return</span> clean_text.strip()</span><br></pre></td></tr></table></figure>
+<h2 id="文本表示"><a href="#文本表示" class="headerlink" title="文本表示"></a>文本表示</h2><ul>
+<li>方式一：用CountVectorizer，向量化表示文本</li>
+<li>方式二：用TfidfVectorizer表示文本</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_vec</span><span class="params">(style)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> style==<span class="string">'count'</span>:</span><br><span class="line">        vec = CountVectorizer(</span><br><span class="line">            lowercase=<span class="literal">True</span>,     <span class="comment"># 英文文本全小写</span></span><br><span class="line">            analyzer=<span class="string">'char_wb'</span>, <span class="comment"># 逐个字母解析</span></span><br><span class="line">            ngram_range=(<span class="number">1</span>,<span class="number">3</span>),  <span class="comment"># 1=出现的字母以及每个字母出现的次数，2=出现的连续2个字母，和连续2个字母出现的频次</span></span><br><span class="line">            <span class="comment"># trump images are now... =&gt; 1gram = t,r,u,m,p... 2gram = tr,ru,um,mp...</span></span><br><span class="line">            max_features=<span class="number">1000</span>,  <span class="comment"># keep the most common 1000 ngrams</span></span><br><span class="line">            preprocessor=remove_noise</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">elif</span> style==<span class="string">'tfidf'</span>:</span><br><span class="line">        vec = TfidfVectorizer(</span><br><span class="line">            lowercase=<span class="literal">True</span>,</span><br><span class="line">            analyzer=<span class="string">'char_wb'</span>, <span class="comment"># 逐个字母解析</span></span><br><span class="line">            max_features=<span class="number">1000</span>,</span><br><span class="line">            ngram_range=(<span class="number">1</span>, <span class="number">3</span>),</span><br><span class="line">            preprocessor=remove_noise</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">return</span> vec</span><br><span class="line"></span><br><span class="line">vec = create_vec(style=<span class="string">'tfidf'</span>)</span><br><span class="line">vec.fit(list(X_train))</span><br></pre></td></tr></table></figure>
+<pre><code>TfidfVectorizer(analyzer=&#39;char_wb&#39;, binary=False, decode_error=&#39;strict&#39;,
+                dtype=&lt;class &#39;numpy.float64&#39;&gt;, encoding=&#39;utf-8&#39;,
+                input=&#39;content&#39;, lowercase=True, max_df=1.0, max_features=1000,
+                min_df=1, ngram_range=(1, 3), norm=&#39;l2&#39;,
+                preprocessor=&lt;function remove_noise at 0x00000225D2AEBBF8&gt;,
+                smooth_idf=True, stop_words=None, strip_accents=None,
+                sublinear_tf=False, token_pattern=&#39;(?u)\\b\\w\\w+\\b&#39;,
+                tokenizer=None, use_idf=True, vocabulary=None)
+</code></pre><h2 id="构建朴素贝叶斯模型"><a href="#构建朴素贝叶斯模型" class="headerlink" title="构建朴素贝叶斯模型"></a>构建朴素贝叶斯模型</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> MultinomialNB</span><br><span class="line">classifier = MultinomialNB()</span><br><span class="line">classifier.fit(vec.transform(list(X_train)), list(y_train))</span><br></pre></td></tr></table></figure>
+<pre><code>MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">classifier.score(vec.transform(X_test), y_test)</span><br></pre></td></tr></table></figure>
+<pre><code>0.9907366563740626
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">classifier.predict(vec.transform([<span class="string">"my name is MaxMa"</span>]))</span><br></pre></td></tr></table></figure>
+<pre><code>array([&#39;en&#39;], dtype=&#39;&lt;U2&#39;)
+</code></pre><h2 id="规范化书写"><a href="#规范化书写" class="headerlink" title="规范化书写"></a>规范化书写</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer,TfidfVectorizer</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> MultinomialNB</span><br><span class="line"><span class="keyword">from</span> joblib <span class="keyword">import</span> dump, load</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LanguageDetector</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 成员函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, classifier=MultinomialNB<span class="params">()</span>,vec_style=<span class="string">'tfidf'</span>)</span>:</span></span><br><span class="line">        self.classifier = classifier</span><br><span class="line">        <span class="keyword">if</span> vec_style==<span class="string">'count'</span>:</span><br><span class="line">            self.vectorizer = CountVectorizer(ngram_range=(<span class="number">1</span>,<span class="number">3</span>),analyzer=<span class="string">'char_wb'</span>, max_features=<span class="number">2000</span>, preprocessor=self._remove_noise)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.vectorizer = TfidfVectorizer(ngram_range=(<span class="number">1</span>,<span class="number">3</span>),analyzer=<span class="string">'char_wb'</span>, max_features=<span class="number">2000</span>, preprocessor=self._remove_noise)</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="comment"># 私有函数，数据清洗</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_remove_noise</span><span class="params">(self, document)</span>:</span></span><br><span class="line">        noise_pattern = re.compile(<span class="string">"|"</span>.join([<span class="string">"http\S+"</span>, <span class="string">"\@\w+"</span>, <span class="string">"\#\w+"</span>]))</span><br><span class="line">        clean_text = re.sub(noise_pattern, <span class="string">""</span>, document)</span><br><span class="line">        <span class="keyword">return</span> clean_text</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 特征构建</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">features</span><span class="params">(self, X)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.vectorizer.transform(X)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 拟合数据</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line">        self.vectorizer.fit(X)</span><br><span class="line">        self.classifier.fit(self.features(X), y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 预估类别</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.classifier.predict(self.features([x]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 测试集评分</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">score</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.classifier.score(self.features(X), y)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 模型持久化存储</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">save_model</span><span class="params">(self, path)</span>:</span></span><br><span class="line">        dump((self.classifier, self.vectorizer), path)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 模型加载</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_model</span><span class="params">(self, path)</span>:</span></span><br><span class="line">        self.classifier, self.vectorizer = load(path)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">language_detector = LanguageDetector()</span><br><span class="line">language_detector.fit(list(X_train), y_train)</span><br><span class="line">print(language_detector.predict(<span class="string">'This is an English sentence'</span>))</span><br><span class="line">print(language_detector.score(list(X_test), y_test))</span><br></pre></td></tr></table></figure>
+<pre><code>[&#39;en&#39;]
+0.992501102779003
+</code></pre><h2 id="模型保存与加载"><a href="#模型保存与加载" class="headerlink" title="模型保存与加载"></a>模型保存与加载</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模型存储</span></span><br><span class="line">model_path = <span class="string">"model/language_detector.model"</span></span><br><span class="line">language_detector.save_model(model_path)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模型加载</span></span><br><span class="line">new_language_detector = LanguageDetector()</span><br><span class="line">new_language_detector.load_model(model_path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用加载的模型预测</span></span><br><span class="line">new_language_detector.predict(<span class="string">"10 der welt sind bei"</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([&#39;de&#39;], dtype=&#39;&lt;U2&#39;)
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80NTk2OS8yMjQ4MA==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文本分类/">文本分类</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/朴素贝叶斯/">朴素贝叶斯</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/31/Tensorflow2_1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">【日月光华】TensorFlow2.0(一)--tf.keras</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目背景及主要内容"><span class="nav-number">1.</span> <span class="nav-text">项目背景及主要内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据介绍"><span class="nav-number">2.</span> <span class="nav-text">数据介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一：用pandas读入csv"><span class="nav-number">2.1.</span> <span class="nav-text">方法一：用pandas读入csv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二：用open的方式，直接按行进行读取"><span class="nav-number">2.2.</span> <span class="nav-text">方法二：用open的方式，直接按行进行读取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据预处理"><span class="nav-number">3.</span> <span class="nav-text">数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#训练集与测试集的切分"><span class="nav-number">3.1.</span> <span class="nav-text">训练集与测试集的切分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据清洗"><span class="nav-number">3.2.</span> <span class="nav-text">数据清洗</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本表示"><span class="nav-number">4.</span> <span class="nav-text">文本表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建朴素贝叶斯模型"><span class="nav-number">5.</span> <span class="nav-text">构建朴素贝叶斯模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规范化书写"><span class="nav-number">6.</span> <span class="nav-text">规范化书写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型保存与加载"><span class="nav-number">7.</span> <span class="nav-text">模型保存与加载</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2019 MaxMa All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            MaxMa
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 MaxMa All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
