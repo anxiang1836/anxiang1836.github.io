@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>wordcloud-词云 | MaxMa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="wordcloud">
+  
+  
+  
+  
+  <meta name="description" content="文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！） (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)  词云的食用方式- 1.对数据集的文本进行分词（Jieba） - 2.数据清洗（去停用词等）">
+<meta name="keywords" content="wordcloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WordCloud-词云">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/10/06/WordCloud/index.html">
+<meta property="og:site_name" content="MaxMa">
+<meta property="og:description" content="文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！） (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)  词云的食用方式- 1.对数据集的文本进行分词（Jieba） - 2.数据清洗（去停用词等）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_15_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_16_0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_18_1.png">
+<meta property="og:updated_time" content="2019-10-05T17:16:17.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WordCloud-词云">
+<meta name="twitter:description" content="文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！） (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)  词云的食用方式- 1.对数据集的文本进行分词（Jieba） - 2.数据清洗（去停用词等）">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_15_1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-WordCloud" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      WordCloud-词云
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/10/06/WordCloud/" class="article-date">
+	  <time datetime="2019-10-05T17:05:32.000Z" itemprop="datePublished">2019-10-06</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/科学分析工具/">科学分析工具</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！）</p>
+<p>(PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)</p>
+</blockquote>
+<h2 id="词云的食用方式"><a href="#词云的食用方式" class="headerlink" title="词云的食用方式"></a>词云的食用方式</h2><pre><code>- 1.对数据集的文本进行分词（Jieba）
+- 2.数据清洗（去停用词等）
+- 3.词频统计（列出TopK的高频词）
+- 4.将高频词表喂给WordCloud工具库，就可以成图啦。
+</code></pre><p>下面就从上述的4个步骤开始，造个轮子咯！</p>
+<h3 id="引入工具包"><a href="#引入工具包" class="headerlink" title="引入工具包"></a>引入工具包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> IPython.display <span class="keyword">as</span> display</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> jieba    <span class="comment">#分词包</span></span><br><span class="line"><span class="keyword">from</span> wordcloud <span class="keyword">import</span> WordCloud,ImageColorGenerator <span class="comment">#词云包</span></span><br><span class="line"><span class="keyword">from</span> imageio <span class="keyword">import</span> imread</span><br></pre></td></tr></table></figure>
+<h3 id="定义词云creator类"><a href="#定义词云creator类" class="headerlink" title="定义词云creator类"></a>定义词云creator类</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">wordCloud_creator</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,content,background=<span class="string">'white'</span>,img_path=None)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            content:要展示的文本数据集，数据类型为list</span></span><br><span class="line"><span class="string">            background：词云的背景颜色，数据类型为str</span></span><br><span class="line"><span class="string">            img_path：词云的嵌入图片的路径，数据类型为str</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        self._content = content</span><br><span class="line">        self._background = background</span><br><span class="line">        self._img_path = img_path</span><br><span class="line"></span><br><span class="line">        self._word_set = []</span><br><span class="line">        self._word_frequency_pd = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">content</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._content</span><br><span class="line">    </span><br><span class="line"><span class="meta">    @content.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">content</span><span class="params">(self,text)</span>:</span></span><br><span class="line">        self._content = text</span><br><span class="line">        </span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">background</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._background</span><br><span class="line">    </span><br><span class="line"><span class="meta">    @background.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">background</span><span class="params">(self,color)</span>:</span></span><br><span class="line">        self._background = color</span><br><span class="line">    </span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">img_path</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._img_path</span><br><span class="line">    </span><br><span class="line"><span class="meta">    @img_path.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">img_path</span><span class="params">(self,path)</span>:</span></span><br><span class="line">        self._img_path = path</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">back_img</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            display.display(display.Image(self._img_path))</span><br><span class="line">        <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">            print(<span class="string">'File \'&#123;&#125;\' does not exist'</span>.format(self._img_path))</span><br><span class="line">            self._img_path = <span class="literal">None</span></span><br><span class="line">        </span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">word_set</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._word_set</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">preprocess_text</span><span class="params">(self,splitwords_path)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        预处理文本函数，用于对文本进行分词与去停用词处理,并进行词频统计</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        Args：</span></span><br><span class="line"><span class="string">            splitwords_path : 停用词表的文件地址</span></span><br><span class="line"><span class="string">            </span></span><br><span class="line"><span class="string">        Returns：</span></span><br><span class="line"><span class="string">            无返回值，为类成员变量的处理函数。</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        segments = []</span><br><span class="line">        <span class="comment"># 1.先进行分词</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> self._content:</span><br><span class="line">            <span class="comment"># 对content进行分词</span></span><br><span class="line">            segs = jieba.lcut(line)</span><br><span class="line">            <span class="keyword">for</span> seg <span class="keyword">in</span> segs:</span><br><span class="line">                <span class="keyword">if</span> len(seg)&gt;<span class="number">1</span> <span class="keyword">and</span> seg!=<span class="string">'\r'</span> <span class="keyword">and</span> seg!=<span class="string">'\n'</span>:</span><br><span class="line">                    segments.append(seg)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 2.去停用词</span></span><br><span class="line">        words_df=pd.DataFrame(&#123;<span class="string">'segment'</span>:segments&#125;)</span><br><span class="line">        stopwords=pd.read_csv(splitwords_path,index_col=<span class="literal">False</span>,quoting=<span class="number">3</span>,sep=<span class="string">"\t"</span>,names=[<span class="string">'stopword'</span>], encoding=<span class="string">'utf-8'</span>)<span class="comment">#quoting=3全不引用</span></span><br><span class="line">        words_df=words_df[~words_df.segment.isin(stopwords[<span class="string">'stopword'</span>])]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 3.词频统计</span></span><br><span class="line">        words_stat=words_df.groupby(by=[<span class="string">'segment'</span>])[<span class="string">'segment'</span>].agg(&#123;<span class="string">"计数"</span>:np.size&#125;)</span><br><span class="line">        words_stat=words_stat.reset_index().sort_values(by=[<span class="string">"计数"</span>],ascending=<span class="literal">False</span>)</span><br><span class="line">        </span><br><span class="line">        self._word_frequency_pd = words_stat</span><br><span class="line">        self._word_set = words_stat[<span class="string">'segment'</span>].values.tolist()</span><br><span class="line">        </span><br><span class="line">        print(<span class="string">'预处理文本结束！！'</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">draw_wordCloud</span><span class="params">(self,font_path,word_count,max_font_size,bimgColorsflag=None)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        创建词云图的函数</span></span><br><span class="line"><span class="string">        Args：</span></span><br><span class="line"><span class="string">            font_path: 中文字体的文件地址</span></span><br><span class="line"><span class="string">            word_count：需要展示的中文数量</span></span><br><span class="line"><span class="string">            max_font_size：最大频率的词的字体大小</span></span><br><span class="line"><span class="string">            bimgColorsflag:是否需要按照图片的颜色去改变词云的颜色，True为改变颜色；Fasle为不按照图片改变颜色</span></span><br><span class="line"><span class="string">        Returns：</span></span><br><span class="line"><span class="string">            wordcloud：即所创建的wordcloud</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        bimgColors = <span class="literal">None</span></span><br><span class="line">        word_frequence = &#123;x[<span class="number">0</span>]:x[<span class="number">1</span>] <span class="keyword">for</span> x <span class="keyword">in</span> self._word_frequency_pd.head(word_count).values&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> self._img_path==<span class="literal">None</span>:</span><br><span class="line">            wordcloud = WordCloud(font_path = font_path,</span><br><span class="line">                                  background_color = self._background,</span><br><span class="line">                                  max_font_size=max_font_size,</span><br><span class="line">                                  width=<span class="number">1000</span>, height=<span class="number">500</span>)</span><br><span class="line">        <span class="keyword">elif</span> self._img_path!=<span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                bimg=imread(self._img_path)</span><br><span class="line">                wordcloud=WordCloud(mask = bimg,</span><br><span class="line">                                    font_path = font_path,</span><br><span class="line">                                    background_color = self._background,</span><br><span class="line">                                    max_font_size = max_font_size,</span><br><span class="line">                                    width=<span class="number">500</span>, height=<span class="number">500</span>)</span><br><span class="line">                bimgColors=ImageColorGenerator(bimg)</span><br><span class="line">            <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">                print(<span class="string">'File \'&#123;&#125;\' does not exist'</span>.format(self._img_path)) </span><br><span class="line">        </span><br><span class="line">        wordcloud=wordcloud.fit_words(word_frequence)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> bimgColorsflag==<span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">if</span> bimgColors!=<span class="literal">None</span>:</span><br><span class="line">                wordcloud = wordcloud.recolor(color_func=bimgColors)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> wordcloud</span><br></pre></td></tr></table></figure>
+<h2 id="开始正式食用"><a href="#开始正式食用" class="headerlink" title="开始正式食用"></a>开始正式食用</h2><h3 id="读取数据并创建词云creator"><a href="#读取数据并创建词云creator" class="headerlink" title="读取数据并创建词云creator"></a>读取数据并创建词云creator</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_csv(<span class="string">"entertainment_news.csv"</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">df = df.dropna()</span><br><span class="line">content=df[<span class="string">"content"</span>].values.tolist()</span><br><span class="line"></span><br><span class="line">creator = wordCloud_creator(content=content)</span><br></pre></td></tr></table></figure>
+<h3 id="预处理文本"><a href="#预处理文本" class="headerlink" title="预处理文本"></a>预处理文本</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">creator.preprocess_text(<span class="string">'stopwords.txt'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\ADMINI~1\AppData\Local\Temp\jieba.cache
+Loading model cost 0.850 seconds.
+Prefix dict has been built succesfully.
+D:\Anaconda3\lib\site-packages\ipykernel_launcher.py:77: FutureWarning: using a dict on a Series for aggregation
+is deprecated and will be removed in a future version
+
+
+预处理文本结束！！
+</code></pre><h3 id="生成并展示词云"><a href="#生成并展示词云" class="headerlink" title="生成并展示词云"></a>生成并展示词云</h3><h4 id="按照背景图来生成词云"><a href="#按照背景图来生成词云" class="headerlink" title="按照背景图来生成词云"></a>按照背景图来生成词云</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">creator.img_path = <span class="string">'Snoopy_1.png'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">%matplotlib inline</span><br><span class="line">matplotlib.rcParams[<span class="string">'figure.figsize'</span>] = (<span class="number">15.0</span>,<span class="number">10.0</span>)</span><br><span class="line">plt.imshow(creator.draw_wordCloud(font_path=<span class="string">'simhei.ttf'</span>,word_count=<span class="number">500</span>,max_font_size=<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.image.AxesImage at 0x29b79bd3358&gt;
+</code></pre><p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_15_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 看一下，我的这词云的mask图，哈哈，还是有点像的呦！</span></span><br><span class="line">creator.back_img</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_16_0.png" alt="png"></p>
+<h4 id="无背景图生成词云"><a href="#无背景图生成词云" class="headerlink" title="无背景图生成词云"></a>无背景图生成词云</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">creator.img_path = <span class="literal">None</span></span><br><span class="line">matplotlib.rcParams[<span class="string">'figure.figsize'</span>] = (<span class="number">20.0</span>,<span class="number">10.0</span>)</span><br><span class="line">plt.imshow(creator.draw_wordCloud(font_path=<span class="string">'simhei.ttf'</span>,word_count=<span class="number">500</span>,max_font_size=<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.image.AxesImage at 0x29b7a0e8860&gt;
+</code></pre><p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_18_1.png" alt="png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80NTk2OS8yMjQ4MA==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordcloud/">wordcloud</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/05/P1_NB_language_recognizier/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">【项目整理】用朴素贝叶斯完成语种识别器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#词云的食用方式"><span class="nav-number">1.</span> <span class="nav-text">词云的食用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引入工具包"><span class="nav-number">1.1.</span> <span class="nav-text">引入工具包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义词云creator类"><span class="nav-number">1.2.</span> <span class="nav-text">定义词云creator类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始正式食用"><span class="nav-number">2.</span> <span class="nav-text">开始正式食用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取数据并创建词云creator"><span class="nav-number">2.1.</span> <span class="nav-text">读取数据并创建词云creator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预处理文本"><span class="nav-number">2.2.</span> <span class="nav-text">预处理文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成并展示词云"><span class="nav-number">2.3.</span> <span class="nav-text">生成并展示词云</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#按照背景图来生成词云"><span class="nav-number">2.3.1.</span> <span class="nav-text">按照背景图来生成词云</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无背景图生成词云"><span class="nav-number">2.3.2.</span> <span class="nav-text">无背景图生成词云</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2019 MaxMa All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            MaxMa
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 MaxMa All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
