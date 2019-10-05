@@ -274,9 +274,12 @@
 (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)
 
 词云的食用方式- 1.对数据集的文本进行分词（Jieba）
+
 - 2.数据清洗（去停用词等）
+
 - 3.词频统计（列出TopK的高频词）
-- 4.将高频词表喂给WordCloud工具库，就可...
+
+- 4.将高频词表喂给WordCloud工具库...
         </p>
         <p class="article-more-link">
           <a href="/2019/10/06/WordCloud/#more">阅读全文</a>
@@ -867,5 +870,20 @@ RDD：
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
   
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

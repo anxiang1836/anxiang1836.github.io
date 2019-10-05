@@ -11,21 +11,21 @@
   
   
   
-  <meta name="description" content="文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！） (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)  词云的食用方式- 1.对数据集的文本进行分词（Jieba） - 2.数据清洗（去停用词等）">
+  <meta name="description" content="文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！） (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)  词云的食用方式- 1.对数据集的文本进行分词（Jieba）  - 2.数据清洗（去停用词等）">
 <meta name="keywords" content="wordcloud">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WordCloud-词云">
 <meta property="og:url" content="https://anxiang1836.github.io/2019/10/06/WordCloud/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！） (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)  词云的食用方式- 1.对数据集的文本进行分词（Jieba） - 2.数据清洗（去停用词等）">
+<meta property="og:description" content="文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！） (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)  词云的食用方式- 1.对数据集的文本进行分词（Jieba）  - 2.数据清洗（去停用词等）">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_15_1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_16_0.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_18_1.png">
-<meta property="og:updated_time" content="2019-10-05T17:16:17.572Z">
+<meta property="og:updated_time" content="2019-10-05T17:18:57.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WordCloud-词云">
-<meta name="twitter:description" content="文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！） (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)  词云的食用方式- 1.对数据集的文本进行分词（Jieba） - 2.数据清洗（去停用词等）">
+<meta name="twitter:description" content="文本的可视化工具，不像是matplotlib，对于数据又是可以折线图，条形图的，在NLP中，对于文本最常见的也就是词云。（个人感觉这个还不如直接看高频词表来的酸爽，词云的最大用处，我觉得就是酷炫，给枯燥的无味的PPT来加分，哈哈！） (PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)  词云的食用方式- 1.对数据集的文本进行分词（Jieba）  - 2.数据清洗（去停用词等）">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/output_15_1.png">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
@@ -206,8 +206,11 @@
 <p>(PS:当然，对于文本分类，查看各类中的分布情况用条形图是必须的。)</p>
 </blockquote>
 <h2 id="词云的食用方式"><a href="#词云的食用方式" class="headerlink" title="词云的食用方式"></a>词云的食用方式</h2><pre><code>- 1.对数据集的文本进行分词（Jieba）
+
 - 2.数据清洗（去停用词等）
+
 - 3.词频统计（列出TopK的高频词）
+
 - 4.将高频词表喂给WordCloud工具库，就可以成图啦。
 </code></pre><p>下面就从上述的4个步骤开始，造个轮子咯！</p>
 <h3 id="引入工具包"><a href="#引入工具包" class="headerlink" title="引入工具包"></a>引入工具包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> IPython.display <span class="keyword">as</span> display</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> jieba    <span class="comment">#分词包</span></span><br><span class="line"><span class="keyword">from</span> wordcloud <span class="keyword">import</span> WordCloud,ImageColorGenerator <span class="comment">#词云包</span></span><br><span class="line"><span class="keyword">from</span> imageio <span class="keyword">import</span> imread</span><br></pre></td></tr></table></figure>
@@ -482,5 +485,20 @@ is deprecated and will be removed in a future version
   
     <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
