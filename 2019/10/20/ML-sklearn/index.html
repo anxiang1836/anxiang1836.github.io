@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="MaxMa">
 <meta property="og:description" content="一、ML的实操的灵魂4问Q1：请写出你了解的机器学习特征工程操作，以及它的意义【解答】： 特征工程是在拿到数据后，将数据进行观测处理，为机器学习算法提供数据，所构建的特征好坏决定着机器学习算法的天花板，所以，对于机器学习算法，特征工程是至关重要的。特征工程一般包括：  缺失值的删除、处理 Scaling幅度缩放：归一化（标准化） 连续值离散化 多项式处理 LabelEncoder/One-Hot变">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-20T11:24:13.269Z">
+<meta property="og:updated_time" content="2019-10-20T11:32:05.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【机器学习】动手实操(Sklearn)">
 <meta name="twitter:description" content="一、ML的实操的灵魂4问Q1：请写出你了解的机器学习特征工程操作，以及它的意义【解答】： 特征工程是在拿到数据后，将数据进行观测处理，为机器学习算法提供数据，所构建的特征好坏决定着机器学习算法的天花板，所以，对于机器学习算法，特征工程是至关重要的。特征工程一般包括：  缺失值的删除、处理 Scaling幅度缩放：归一化（标准化） 连续值离散化 多项式处理 LabelEncoder/One-Hot变">
@@ -246,26 +246,25 @@
   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line">le = LabelEncoder()</span><br><span class="line">le.fit_transform(data)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<pre><code>​    
-</code></pre><ul>
+<ul>
 <li><p>OneHotEncoder</p>
   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<pre><code>PS：xgboost不适合处理高维的稀疏特征，因为，在分裂的时候，只能按照0-1来切分了，本来别人是想切哪里切哪里，怎么切目标函数低怎么切，结果one-hot一下相当于把能切的方案都给限制了。
-</code></pre><ul>
+<p>  PS：xgboost不适合处理高维的稀疏特征，因为，在分裂的时候，只能按照0-1来切分了，本来别人是想切哪里切哪里，怎么切目标函数低怎么切，结果one-hot一下相当于把能切的方案都给限制了。</p>
+<ul>
 <li><p>特征选择</p>
 <ul>
 <li><p>嵌入法</p>
 <p>  其实就是用模型l1正则，然后，用SelFromModel完成特征筛选。</p>
 </li>
 <li><p>包裹法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> RFE</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">rfe = RFE(estimator=RandomForestClassifier(),n_features_to_select=<span class="number">3</span>)</span><br><span class="line">data_rfe = rfe.fit_transform(X,y)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ul>
-<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> RFE</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">rfe = RFE(estimator=RandomForestClassifier(),n_features_to_select=<span class="number">3</span>)</span><br><span class="line">data_rfe = rfe.fit_transform(X,y)</span><br></pre></td></tr></table></figure>
-</code></pre><h3 id="Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？"><a href="#Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？" class="headerlink" title="Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？"></a>Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？</h3><p>【解答】：</p>
+<h3 id="Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？"><a href="#Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？" class="headerlink" title="Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？"></a>Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？</h3><p>【解答】：</p>
 <ul>
 <li><p>留一法：</p>
 <p>  就是选择其中1个数据作为测试，剩下用来训练</p>
