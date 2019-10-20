@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="MaxMa">
 <meta property="og:description" content="一、ML的实操的灵魂4问Q1：请写出你了解的机器学习特征工程操作，以及它的意义【解答】： 特征工程是在拿到数据后，将数据进行观测处理，为机器学习算法提供数据，所构建的特征好坏决定着机器学习算法的天花板，所以，对于机器学习算法，特征工程是至关重要的。特征工程一般包括：  缺失值的删除、处理 Scaling幅度缩放：归一化（标准化） 连续值离散化 多项式处理 LabelEncoder/One-Hot变">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-20T10:48:46.470Z">
+<meta property="og:updated_time" content="2019-10-20T11:10:47.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【机器学习】动手实操(Sklearn)">
 <meta name="twitter:description" content="一、ML的实操的灵魂4问Q1：请写出你了解的机器学习特征工程操作，以及它的意义【解答】： 特征工程是在拿到数据后，将数据进行观测处理，为机器学习算法提供数据，所构建的特征好坏决定着机器学习算法的天花板，所以，对于机器学习算法，特征工程是至关重要的。特征工程一般包括：  缺失值的删除、处理 Scaling幅度缩放：归一化（标准化） 连续值离散化 多项式处理 LabelEncoder/One-Hot变">
@@ -220,10 +220,10 @@
 <li><p>Scaling幅度缩放：</p>
 <ol>
 <li><p>标准化（Standard）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">    ss = StandardScaler()</span><br><span class="line">ss.fit_transform(data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">   ss = StandardScaler()</span><br><span class="line">ss.fit_transform(data)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>归一化（MinMax）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line">    min_max = MinMaxScaler()</span><br><span class="line">min_max.fit_transform(data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line">   min_max = MinMaxScaler()</span><br><span class="line">min_max.fit_transform(data)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -264,11 +264,7 @@
 </ul>
 </li>
 </ul>
-<pre><code>    from sklearn.feature_selection import RFE
-    from sklearn.ensemble import RandomForestClassifier
-
-    rfe = RFE(estimator=RandomForestClassifier(),n_features_to_select=3)
-    data_rfe = rfe.fit_transform(X,y)
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> RFE</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">rfe = RFE(estimator=RandomForestClassifier(),n_features_to_select=<span class="number">3</span>)</span><br><span class="line">data_rfe = rfe.fit_transform(X,y)</span><br></pre></td></tr></table></figure>
 </code></pre><h3 id="Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？"><a href="#Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？" class="headerlink" title="Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？"></a>Q3：模型评估中的留一法，留出法，交叉验证分别是什么操作？</h3><p>【解答】：</p>
 <ul>
 <li><p>留一法：</p>
@@ -299,133 +295,15 @@
 </ul>
 <h2 id="二、实操应用——信用卡欺诈"><a href="#二、实操应用——信用卡欺诈" class="headerlink" title="二、实操应用——信用卡欺诈"></a>二、实操应用——信用卡欺诈</h2><h3 id="前期数据导入-预览及处理"><a href="#前期数据导入-预览及处理" class="headerlink" title="前期数据导入,预览及处理"></a>前期数据导入,预览及处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 忽略warnings</span></span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">'ignore'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自动输出每个cell的运行时间</span></span><br><span class="line">%load_ext autotime</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">pd.set_option(<span class="string">'display.max_columns'</span>, <span class="number">500</span>)</span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">with</span> zipfile.ZipFile(<span class="string">'KaggleCredit2.csv.zip'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> z:</span><br><span class="line">    f = z.open(<span class="string">'KaggleCredit2.csv'</span>)</span><br><span class="line">    data = pd.read_csv(f, index_col=<span class="number">0</span>)</span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>SeriousDlqin2yrs</th>
-      <th>RevolvingUtilizationOfUnsecuredLines</th>
-      <th>age</th>
-      <th>NumberOfTime30-59DaysPastDueNotWorse</th>
-      <th>DebtRatio</th>
-      <th>MonthlyIncome</th>
-      <th>NumberOfOpenCreditLinesAndLoans</th>
-      <th>NumberOfTimes90DaysLate</th>
-      <th>NumberRealEstateLoansOrLines</th>
-      <th>NumberOfTime60-89DaysPastDueNotWorse</th>
-      <th>NumberOfDependents</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>0.766127</td>
-      <td>45.0</td>
-      <td>2.0</td>
-      <td>0.802982</td>
-      <td>9120.0</td>
-      <td>13.0</td>
-      <td>0.0</td>
-      <td>6.0</td>
-      <td>0.0</td>
-      <td>2.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0</td>
-      <td>0.957151</td>
-      <td>40.0</td>
-      <td>0.0</td>
-      <td>0.121876</td>
-      <td>2600.0</td>
-      <td>4.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0</td>
-      <td>0.658180</td>
-      <td>38.0</td>
-      <td>1.0</td>
-      <td>0.085113</td>
-      <td>3042.0</td>
-      <td>2.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0</td>
-      <td>0.233810</td>
-      <td>30.0</td>
-      <td>0.0</td>
-      <td>0.036050</td>
-      <td>3300.0</td>
-      <td>5.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0</td>
-      <td>0.907239</td>
-      <td>49.0</td>
-      <td>1.0</td>
-      <td>0.024926</td>
-      <td>63588.0</td>
-      <td>7.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-  </tbody>
-</table>
-
-
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.shape</span><br></pre></td></tr></table></figure>
 <pre><code>(112915, 11)
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.isnull().sum(axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>SeriousDlqin2yrs                           0
-RevolvingUtilizationOfUnsecuredLines       0
-age                                     4267
-NumberOfTime30-59DaysPastDueNotWorse       0
-DebtRatio                                  0
-MonthlyIncome                              0
-NumberOfOpenCreditLinesAndLoans            0
-NumberOfTimes90DaysLate                    0
-NumberRealEstateLoansOrLines               0
-NumberOfTime60-89DaysPastDueNotWorse       0
-NumberOfDependents                      4267
-dtype: int64
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接删掉了有缺失值的记录（一行）</span></span><br><span class="line">data=data.dropna()</span><br><span class="line">y = data[<span class="string">'SeriousDlqin2yrs'</span>]</span><br><span class="line"><span class="comment"># 删掉了一维特征</span></span><br><span class="line">X = data.drop(<span class="string">'SeriousDlqin2yrs'</span>, axis=<span class="number">1</span>)</span><br><span class="line">y.mean()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SeriousDlqin2yrs                           <span class="number">0</span></span><br><span class="line">RevolvingUtilizationOfUnsecuredLines       <span class="number">0</span></span><br><span class="line">age                                     <span class="number">4267</span></span><br><span class="line">NumberOfTime30<span class="number">-59</span>DaysPastDueNotWorse       <span class="number">0</span></span><br><span class="line">DebtRatio                                  <span class="number">0</span></span><br><span class="line">MonthlyIncome                              <span class="number">0</span></span><br><span class="line">NumberOfOpenCreditLinesAndLoans            <span class="number">0</span></span><br><span class="line">NumberOfTimes90DaysLate                    <span class="number">0</span></span><br><span class="line">NumberRealEstateLoansOrLines               <span class="number">0</span></span><br><span class="line">NumberOfTime60<span class="number">-89</span>DaysPastDueNotWorse       <span class="number">0</span></span><br><span class="line">NumberOfDependents                      <span class="number">4267</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接删掉了有缺失值的记录（一行）</span></span><br><span class="line">data=data.dropna()</span><br><span class="line">y = data[<span class="string">'SeriousDlqin2yrs'</span>]</span><br><span class="line"><span class="comment"># 删掉了一维特征</span></span><br><span class="line">X = data.drop(<span class="string">'SeriousDlqin2yrs'</span>, axis=<span class="number">1</span>)</span><br><span class="line">y.mean()</span><br></pre></td></tr></table></figure>
 <pre><code>0.06742876076872101
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X.info()</span><br></pre></td></tr></table></figure>
-<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-Int64Index: 108648 entries, 0 to 112914
-Data columns (total 10 columns):
-RevolvingUtilizationOfUnsecuredLines    108648 non-null float64
-age                                     108648 non-null float64
-NumberOfTime30-59DaysPastDueNotWorse    108648 non-null float64
-DebtRatio                               108648 non-null float64
-MonthlyIncome                           108648 non-null float64
-NumberOfOpenCreditLinesAndLoans         108648 non-null float64
-NumberOfTimes90DaysLate                 108648 non-null float64
-NumberRealEstateLoansOrLines            108648 non-null float64
-NumberOfTime60-89DaysPastDueNotWorse    108648 non-null float64
-NumberOfDependents                      108648 non-null float64
-dtypes: float64(10)
-memory usage: 9.1 MB
-time: 38.8 ms
-</code></pre><h3 id="实操内容"><a href="#实操内容" class="headerlink" title="实操内容"></a>实操内容</h3><h4 id="Q1：数据切分（样本不均衡；stratify）"><a href="#Q1：数据切分（样本不均衡；stratify）" class="headerlink" title="Q1：数据切分（样本不均衡；stratify）"></a>Q1：数据切分（样本不均衡；stratify）</h4><ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">pandas</span>.<span class="title">core</span>.<span class="title">frame</span>.<span class="title">DataFrame</span>'&gt;</span></span><br><span class="line"><span class="class"><span class="title">Int64Index</span>:</span> <span class="number">108648</span> entries, <span class="number">0</span> to <span class="number">112914</span></span><br><span class="line">Data columns (total <span class="number">10</span> columns):</span><br><span class="line">RevolvingUtilizationOfUnsecuredLines    <span class="number">108648</span> non-null float64</span><br><span class="line">age                                     <span class="number">108648</span> non-null float64</span><br><span class="line">NumberOfTime30<span class="number">-59</span>DaysPastDueNotWorse    <span class="number">108648</span> non-null float64</span><br><span class="line">DebtRatio                               <span class="number">108648</span> non-null float64</span><br><span class="line">MonthlyIncome                           <span class="number">108648</span> non-null float64</span><br><span class="line">NumberOfOpenCreditLinesAndLoans         <span class="number">108648</span> non-null float64</span><br><span class="line">NumberOfTimes90DaysLate                 <span class="number">108648</span> non-null float64</span><br><span class="line">NumberRealEstateLoansOrLines            <span class="number">108648</span> non-null float64</span><br><span class="line">NumberOfTime60<span class="number">-89</span>DaysPastDueNotWorse    <span class="number">108648</span> non-null float64</span><br><span class="line">NumberOfDependents                      <span class="number">108648</span> non-null float64</span><br><span class="line">dtypes: float64(<span class="number">10</span>)</span><br><span class="line">memory usage: <span class="number">9.1</span> MB</span><br></pre></td></tr></table></figure>
+<h3 id="实操内容"><a href="#实操内容" class="headerlink" title="实操内容"></a>实操内容</h3><h4 id="Q1：数据切分（样本不均衡；stratify）"><a href="#Q1：数据切分（样本不均衡；stratify）" class="headerlink" title="Q1：数据切分（样本不均衡；stratify）"></a>Q1：数据切分（样本不均衡；stratify）</h4><ul>
 <li>把数据切分成训练集和测试集<ul>
 <li>tips：train_test_split</li>
 </ul>
@@ -441,76 +319,71 @@ time: 38.8 ms
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> StratifiedKFold</span><br><span class="line"></span><br><span class="line">lr = LogisticRegression(solver=<span class="string">'lbfgs'</span>,random_state=<span class="number">1024</span>,max_iter=<span class="number">1000</span>)</span><br><span class="line"><span class="comment"># 当默认迭代次数最大100时，导致其未实现完全拟合，ConvergenceWarning；所以调整max_iter到1000</span></span><br><span class="line"></span><br><span class="line">lr.fit(X_train,y_train)</span><br></pre></td></tr></table></figure>
-<pre><code>LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
-                   intercept_scaling=1, l1_ratio=None, max_iter=1000,
-                   multi_class=&#39;warn&#39;, n_jobs=None, penalty=&#39;l2&#39;,
-                   random_state=1024, solver=&#39;lbfgs&#39;, tol=0.0001, verbose=0,
-                   warm_start=False)
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 获取特征并转为（列向量）</span></span><br><span class="line">feture = np.array(X.columns).reshape((X.columns.size,<span class="number">1</span>))</span><br><span class="line"><span class="comment"># 获取coef_,并与feture连接成（shape，2）的矩阵</span></span><br><span class="line">feture_importance = np.hstack((feture,lr.coef_.reshape((lr.coef_.size,<span class="number">1</span>))))</span><br><span class="line"><span class="comment"># 将np.array转为DataFrame</span></span><br><span class="line">lr_weight = pd.DataFrame(feture_importance,columns=[<span class="string">'feture'</span>,<span class="string">'weight'</span>])</span><br><span class="line"><span class="comment"># 根据权重进行从小到大排序</span></span><br><span class="line">lr_weight.sort_values(<span class="string">'weight'</span>,ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>feture</th>
-      <th>weight</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>6</th>
-      <td>NumberOfTimes90DaysLate</td>
-      <td>0.526997</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>NumberOfTime30-59DaysPastDueNotWorse</td>
-      <td>0.512845</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>DebtRatio</td>
-      <td>0.17756</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>NumberOfDependents</td>
-      <td>0.0736575</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>MonthlyIncome</td>
-      <td>-4.17822e-05</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>RevolvingUtilizationOfUnsecuredLines</td>
-      <td>-5.10621e-05</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>NumberRealEstateLoansOrLines</td>
-      <td>-0.000780827</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>NumberOfOpenCreditLinesAndLoans</td>
-      <td>-0.0178746</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>age</td>
-      <td>-0.0386368</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>NumberOfTime60-89DaysPastDueNotWorse</td>
-      <td>-1.00415</td>
-    </tr>
-  </tbody>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LogisticRegression(C=<span class="number">1.0</span>, class_weight=<span class="literal">None</span>, dual=<span class="literal">False</span>, fit_intercept=<span class="literal">True</span>,</span><br><span class="line">                   intercept_scaling=<span class="number">1</span>, l1_ratio=<span class="literal">None</span>, max_iter=<span class="number">1000</span>,</span><br><span class="line">                   multi_class=<span class="string">'warn'</span>, n_jobs=<span class="literal">None</span>, penalty=<span class="string">'l2'</span>,</span><br><span class="line">                   random_state=<span class="number">1024</span>, solver=<span class="string">'lbfgs'</span>, tol=<span class="number">0.0001</span>, verbose=<span class="number">0</span>,</span><br><span class="line">                   warm_start=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 获取特征并转为（列向量）</span></span><br><span class="line">feture = np.array(X.columns).reshape((X.columns.size,<span class="number">1</span>))</span><br><span class="line"><span class="comment"># 获取coef_,并与feture连接成（shape，2）的矩阵</span></span><br><span class="line">feture_importance = np.hstack((feture,lr.coef_.reshape((lr.coef_.size,<span class="number">1</span>))))</span><br><span class="line"><span class="comment"># 将np.array转为DataFrame</span></span><br><span class="line">lr_weight = pd.DataFrame(feture_importance,columns=[<span class="string">'feture'</span>,<span class="string">'weight'</span>])</span><br><span class="line"><span class="comment"># 根据权重进行从小到大排序</span></span><br><span class="line">lr_weight.sort_values(<span class="string">'weight'</span>,ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Feture</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6</td>
+<td>NumberOfTimes90DaysLate</td>
+<td>0.526997</td>
+</tr>
+<tr>
+<td>2</td>
+<td>NumberOfTime30-59DaysPastDueNotWorse</td>
+<td>0.512845</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DebtRatio</td>
+<td>0.17756</td>
+</tr>
+<tr>
+<td>9</td>
+<td>NumberOfDependents</td>
+<td>0.0736575</td>
+</tr>
+<tr>
+<td>4</td>
+<td>MonthlyIncome</td>
+<td>-4.17822e-05</td>
+</tr>
+<tr>
+<td>0</td>
+<td>RevolvingUtilizationOfUnsecuredLines</td>
+<td>-5.10621e-05</td>
+</tr>
+<tr>
+<td>7</td>
+<td>NumberRealEstateLoansOrLines</td>
+<td>-0.000780827</td>
+</tr>
+<tr>
+<td>5</td>
+<td>NumberOfOpenCreditLinesAndLoans</td>
+<td>-0.0178746</td>
+</tr>
+<tr>
+<td>1</td>
+<td>age</td>
+<td>-0.0386368</td>
+</tr>
+<tr>
+<td>8</td>
+<td>NumberOfTime60-89DaysPastDueNotWorse</td>
+<td>-1.00415</td>
+</tr>
+</tbody>
 </table>
-
-
-
+</div>
 <p>【解答】：因为逻辑回归是广义上的线性回归，所以feture的重要程度是与weight的大小有关系的，所以模型中，参数的重要程度如上表所示。</p>
 <h4 id="Q3：使用不用的分类模型进行建模"><a href="#Q3：使用不用的分类模型进行建模" class="headerlink" title="Q3：使用不用的分类模型进行建模"></a>Q3：使用不用的分类模型进行建模</h4><ul>
 <li>使用决策树/SVM/KNN…等sklearn分类算法进行分类，尝试了解参数含义，调整不同的参数。<ul>
@@ -553,28 +426,15 @@ time: 1.74 s
 <li>逻辑回归</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> ParameterGrid</span><br><span class="line">param_grid_lr = &#123;<span class="string">'penalty'</span>: [<span class="string">'l1'</span>,<span class="string">'l2'</span>],</span><br><span class="line">              <span class="string">'C'</span>: [<span class="number">0.001</span>, <span class="number">0.01</span>, <span class="number">0.1</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">100</span>]&#125;</span><br><span class="line"></span><br><span class="line">scores,params = nest_cv(LogisticRegression,X=X,y=y,</span><br><span class="line">                        outer_cv=StratifiedKFold(n_splits=<span class="number">5</span>),</span><br><span class="line">                        inner_cv=StratifiedKFold(n_splits=<span class="number">5</span>),</span><br><span class="line">                        param_grid=ParameterGrid(param_grid_lr))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最好的超参数 和 最高得分</span></span><br><span class="line"><span class="keyword">for</span> (s,p) <span class="keyword">in</span> zip(scores,params):</span><br><span class="line">    print(<span class="string">"交叉验证得分为：&#123;&#125; 参数为：&#123;&#125;"</span>.format(s,p))</span><br></pre></td></tr></table></figure>
-<pre><code>交叉验证得分为：0.5215189496335896 参数为：{&#39;C&#39;: 0.1, &#39;penalty&#39;: &#39;l2&#39;}
-交叉验证得分为：0.5040914369249088 参数为：{&#39;C&#39;: 0.1, &#39;penalty&#39;: &#39;l2&#39;}
-交叉验证得分为：0.5116451576392979 参数为：{&#39;C&#39;: 100, &#39;penalty&#39;: &#39;l1&#39;}
-交叉验证得分为：0.5164233146358849 参数为：{&#39;C&#39;: 1, &#39;penalty&#39;: &#39;l2&#39;}
-交叉验证得分为：0.5195360490669915 参数为：{&#39;C&#39;: 1, &#39;penalty&#39;: &#39;l2&#39;}
-time: 1min 49s
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出模型</span></span><br><span class="line">lr = LogisticRegression(C=<span class="number">0.1</span>,penalty=<span class="string">'l2'</span>)</span><br><span class="line">lr</span><br></pre></td></tr></table></figure>
-<pre><code>LogisticRegression(C=0.1, class_weight=None, dual=False, fit_intercept=True,
-                   intercept_scaling=1, l1_ratio=None, max_iter=100,
-                   multi_class=&#39;warn&#39;, n_jobs=None, penalty=&#39;l2&#39;,
-                   random_state=None, solver=&#39;warn&#39;, tol=0.0001, verbose=0,
-                   warm_start=False)
-
-time: 30.4 ms
-</code></pre><ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">交叉验证得分为：<span class="number">0.5215189496335896</span> 参数为：&#123;<span class="string">'C'</span>: <span class="number">0.1</span>, <span class="string">'penalty'</span>: <span class="string">'l2'</span>&#125;</span><br><span class="line">交叉验证得分为：<span class="number">0.5040914369249088</span> 参数为：&#123;<span class="string">'C'</span>: <span class="number">0.1</span>, <span class="string">'penalty'</span>: <span class="string">'l2'</span>&#125;</span><br><span class="line">交叉验证得分为：<span class="number">0.5116451576392979</span> 参数为：&#123;<span class="string">'C'</span>: <span class="number">100</span>, <span class="string">'penalty'</span>: <span class="string">'l1'</span>&#125;</span><br><span class="line">交叉验证得分为：<span class="number">0.5164233146358849</span> 参数为：&#123;<span class="string">'C'</span>: <span class="number">1</span>, <span class="string">'penalty'</span>: <span class="string">'l2'</span>&#125;</span><br><span class="line">交叉验证得分为：<span class="number">0.5195360490669915</span> 参数为：&#123;<span class="string">'C'</span>: <span class="number">1</span>, <span class="string">'penalty'</span>: <span class="string">'l2'</span>&#125;</span><br><span class="line">time: <span class="number">1</span>min <span class="number">49</span>s</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出模型</span></span><br><span class="line">lr = LogisticRegression(C=<span class="number">0.1</span>,penalty=<span class="string">'l2'</span>)</span><br><span class="line">lr</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LogisticRegression(C=<span class="number">0.1</span>, class_weight=<span class="literal">None</span>, dual=<span class="literal">False</span>, fit_intercept=<span class="literal">True</span>,</span><br><span class="line">                   intercept_scaling=<span class="number">1</span>, l1_ratio=<span class="literal">None</span>, max_iter=<span class="number">100</span>,</span><br><span class="line">                   multi_class=<span class="string">'warn'</span>, n_jobs=<span class="literal">None</span>, penalty=<span class="string">'l2'</span>,</span><br><span class="line">                   random_state=<span class="literal">None</span>, solver=<span class="string">'warn'</span>, tol=<span class="number">0.0001</span>, verbose=<span class="number">0</span>,</span><br><span class="line">                   warm_start=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">time: <span class="number">30.4</span> ms</span><br></pre></td></tr></table></figure>
+<ul>
 <li>Xgboost—贝叶斯优化器来调参</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hyperopt <span class="keyword">import</span> fmin, tpe, hp, STATUS_OK, Trials</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hpt_train_test</span><span class="params">(Classifier,X,y,params)</span>:</span></span><br><span class="line">    clf = Classifier(**params)</span><br><span class="line">    scores = []</span><br><span class="line">    <span class="keyword">for</span> train_indexes,val_indexes <span class="keyword">in</span> StratifiedKFold(n_splits=<span class="number">5</span>).split(X,y):</span><br><span class="line">        clf.fit(X.iloc[train_indexes],y.iloc[train_indexes])</span><br><span class="line">        y_true = y.iloc[val_indexes]</span><br><span class="line">        y_socre = clf.predict(X.iloc[val_indexes])</span><br><span class="line">        s = roc_auc_score(y_true,y_socre)</span><br><span class="line">        scores.append(s)</span><br><span class="line">    <span class="keyword">return</span> np.mean(scores)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(params)</span>:</span></span><br><span class="line">    roc = hpt_train_test(XGBClassifier,X_train,y_train,params)</span><br><span class="line">    <span class="comment"># 因为要fmin，所以取负值</span></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">'loss'</span>: -roc, <span class="string">'status'</span>: STATUS_OK&#125;</span><br><span class="line"></span><br><span class="line">space4xgb = &#123;</span><br><span class="line">    <span class="string">'eta'</span>: hp.uniform(<span class="string">'eta'</span>, <span class="number">0.01</span>,<span class="number">0.1</span>),</span><br><span class="line">    <span class="string">'gama'</span>: hp.uniform(<span class="string">'gama'</span>, <span class="number">0.05</span>,<span class="number">1</span>),</span><br><span class="line">    <span class="string">'max_depth'</span>: hp.choice(<span class="string">'max_depth'</span>, range(<span class="number">3</span>,<span class="number">26</span>)),</span><br><span class="line">    <span class="string">'min_child_weight'</span>: hp.choice(<span class="string">'min_child_weight'</span>, range(<span class="number">1</span>,<span class="number">8</span>,<span class="number">2</span>)),</span><br><span class="line">    <span class="string">'subsample'</span>: hp.uniform(<span class="string">'subsample'</span>, <span class="number">0.6</span>,<span class="number">1</span>),</span><br><span class="line">    <span class="string">'colsample_bytree'</span>:hp.uniform(<span class="string">'colsample_bytree'</span>,<span class="number">0.01</span>,<span class="number">1</span>),</span><br><span class="line">    <span class="string">'lambda'</span>:hp.uniform(<span class="string">'lambda'</span>,<span class="number">0.01</span>,<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">trials = Trials()</span><br><span class="line">best = fmin(f, space4xgb, algo=tpe.suggest, max_evals=<span class="number">50</span>, trials=trials)</span><br><span class="line">print(<span class="string">'best:'</span>,best)</span><br></pre></td></tr></table></figure>
-<pre><code>100%|██████████| 50/50 [54:45&lt;00:00, 55.58s/it, best loss: -0.5832977753344738]
-best: {&#39;colsample_bytree&#39;: 0.885302641042877, &#39;eta&#39;: 0.03291623475879335, &#39;gama&#39;: 0.36202750013913637, &#39;lambda&#39;: 0.5405265501553331, &#39;max_depth&#39;: 6, &#39;min_child_weight&#39;: 1, &#39;subsample&#39;: 0.6032183583041595}
-time: 54min 45s
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">params = &#123;</span><br><span class="line">          <span class="string">'eta'</span>: <span class="number">0.03291623475879335</span>, </span><br><span class="line">          <span class="string">'gama'</span>: <span class="number">0.36202750013913637</span>, </span><br><span class="line">          <span class="string">'max_depth'</span>: int(<span class="number">6</span>), </span><br><span class="line">          <span class="string">'min_child_weight'</span>: int(<span class="number">1</span>), </span><br><span class="line">          <span class="string">'subsample'</span>: <span class="number">0.6032183583041595</span>,</span><br><span class="line">          <span class="string">'lambda'</span>: <span class="number">0.5405265501553331</span>,</span><br><span class="line">          <span class="string">'colsample_bytree'</span>: <span class="number">0.885302641042877</span></span><br><span class="line">          &#125;</span><br><span class="line">xgb = XGBClassifier(**params)</span><br><span class="line">xgb.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">xgb_pred = xgb.predict(X_test)</span><br><span class="line">xgb_score = roc_auc_score(y_true,xgb_pred)</span><br><span class="line">xgb_score</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span>%|██████████| <span class="number">50</span>/<span class="number">50</span> [<span class="number">54</span>:<span class="number">45</span>&lt;<span class="number">00</span>:<span class="number">00</span>, <span class="number">55.58</span>s/it, best loss: <span class="number">-0.5832977753344738</span>]</span><br><span class="line">best: &#123;<span class="string">'colsample_bytree'</span>: <span class="number">0.885302641042877</span>, <span class="string">'eta'</span>: <span class="number">0.03291623475879335</span>, <span class="string">'gama'</span>: <span class="number">0.36202750013913637</span>, <span class="string">'lambda'</span>: <span class="number">0.5405265501553331</span>, <span class="string">'max_depth'</span>: <span class="number">6</span>, <span class="string">'min_child_weight'</span>: <span class="number">1</span>, <span class="string">'subsample'</span>: <span class="number">0.6032183583041595</span>&#125;</span><br><span class="line">time: <span class="number">54</span>min <span class="number">45</span>s</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">params = &#123;</span><br><span class="line">          <span class="string">'eta'</span>: <span class="number">0.03291623475879335</span>, </span><br><span class="line">          <span class="string">'gama'</span>: <span class="number">0.36202750013913637</span>, </span><br><span class="line">          <span class="string">'max_depth'</span>: int(<span class="number">6</span>), </span><br><span class="line">          <span class="string">'min_child_weight'</span>: int(<span class="number">1</span>), </span><br><span class="line">          <span class="string">'subsample'</span>: <span class="number">0.6032183583041595</span>,</span><br><span class="line">          <span class="string">'lambda'</span>: <span class="number">0.5405265501553331</span>,</span><br><span class="line">          <span class="string">'colsample_bytree'</span>: <span class="number">0.885302641042877</span></span><br><span class="line">          &#125;</span><br><span class="line">xgb = XGBClassifier(**params)</span><br><span class="line">xgb.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">xgb_pred = xgb.predict(X_test)</span><br><span class="line">xgb_score = roc_auc_score(y_true,xgb_pred)</span><br><span class="line">xgb_score</span><br></pre></td></tr></table></figure>
 <pre><code>0.5906123234440753
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xgb_score_train = roc_auc_score(y_train,xgb.predict(X_train))</span><br><span class="line">xgb_score_train</span><br></pre></td></tr></table></figure>
 <pre><code>0.6144750742639435
@@ -587,93 +447,79 @@ time: 545 ms
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># your code here</span></span><br><span class="line"><span class="comment"># 这里我还是用逻辑回归的结果来评估吧！</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix,f1_score,fbeta_score</span><br><span class="line"></span><br><span class="line">lr.fit(X_train,y_train)</span><br><span class="line">y_true = y_test</span><br><span class="line">y_pred = lr.predict(X_test)</span><br></pre></td></tr></table></figure>
 <pre><code>time: 2.13 s
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conf = confusion_matrix(y_true,y_pred)</span><br><span class="line">f1 = f1_score(y_true,y_pred)</span><br><span class="line">f_beta = fbeta_score(y_true,y_pred,<span class="number">5</span>)</span><br><span class="line">print(<span class="string">"混淆矩阵为:\n"</span>,conf)</span><br><span class="line">print(<span class="string">"F_1分数为:\n"</span>,f1)</span><br><span class="line">print(<span class="string">"F_beta分数:\n"</span>,f_beta)</span><br></pre></td></tr></table></figure>
-<pre><code>混淆矩阵为:
- [[25256    74]
- [ 1733    99]]
-F_1分数为:
- 0.09875311720698254
-F_beta分数:
- 0.0559893850738477
-time: 71.4 ms
-</code></pre><h4 id="Q6：自定义2分类中的判决边界（调整0-5）"><a href="#Q6：自定义2分类中的判决边界（调整0-5）" class="headerlink" title="Q6：自定义2分类中的判决边界（调整0.5）"></a>Q6：自定义2分类中的判决边界（调整0.5）</h4><ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">混淆矩阵为:</span><br><span class="line"> [[<span class="number">25256</span>    <span class="number">74</span>]</span><br><span class="line"> [ <span class="number">1733</span>    <span class="number">99</span>]]</span><br><span class="line">F_1分数为:</span><br><span class="line"> <span class="number">0.09875311720698254</span></span><br><span class="line">F_beta分数:</span><br><span class="line"> <span class="number">0.0559893850738477</span></span><br><span class="line">time: <span class="number">71.4</span> ms</span><br></pre></td></tr></table></figure>
+<h4 id="Q6：自定义2分类中的判决边界（调整0-5）"><a href="#Q6：自定义2分类中的判决边界（调整0-5）" class="headerlink" title="Q6：自定义2分类中的判决边界（调整0.5）"></a>Q6：自定义2分类中的判决边界（调整0.5）</h4><ul>
 <li>银行通常会有更严格的要求，因为fraud带来的后果通常比较严重，一般我们会调整模型的标准。<br>比如在各种分类模型当中，一般我们的概率判定边界为0.5，但是我们可以把阈值设定低一些，来提高模型的“敏感度”<br>试试看把阈值设定为0.3，再看看这个时候的混淆矩阵等评估指标。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取到标签为第二个类别的预测概率</span></span><br><span class="line">y_pred_prob = lr.predict_proba(X_test)[:,<span class="number">1</span>]</span><br><span class="line"><span class="comment"># 这里判定阈值为大于0.3的表示为1</span></span><br><span class="line">y_pred_thres_3 = np.array(y_pred_prob &gt; <span class="number">0.3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新计算评估指标</span></span><br><span class="line">conf_thres_3 = confusion_matrix(y_true,y_pred_thres_3)</span><br><span class="line"><span class="comment"># F1_score</span></span><br><span class="line">f1_thres_3 = f1_score(y_true,y_pred_thres_3)</span><br><span class="line"><span class="comment"># F-beta_score</span></span><br><span class="line">f_beta_thres_3 = fbeta_score(y_true,y_pred_thres_3,<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出计算的结果</span></span><br><span class="line">print(<span class="string">"混淆矩阵为:\n"</span>,conf_thres_3)</span><br><span class="line">print(<span class="string">"F_1分数为:\n"</span>,f1_thres_3)</span><br><span class="line">print(<span class="string">"F_beta分数:\n"</span>,f_beta_thres_3)</span><br></pre></td></tr></table></figure>
-<pre><code>混淆矩阵为:
- [[25104   226]
- [ 1592   240]]
-F_1分数为:
- 0.20887728459530025
-F_beta分数:
- 0.13487226040721045
-time: 149 ms
-</code></pre><h4 id="Q7：特征筛选并重建模型"><a href="#Q7：特征筛选并重建模型" class="headerlink" title="Q7：特征筛选并重建模型"></a>Q7：特征筛选并重建模型</h4><ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">混淆矩阵为:</span><br><span class="line"> [[<span class="number">25104</span>   <span class="number">226</span>]</span><br><span class="line"> [ <span class="number">1592</span>   <span class="number">240</span>]]</span><br><span class="line">F_1分数为:</span><br><span class="line"> <span class="number">0.20887728459530025</span></span><br><span class="line">F_beta分数:</span><br><span class="line"> <span class="number">0.13487226040721045</span></span><br><span class="line">time: <span class="number">149</span> ms</span><br></pre></td></tr></table></figure>
+<h4 id="Q7：特征筛选并重建模型"><a href="#Q7：特征筛选并重建模型" class="headerlink" title="Q7：特征筛选并重建模型"></a>Q7：特征筛选并重建模型</h4><ul>
 <li>尝试对不同特征的重要度进行排序，通过特征选择的方式，对特征进行筛选。并重新建模，观察此时的模型准确率等评估指标。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># your code here</span></span><br><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> RFE</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_predict</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据决策树的训练情况，查看特征的重要程度。</span></span><br><span class="line">tree_clf.fit(X,y)</span><br><span class="line">feature_imp = zip(X.columns,tree_clf.feature_importances_)</span><br><span class="line">feature_imp = pd.DataFrame(feature_imp,columns=[<span class="string">"features"</span>,<span class="string">"importance"</span>])</span><br><span class="line">feature_imp.sort_values(<span class="string">'importance'</span>,ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>features</th>
-      <th>importance</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>RevolvingUtilizationOfUnsecuredLines</td>
-      <td>0.153979</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>DebtRatio</td>
-      <td>0.145688</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>MonthlyIncome</td>
-      <td>0.138199</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>age</td>
-      <td>0.133760</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>NumberOfOpenCreditLinesAndLoans</td>
-      <td>0.103903</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>NumberOfTime30-59DaysPastDueNotWorse</td>
-      <td>0.093550</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>NumberOfTimes90DaysLate</td>
-      <td>0.072241</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>NumberOfTime60-89DaysPastDueNotWorse</td>
-      <td>0.059271</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>NumberOfDependents</td>
-      <td>0.050715</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>NumberRealEstateLoansOrLines</td>
-      <td>0.048693</td>
-    </tr>
-  </tbody>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Feture</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>RevolvingUtilizationOfUnsecuredLines</td>
+<td>0.153979</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DebtRatio</td>
+<td>0.145688</td>
+</tr>
+<tr>
+<td>4</td>
+<td>MonthlyIncome</td>
+<td>0.138199</td>
+</tr>
+<tr>
+<td>1</td>
+<td>age</td>
+<td>0.133760</td>
+</tr>
+<tr>
+<td>5</td>
+<td>NumberOfOpenCreditLinesAndLoans</td>
+<td>0.103903</td>
+</tr>
+<tr>
+<td>2</td>
+<td>NumberOfTime30-59DaysPastDueNotWorse</td>
+<td>0.093550</td>
+</tr>
+<tr>
+<td>6</td>
+<td>NumberOfTimes90DaysLate</td>
+<td>0.072241</td>
+</tr>
+<tr>
+<td>8</td>
+<td>NumberOfTime60-89DaysPastDueNotWorse</td>
+<td>0.059271</td>
+</tr>
+<tr>
+<td>9</td>
+<td>NumberOfDependents</td>
+<td>0.050715</td>
+</tr>
+<tr>
+<td>7</td>
+<td>NumberRealEstateLoansOrLines</td>
+<td>0.048693</td>
+</tr>
+</tbody>
 </table>
-
-
+</div>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里就选用决策树进行作业题的联系演示吧，其实随机森林在我的小macos上跑不动，就选个简单的模型吧！</span></span><br><span class="line">rfe = RFE(estimator=tree_clf, n_features_to_select=<span class="number">6</span>)</span><br><span class="line">X_rfe = rfe.fit_transform(X,y)</span><br><span class="line">X_rfe.shape</span><br><span class="line"></span><br><span class="line">X_train_rfe,X_test_rfe,y_train_rfe,y_test_rfe = train_test_split(X_rfe,y,stratify=y)</span><br><span class="line">tree_clf.fit(X_train_rfe,y_train_rfe)</span><br><span class="line"></span><br><span class="line">y_true = y_test_rfe</span><br><span class="line">tree_pred = tree_clf.predict(X_test_rfe)</span><br><span class="line">tree_score_test = roc_auc_score(y_true,tree_pred)</span><br><span class="line">tree_score_train = roc_auc_score(y_train_rfe,tree_clf.predict(X_train_rfe))</span><br><span class="line">tree_score_test,tree_score_train</span><br></pre></td></tr></table></figure>
 <pre><code>(0.5713903569390101, 0.999818016378526)
 </code></pre><p>贼尴尬，roc不升反而降低了,看了一下训练指标，额，发现严重的过拟合了。</p>
