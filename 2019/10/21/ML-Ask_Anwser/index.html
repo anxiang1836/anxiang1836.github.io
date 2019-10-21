@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>【机器学习】灵魂19问 | MaxMa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="机器学习">
+  
+  
+  
+  
+  <meta name="description" content="Q1:有哪些你熟悉的监督学习和无监督学习算法？ 监督学习： 线性回归 逻辑回归 SVM（SVC &amp;amp;&amp;amp; SVR） 决策树 朴素贝叶斯 神经网络   无监督学习： K-means PCA    Q2:生成模型和判别模型的区别？ 判别模型：  是直接根据现有的数据，通过数据集给定的X，学习到相应的决策函数，来预测Y； 生成模型：  是先学习到数据集上的联合概率分布情况，然后，再进一步从联">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【机器学习】灵魂19问">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/10/21/ML-Ask_Anwser/index.html">
+<meta property="og:site_name" content="MaxMa">
+<meta property="og:description" content="Q1:有哪些你熟悉的监督学习和无监督学习算法？ 监督学习： 线性回归 逻辑回归 SVM（SVC &amp;amp;&amp;amp; SVR） 决策树 朴素贝叶斯 神经网络   无监督学习： K-means PCA    Q2:生成模型和判别模型的区别？ 判别模型：  是直接根据现有的数据，通过数据集给定的X，学习到相应的决策函数，来预测Y； 生成模型：  是先学习到数据集上的联合概率分布情况，然后，再进一步从联">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190824164158.png">
+<meta property="og:updated_time" content="2019-10-21T15:38:54.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【机器学习】灵魂19问">
+<meta name="twitter:description" content="Q1:有哪些你熟悉的监督学习和无监督学习算法？ 监督学习： 线性回归 逻辑回归 SVM（SVC &amp;amp;&amp;amp; SVR） 决策树 朴素贝叶斯 神经网络   无监督学习： K-means PCA    Q2:生成模型和判别模型的区别？ 判别模型：  是直接根据现有的数据，通过数据集给定的X，学习到相应的决策函数，来预测Y； 生成模型：  是先学习到数据集上的联合概率分布情况，然后，再进一步从联">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190824164158.png">
+  
+    <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ML-Ask_Anwser" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      【机器学习】灵魂19问
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/10/21/ML-Ask_Anwser/" class="article-date">
+	  <time datetime="2019-10-21T15:29:51.806Z" itemprop="datePublished">2019-10-21</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Q1-有哪些你熟悉的监督学习和无监督学习算法？"><a href="#Q1-有哪些你熟悉的监督学习和无监督学习算法？" class="headerlink" title="Q1:有哪些你熟悉的监督学习和无监督学习算法？"></a>Q1:有哪些你熟悉的监督学习和无监督学习算法？</h2><ul>
+<li>监督学习：<ol>
+<li>线性回归</li>
+<li>逻辑回归</li>
+<li>SVM（SVC &amp;&amp; SVR）</li>
+<li>决策树</li>
+<li>朴素贝叶斯</li>
+<li>神经网络</li>
+</ol>
+</li>
+<li>无监督学习：<ol>
+<li>K-means</li>
+<li>PCA</li>
+</ol>
+</li>
+</ul>
+<h2 id="Q2-生成模型和判别模型的区别？"><a href="#Q2-生成模型和判别模型的区别？" class="headerlink" title="Q2:生成模型和判别模型的区别？"></a>Q2:生成模型和判别模型的区别？</h2><ul>
+<li>判别模型：<br>  是直接根据现有的数据，通过数据集给定的X，学习到相应的决策函数，来预测Y；</li>
+<li>生成模型：<br>  是先学习到数据集上的联合概率分布情况，然后，再进一步从联合概率的来预测Y。</li>
+</ul>
+<h2 id="Q3-线性分类器与非线性分类器的区别以及优劣"><a href="#Q3-线性分类器与非线性分类器的区别以及优劣" class="headerlink" title="Q3:线性分类器与非线性分类器的区别以及优劣"></a>Q3:线性分类器与非线性分类器的区别以及优劣</h2><ul>
+<li>线性分类器：通过线性函数来拟合数据，即默认数据是线性可分的，优势在于：Hypothesis简单，方便求解；劣势在于：无法对线性不可分的数据集进行很好的拟合；</li>
+<li>非线性分类器：通过非线性函数来拟合数据，将数据映射到高维空间中，实现在高维空间中的可分。优势在于：可处理线性不可分的数据集，且拟合效果好；劣势在于：与线性分类器相比，求解更加复杂。</li>
+</ul>
+<h2 id="Q4-什么是交叉验证，交叉验证如何使用在时间序列上？"><a href="#Q4-什么是交叉验证，交叉验证如何使用在时间序列上？" class="headerlink" title="Q4:什么是交叉验证，交叉验证如何使用在时间序列上？"></a>Q4:什么是交叉验证，交叉验证如何使用在时间序列上？</h2><p>交叉验证是将数据集切成N份，进行N次试验：选取其中的N-1份作为训练集，剩下的1份作为测试集。</p>
+<p>在时间序列上进行交叉验证这里借助一个网上的图片：<br><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190824164158.png" style="zoom:65%"></p>
+<p>就是按照时间序列切成N份，每次运行：都是使用当前折和这一折之前的历史数据，当前折作为测试集，历史数据作为测试集。</p>
+<h2 id="Q5-分类和回归里有哪些你熟悉的评估准则，分别是什么样的含义？"><a href="#Q5-分类和回归里有哪些你熟悉的评估准则，分别是什么样的含义？" class="headerlink" title="Q5:分类和回归里有哪些你熟悉的评估准则，分别是什么样的含义？"></a>Q5:分类和回归里有哪些你熟悉的评估准则，分别是什么样的含义？</h2><ul>
+<li><p>回归评价指标：</p>
+<ol>
+<li>MSE：均方误差，表示的含义为：是预测值-真值间偏差平方和与样本数量的比值，MSE越小，表示模型的预测效果越好。</li>
+<li>RMSE：均方根误差，为MSE的开根号。与MSE的区别就在于开根号后，与原数据的量纲相同。</li>
+<li>MAE：平均绝对误差，表示的含义为：是预测值-真值间偏差绝对值和与样本数量的比值。</li>
+<li>$R^{2}$:R-squared。是MSE/var(y),表示模型对数据的拟合效果的好坏，取值在0-1，越大表示模型效果越好。</li>
+</ol>
+</li>
+<li><p>分类评价指标：</p>
+<ol>
+<li>精度&amp;误差率：精度是分类错误的数量占总数的比例；误差率 =（1-精度）</li>
+<li>准确率P：TP/(TP+FP)</li>
+<li>召回率R：TP/(TP+FN)</li>
+<li>$F_{\beta}$:$\frac{(1+\beta^2)\times P \times R}{(\beta^{2} \times P)+R}$;$\beta$小于1时，准确率影响更大；$\beta$大于1时，召回率更有影响。</li>
+<li>AUC：预测为正例的概率值比预测为负例的概率值还要大的可能性。</li>
+</ol>
+</li>
+</ul>
+<h2 id="Q6-对于不均衡的数据分类，我们如何处理"><a href="#Q6-对于不均衡的数据分类，我们如何处理" class="headerlink" title="Q6:对于不均衡的数据分类，我们如何处理"></a>Q6:对于不均衡的数据分类，我们如何处理</h2><p>（0）例如现实中正负样本本身就存在着很明显的不均衡存在的，获取更多的数据，选取合适的评价指标；</p>
+<p>（1）当数据量都非常充足的时候，那就用下采样方法；</p>
+<p>（2）当数据量不是非常充足的时候，用过采样方法；也可采用代价敏感方法，给赋予权重；</p>
+<h2 id="Q7-如何检测异常值？"><a href="#Q7-如何检测异常值？" class="headerlink" title="Q7:如何检测异常值？"></a>Q7:如何检测异常值？</h2><p>一般来讲是：</p>
+<ol>
+<li>对单维度的数据进行箱线图数值计算，1.5IQR之外的就认为是异常值；</li>
+</ol>
+<p>后面我又google了一下，除此之外，还有：</p>
+<p><a href="https://segmentfault.com/a/1190000017322298" target="_blank" rel="noopener">https://segmentfault.com/a/1190000017322298</a></p>
+<ol>
+<li><p>z-score：给数据进行标准化，然后，通过划定阈值2.5 或 3.0 或 3.5，大于这个阈值的就认定为是异常值；</p>
+</li>
+<li><p>DBSCAN：基于密度的离群值检测方法。</p>
+</li>
+<li><p>孤立森林：数据点的孤立数低于阈值，则将数据点定义为异常值。<a href="https://quantdare.com/isolation-forest-algorithm/" target="_blank" rel="noopener">https://quantdare.com/isolation-forest-algorithm/</a></p>
+</li>
+</ol>
+<h2 id="Q8-遇到缺失值，我们有哪些处理方法？"><a href="#Q8-遇到缺失值，我们有哪些处理方法？" class="headerlink" title="Q8:遇到缺失值，我们有哪些处理方法？"></a>Q8:遇到缺失值，我们有哪些处理方法？</h2><p>根据缺失值缺失的数量来看：</p>
+<ul>
+<li><p>如果某一维度上，缺失值数量很大，那么，则可直接将该维度直接删除；</p>
+</li>
+<li><p>如果缺失值数量较小，一般用填充的方法，如中位数、众数等。</p>
+</li>
+</ul>
+<h2 id="Q9-你了解哪些特征工程的处理？"><a href="#Q9-你了解哪些特征工程的处理？" class="headerlink" title="Q9:你了解哪些特征工程的处理？"></a>Q9:你了解哪些特征工程的处理？</h2><p> 从数据中抽取出对结果预测有用的信息。</p>
+<ul>
+<li>数据预处理：<ol>
+<li>数值型：<ul>
+<li>归一化（min-max）/标准化（z-score）</li>
+<li>离散化（分桶）/二值化（小于、大于阈值）</li>
+<li>log变换、Box-Cox变化（将数据转为趋近于正态分布）</li>
+</ul>
+</li>
+<li>类别型：<ul>
+<li>序号编码（label encoding）</li>
+<li>one-hot编码</li>
+<li>特征哈希处理</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Q10-逻辑回归中为何选择sigmoid函数，这个函数有什么特点？"><a href="#Q10-逻辑回归中为何选择sigmoid函数，这个函数有什么特点？" class="headerlink" title="Q10:逻辑回归中为何选择sigmoid函数，这个函数有什么特点？"></a>Q10:逻辑回归中为何选择sigmoid函数，这个函数有什么特点？</h2><p>逻辑回归，假设了预测Y|X是服从贝努利分布的，将其写成指数族分布的形式，在广义线性模型的假设下，可推导出sigmoid函数。</p>
+<p>sigmoid函数的特点：</p>
+<ul>
+<li>严格单调递增，且可导；</li>
+<li>关于（0,0.5）对称；</li>
+<li>值域范围限制在(0,1)之间;</li>
+<li>导数为：$f’(x)=f(x)(1-f(x))$；计算非常方便。</li>
+</ul>
+<h2 id="Q11-逻辑回归中用到的损失函数是什么函数，能求一下它的梯度吗？"><a href="#Q11-逻辑回归中用到的损失函数是什么函数，能求一下它的梯度吗？" class="headerlink" title="Q11:逻辑回归中用到的损失函数是什么函数，能求一下它的梯度吗？"></a>Q11:逻辑回归中用到的损失函数是什么函数，能求一下它的梯度吗？</h2><p>损失函数：</p>
+<script type="math/tex; mode=display">
+J(\theta)=-\frac{1}{m}\sum^{m}_{i=1}[y^{(i)}log(\hat{y}^{(i)})+(1-y^{(i)})log(1-\hat{y}^{(i)})]</script><p>梯度：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+dw &= \frac{1}{m}\sum^{m}_{i=1} x^{(i)}(\hat{y}^{(i)}-y^{(i)})\\\\
+db &= \frac{1}{m}\sum^{m}_{i=1} (\hat{y}^{(i)}-y^{(i)})
+\end{align}</script><h2 id="Q12-讲解一下决策树的建模方法，对于连续值属性它是如何处理的？"><a href="#Q12-讲解一下决策树的建模方法，对于连续值属性它是如何处理的？" class="headerlink" title="Q12:讲解一下决策树的建模方法，对于连续值属性它是如何处理的？"></a>Q12:讲解一下决策树的建模方法，对于连续值属性它是如何处理的？</h2><p>决策树的建模：</p>
+<p>（1）选择分裂点：在不同算法中，评价指标不同：信息增益,信息增益比,Gini指数；</p>
+<p>（2）树的生长：按照（信息增益最大/信息增益比最大/Gini指数最小）的原则循环迭代不断建立树的子树，将子树中最多出现的类别作为当前分值的类别标记；</p>
+<p>（3）停止条件：所有样本都属于同一类别。</p>
+<p>连续值的处理：将该属性上的取值从小至大排列，用每两个数之间的均值，即n-1个离散点将连续值切分为n段。</p>
+<h2 id="Q13-随机森林是一个什么模型？"><a href="#Q13-随机森林是一个什么模型？" class="headerlink" title="Q13:随机森林是一个什么模型？"></a>Q13:随机森林是一个什么模型？</h2><p>是一个监督学习下的集成学习模型。</p>
+<p>通过boostrap sampling进行采样，从样本总采样出T个样本子集，以增加样本扰动；在树的分裂过程中，从待分裂属性中，随机选取部分属性作为属性子集，在属性子集中进行最佳分裂点选取，以增加属性扰动。</p>
+<p>最后，分类通过投票、回归通过简单平均得出最后的集成结果。</p>
+<h2 id="Q14-你了解哪些boosting的模型，Xgboost的原理是什么？"><a href="#Q14-你了解哪些boosting的模型，Xgboost的原理是什么？" class="headerlink" title="Q14:你了解哪些boosting的模型，Xgboost的原理是什么？"></a>Q14:你了解哪些boosting的模型，Xgboost的原理是什么？</h2><p>Boosting模型：是串行集成的集成学习模型，有：AdaBoost和GBDT。</p>
+<ul>
+<li>AdaBoost：通过计算上一颗树的误差来进行重新采样，改变样本的分布（倾向于分错的样本）再进行训练。</li>
+<li><p>GBDT：将上一颗树的结果与真值的偏差作为下一颗树的输入，不断迭代减小模型预测值的偏差。</p>
+</li>
+<li><p>Xgboost原理：在GBDT的基础上，对于目标函数增加了惩罚项（叶子节点数+叶节点权重的L2正则），并对目标函数在$\hat{y}^{(t-1)}$处进行二次泰勒展开，将其从以样本进行的求和转换为以叶节点进行的求和，这样就将原目标函数转化为了二次方程求极值的问题。</p>
+</li>
+</ul>
+<h2 id="Q15-Xgboost和GBDT的主要区别是什么？"><a href="#Q15-Xgboost和GBDT的主要区别是什么？" class="headerlink" title="Q15:Xgboost和GBDT的主要区别是什么？"></a>Q15:Xgboost和GBDT的主要区别是什么？</h2><ol>
+<li>Xgboost优化方法使用了二阶导数，GBDT优化方法使用一阶倒数；</li>
+<li>Xgboost相对于GBDT，增加了惩罚项：（叶子节点的个数，叶子节点的权值L2正则）</li>
+<li>XgBoost使用了Shrinkage策略，降低每次学习的效果，防止过拟合</li>
+<li>XgBoost对特征的缺失值有特别的处理方法</li>
+</ol>
+<h3 id="Q15-1-Xgboost如何处理多分类问题？"><a href="#Q15-1-Xgboost如何处理多分类问题？" class="headerlink" title="Q15.1:Xgboost如何处理多分类问题？"></a>Q15.1:Xgboost如何处理多分类问题？</h3><p>应用OvR方案，即针对于N个分类，分别训练出N个分类器，各分类器的训练内容为：属于当前分类或不属于当前分类。</p>
+<h3 id="Q15-2-Xgboost的缺失值处理逻辑是什么样的？"><a href="#Q15-2-Xgboost的缺失值处理逻辑是什么样的？" class="headerlink" title="Q15.2:Xgboost的缺失值处理逻辑是什么样的？"></a>Q15.2:Xgboost的缺失值处理逻辑是什么样的？</h3><p>对于缺失值，其当做稀疏矩阵，在节点分裂的时候，会被分到左子树和右子树，根据损失选择较优的那一种情况。对于在训练没有缺失值，预测时出现缺失值时，默认被分到右子树中。</p>
+<h3 id="Q15-3-Xgboost如何计算特征重要度？"><a href="#Q15-3-Xgboost如何计算特征重要度？" class="headerlink" title="Q15.3:Xgboost如何计算特征重要度？"></a>Q15.3:Xgboost如何计算特征重要度？</h3><p>Xgboost特征评分：可以看成是被用来分离决策树的次数，次数越多，那么重要度越大。</p>
+<h2 id="Q16-怎么判断模型过拟合，缓解模型过拟合的方法有哪些？"><a href="#Q16-怎么判断模型过拟合，缓解模型过拟合的方法有哪些？" class="headerlink" title="Q16:怎么判断模型过拟合，缓解模型过拟合的方法有哪些？"></a>Q16:怎么判断模型过拟合，缓解模型过拟合的方法有哪些？</h2><p>过拟合的表征：在训练集的效果非常好，但是在测试集中效果一般。</p>
+<p>缓解过拟合的方法：</p>
+<ul>
+<li>增加正则化项；</li>
+<li>调整参数，以降低模型的复杂程度；</li>
+<li>增加数据；</li>
+<li>对于树模型可采用shrikage；对深度学习可采用Dropout</li>
+</ul>
+<h2 id="Q17-L1和L2正则化的区别是什么，如何理解？"><a href="#Q17-L1和L2正则化的区别是什么，如何理解？" class="headerlink" title="Q17:L1和L2正则化的区别是什么，如何理解？"></a>Q17:L1和L2正则化的区别是什么，如何理解？</h2><p>L1正则化相比于L2正则化，可以起到对特征筛选的效果。</p>
+<p>因为L1正则是参数的绝对值之和，在训练时，会很容易将对模型影响较小的特征的参数变为0，而L2正则不会。</p>
+<p>从贝叶斯的角度看：L1正则对参数加入了拉普拉斯分布的先验证，L2正则对参数加入了高斯分布的先验，那么，显然，拉普拉斯分布是在参数为0时的概率密度极大，高斯分布是在0附近的概率密度都很大，显然，二者相比，L1会更容易产生参数为0的。</p>
+<h2 id="Q18-CNN的不同层次处理和功能介绍？"><a href="#Q18-CNN的不同层次处理和功能介绍？" class="headerlink" title="Q18:CNN的不同层次处理和功能介绍？"></a>Q18:CNN的不同层次处理和功能介绍？</h2><ul>
+<li>卷积层：对数据提取局部特征；</li>
+<li>池化层：对卷积层提取到的特征进行下采样；</li>
+<li>全连接层：在整个网络中起到了一个分类器的作用；</li>
+<li>SoftMax：上一层输出的特征向量来计算属于各分类的概率。</li>
+</ul>
+<h2 id="Q19-CNN里的1-1卷积有什么作用？"><a href="#Q19-CNN里的1-1卷积有什么作用？" class="headerlink" title="Q19:CNN里的1*1卷积有什么作用？"></a>Q19:CNN里的1*1卷积有什么作用？</h2><p>它的作用是：</p>
+<ul>
+<li>在不大幅改变网络性能的前提下，减少运算量（瓶颈层嘛）。</li>
+<li>升维/降维（通道的维度）：因为卷积核的大小是1*1的，所以，并不会改变原矩阵的长和宽（padding会改变），用k个1*1的卷积核会改变通道的数量；</li>
+<li>跨通道信息交换：比如原channels数量为C1，用C2个1*1*C1的卷积核，我们可以认为是在通道上从C1到C2的变化，实现通道间的信息交换；</li>
+<li>增加非线性。</li>
+</ul>
+<h3 id="残差网络的残差模块是什么样的？"><a href="#残差网络的残差模块是什么样的？" class="headerlink" title="残差网络的残差模块是什么样的？"></a>残差网络的残差模块是什么样的？</h3><p>Inception模块其实就是各种尺寸的卷积核的mix。</p>
+<p>构成如下：（并列结构）</p>
+<p>（1）n个1*1的卷积核（瓶颈层）+不同尺寸的卷积核：1*1卷积核降低通道数量，不同尺寸的卷积核提取不同大小的特征；</p>
+<p>（2）maxpooling + k个1*1的卷积核（瓶颈层）：pooling并不改变通道数量，所以用1*1的卷积核（瓶颈层）来降低通道数量；</p>
+<p>最后将上述得到的各通道叠加起来，就Over了。</p>
+<h3 id="LSTM为什么能缓解梯度弥散问题？"><a href="#LSTM为什么能缓解梯度弥散问题？" class="headerlink" title="LSTM为什么能缓解梯度弥散问题？"></a>LSTM为什么能缓解梯度弥散问题？</h3><p>LSTM在模型中设置了记忆细胞，通过更新门和遗忘门来选择对历史时刻的信息存储。其在时间序列上，记忆细胞的值也进行传递，其传递的值取决于上一时刻的记忆值和当前的候选值，梯度下降计算时是对上述二者的门进行的，因此，在整个时间序列上，很好地保存下了长期依赖关系，缓解梯度弥散。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80NTk2OS8yMjQ4MA==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/20/ML-sklearn/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">【机器学习】动手实操(Sklearn)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q1-有哪些你熟悉的监督学习和无监督学习算法？"><span class="nav-number">1.</span> <span class="nav-text">Q1:有哪些你熟悉的监督学习和无监督学习算法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q2-生成模型和判别模型的区别？"><span class="nav-number">2.</span> <span class="nav-text">Q2:生成模型和判别模型的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q3-线性分类器与非线性分类器的区别以及优劣"><span class="nav-number">3.</span> <span class="nav-text">Q3:线性分类器与非线性分类器的区别以及优劣</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q4-什么是交叉验证，交叉验证如何使用在时间序列上？"><span class="nav-number">4.</span> <span class="nav-text">Q4:什么是交叉验证，交叉验证如何使用在时间序列上？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q5-分类和回归里有哪些你熟悉的评估准则，分别是什么样的含义？"><span class="nav-number">5.</span> <span class="nav-text">Q5:分类和回归里有哪些你熟悉的评估准则，分别是什么样的含义？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q6-对于不均衡的数据分类，我们如何处理"><span class="nav-number">6.</span> <span class="nav-text">Q6:对于不均衡的数据分类，我们如何处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q7-如何检测异常值？"><span class="nav-number">7.</span> <span class="nav-text">Q7:如何检测异常值？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q8-遇到缺失值，我们有哪些处理方法？"><span class="nav-number">8.</span> <span class="nav-text">Q8:遇到缺失值，我们有哪些处理方法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q9-你了解哪些特征工程的处理？"><span class="nav-number">9.</span> <span class="nav-text">Q9:你了解哪些特征工程的处理？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q10-逻辑回归中为何选择sigmoid函数，这个函数有什么特点？"><span class="nav-number">10.</span> <span class="nav-text">Q10:逻辑回归中为何选择sigmoid函数，这个函数有什么特点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q11-逻辑回归中用到的损失函数是什么函数，能求一下它的梯度吗？"><span class="nav-number">11.</span> <span class="nav-text">Q11:逻辑回归中用到的损失函数是什么函数，能求一下它的梯度吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q12-讲解一下决策树的建模方法，对于连续值属性它是如何处理的？"><span class="nav-number">12.</span> <span class="nav-text">Q12:讲解一下决策树的建模方法，对于连续值属性它是如何处理的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q13-随机森林是一个什么模型？"><span class="nav-number">13.</span> <span class="nav-text">Q13:随机森林是一个什么模型？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q14-你了解哪些boosting的模型，Xgboost的原理是什么？"><span class="nav-number">14.</span> <span class="nav-text">Q14:你了解哪些boosting的模型，Xgboost的原理是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q15-Xgboost和GBDT的主要区别是什么？"><span class="nav-number">15.</span> <span class="nav-text">Q15:Xgboost和GBDT的主要区别是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q15-1-Xgboost如何处理多分类问题？"><span class="nav-number">15.1.</span> <span class="nav-text">Q15.1:Xgboost如何处理多分类问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q15-2-Xgboost的缺失值处理逻辑是什么样的？"><span class="nav-number">15.2.</span> <span class="nav-text">Q15.2:Xgboost的缺失值处理逻辑是什么样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q15-3-Xgboost如何计算特征重要度？"><span class="nav-number">15.3.</span> <span class="nav-text">Q15.3:Xgboost如何计算特征重要度？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q16-怎么判断模型过拟合，缓解模型过拟合的方法有哪些？"><span class="nav-number">16.</span> <span class="nav-text">Q16:怎么判断模型过拟合，缓解模型过拟合的方法有哪些？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q17-L1和L2正则化的区别是什么，如何理解？"><span class="nav-number">17.</span> <span class="nav-text">Q17:L1和L2正则化的区别是什么，如何理解？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q18-CNN的不同层次处理和功能介绍？"><span class="nav-number">18.</span> <span class="nav-text">Q18:CNN的不同层次处理和功能介绍？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q19-CNN里的1-1卷积有什么作用？"><span class="nav-number">19.</span> <span class="nav-text">Q19:CNN里的1*1卷积有什么作用？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#残差网络的残差模块是什么样的？"><span class="nav-number">19.1.</span> <span class="nav-text">残差网络的残差模块是什么样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSTM为什么能缓解梯度弥散问题？"><span class="nav-number">19.2.</span> <span class="nav-text">LSTM为什么能缓解梯度弥散问题？</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2019 MaxMa All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            MaxMa
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 MaxMa All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
