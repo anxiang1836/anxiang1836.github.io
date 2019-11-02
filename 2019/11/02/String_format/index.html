@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>【工具篇】python格式字符串(string.format) | MaxMa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="string.format">
+  
+  
+  
+  
+  <meta name="description" content="原文：Python String Format 译者：youngsterxyf 转载自：http://blog.xiayf.cn/2013/01/26/python-string-format/  每次使用Python的格式字符串（string formatter）我都贼懵圈，并且我都没有认真地理解它们的文档，所以着手编写自己的格式字符串手册。 数字格式化下面的表格展示了使用Python的后起新">
+<meta name="keywords" content="string.format">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【工具篇】Python格式字符串(string.format)">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/11/02/String_format/index.html">
+<meta property="og:site_name" content="MaxMa">
+<meta property="og:description" content="原文：Python String Format 译者：youngsterxyf 转载自：http://blog.xiayf.cn/2013/01/26/python-string-format/  每次使用Python的格式字符串（string formatter）我都贼懵圈，并且我都没有认真地理解它们的文档，所以着手编写自己的格式字符串手册。 数字格式化下面的表格展示了使用Python的后起新">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-02T09:11:54.783Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【工具篇】Python格式字符串(string.format)">
+<meta name="twitter:description" content="原文：Python String Format 译者：youngsterxyf 转载自：http://blog.xiayf.cn/2013/01/26/python-string-format/  每次使用Python的格式字符串（string formatter）我都贼懵圈，并且我都没有认真地理解它们的文档，所以着手编写自己的格式字符串手册。 数字格式化下面的表格展示了使用Python的后起新">
+  
+    <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-String_format" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      【工具篇】Python格式字符串(string.format)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/11/02/String_format/" class="article-date">
+	  <time datetime="2019-11-02T09:09:59.798Z" itemprop="datePublished">2019-11-02</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/实用工具/">实用工具</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原文：<a href="http://mkaz.com/solog/python-string-format" target="_blank" rel="noopener">Python String Format</a></p>
+<p>译者：<a href="https://github.com/youngsterxyf" target="_blank" rel="noopener">youngsterxyf</a></p>
+<p>转载自：<a href="http://blog.xiayf.cn/2013/01/26/python-string-format/" target="_blank" rel="noopener">http://blog.xiayf.cn/2013/01/26/python-string-format/</a></p>
+</blockquote>
+<p>每次使用Python的格式字符串（string formatter）我都贼懵圈，并且我都没有认真地理解它们的文档，所以着手编写自己的格式字符串手册。</p>
+<h2 id="数字格式化"><a href="#数字格式化" class="headerlink" title="数字格式化"></a><strong>数字格式化</strong></h2><p>下面的表格展示了使用Python的后起新秀str.format()格式化数字的多种方法，包含浮点数格式化与整数格式化示例。可使用 <code>print(&quot;FORMAT&quot;.format(NUMBER));</code> 来运行示例，因此你可以运行： <code>print(&quot;{:.2f}&quot;.format(3.1415926));</code> 来得到第一个示例的输出。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数字</th>
+<th>格式</th>
+<th>输出</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.1415926</td>
+<td>{:.2f}</td>
+<td>3.14</td>
+<td>保留小数点后两位</td>
+</tr>
+<tr>
+<td>3.1415926</td>
+<td>{:+.2f}</td>
+<td>+3.14</td>
+<td>带符号保留小数点后两位</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>{:+.2f}</td>
+<td>-1.00</td>
+<td>带符号保留小数点后两位</td>
+</tr>
+<tr>
+<td>2.71828</td>
+<td>{:.0f}</td>
+<td>3</td>
+<td>不带小数</td>
+</tr>
+<tr>
+<td>5</td>
+<td>{:0&gt;2d}</td>
+<td>05</td>
+<td>数字补零 (填充左边, 宽度为2)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>{:x&lt;4d}</td>
+<td>5xxx</td>
+<td>数字补x (填充右边, 宽度为4)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>{:x&lt;4d}</td>
+<td>10xx</td>
+<td>数字补x (填充右边, 宽度为4)</td>
+</tr>
+<tr>
+<td>1000000</td>
+<td>{:,}</td>
+<td>1,000,000</td>
+<td>以逗号分隔的数字格式</td>
+</tr>
+<tr>
+<td>0.25</td>
+<td>{:.2%}</td>
+<td>25.00%</td>
+<td>百分比格式</td>
+</tr>
+<tr>
+<td>1000000000</td>
+<td>{:.2e}</td>
+<td>1.00e+09</td>
+<td>指数记法</td>
+</tr>
+<tr>
+<td>13</td>
+<td>{:10d}</td>
+<td>13</td>
+<td>右对齐 (默认, 宽度为10)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>{:&lt;10d}</td>
+<td>13</td>
+<td>左对齐 (宽度为10)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>{:^10d}</td>
+<td>13</td>
+<td>中间对齐 (宽度为10)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="string-format-基础"><a href="#string-format-基础" class="headerlink" title="string.format()基础"></a>string.format()基础</h2><p>如下是两个基本字符串替换的示例，符号 <code>{}</code> 是替换变量的占位符。若没有指定格式，则直接将变量值作为字符串插入。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">"so much depends upon &#123;&#125;"</span>.format(<span class="string">"a red wheel barrow"</span>)</span><br><span class="line">s2 = <span class="string">"glazed with &#123;&#125; water beside the &#123;&#125; chickens"</span>.format(<span class="string">"rain"</span>, <span class="string">"white"</span>)</span><br></pre></td></tr></table></figure>
+<p>你也可以使用变量的位置数值，在字符串中改变它们，进行格式化时，会更加灵活。如果搞错了顺序，你可以轻易地修正而不需要打乱所有的变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">" &#123;0&#125; is better than &#123;1&#125; "</span>.format(<span class="string">"emacs"</span>, <span class="string">"vim"</span>)</span><br><span class="line">s2 = <span class="string">" &#123;1&#125; is better than &#123;0&#125; "</span>.format(<span class="string">"emacs"</span>, <span class="string">"vim"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="更多-format-的格式字符串方法"><a href="#更多-format-的格式字符串方法" class="headerlink" title="更多.format()的格式字符串方法"></a>更多.format()的格式字符串方法</h2><p><strong>命名参数</strong></p>
+<p>你可以将新的格式字符串用作模板引擎，使用命名参数，这样就不要求有严格的顺序。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">madlib = <span class="string">" I &#123;verb&#125; the &#123;object&#125; off the &#123;place&#125; "</span>.format(verb=<span class="string">"took"</span>, object=<span class="string">"cheese"</span>, place=<span class="string">"table"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>I took the cheese off the table</span><br></pre></td></tr></table></figure>
+<p><strong>多次复用同一个变量</strong></p>
+<p>使用<code>%</code> 格式字符串，要求变量有严格的次序，而.format()方法允许如上所示那样任意排列参数，也允许复用。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">str = <span class="string">"Oh &#123;0&#125;, &#123;0&#125;! wherefore art thou &#123;0&#125;?"</span>.format(<span class="string">"Romeo"</span>)</span><br><span class="line">&gt;&gt;&gt; Oh Romeo, Romeo! wherefore art thou Romeo?</span><br></pre></td></tr></table></figure>
+<p><strong>将数值转换为不同的进制</strong></p>
+<p>可以使用如下字母来将数字转换成字母代表的进制，<strong>d</strong>ecimal，he<strong>x</strong>，<strong>o</strong>ctal, <strong>b</strong>inary。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"&#123;0:d&#125; - &#123;0:x&#125; - &#123;0:o&#125; - &#123;0:b&#125; "</span>.format(<span class="number">21</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">21</span> - <span class="number">15</span> - <span class="number">25</span> <span class="number">-10101</span></span><br></pre></td></tr></table></figure>
+<p><strong>将格式作为函数来使用</strong></p>
+<p>可以将.format()用作函数，这就允许在代码中将普通文本和格式区分开来。例如，你可以在程序的开头包含所有需要使用的格式，然后在后面使用。这也是一种处理国际化的好方法，国际化不仅要求不同的文本，且常常要求不同的数字格式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 定义格式</span></span><br><span class="line">email_f = <span class="string">"Your email address was &#123;email&#125;"</span>.format</span><br><span class="line"></span><br><span class="line"><span class="comment">### 在另一个地方使用</span></span><br><span class="line">print(email_f(email=<span class="string">"bob@example.com"</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="其他技巧"><a href="#其他技巧" class="headerlink" title="其他技巧"></a>其他技巧</h2><p><strong>转义大括号</strong></p>
+<p>使用str.format()时，若你需要使用大括号，只要写两次就可以了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">" The &#123;&#125; set is often represented as &#123; &#123;0&#125; &#125; "</span>.format(<span class="string">"empty"</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>The empty set <span class="keyword">is</span> often represented <span class="keyword">as</span> &#123;<span class="number">0</span>&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80NTk2OS8yMjQ4MA==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string-format/">string.format</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/21/ML-Ask_Anwser/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">【机器学习】灵魂19问</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数字格式化"><span class="nav-number">1.</span> <span class="nav-text">数字格式化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string-format-基础"><span class="nav-number">2.</span> <span class="nav-text">string.format()基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多-format-的格式字符串方法"><span class="nav-number">3.</span> <span class="nav-text">更多.format()的格式字符串方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他技巧"><span class="nav-number">4.</span> <span class="nav-text">其他技巧</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2019 MaxMa All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            MaxMa
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 MaxMa All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
