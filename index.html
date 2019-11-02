@@ -239,6 +239,64 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-zsh-command not found-tensorboard"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/11/02/zsh-command not found-tensorboard/">【工具篇】解决安装oh-my-zsh后出现command not found的问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/11/02/zsh-command not found-tensorboard/" class="article-date">
+	  <time datetime="2019-11-02T11:48:51.529Z" itemprop="datePublished">2019-11-02</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/实用工具/">实用工具</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p class="article-excerpt-content">
+          1、由于.zshrc 没有配置相关环境变量设置，需要将bash 中.bash_profile 全部环境变量加入
+1open .zshrc
+2、下拉找到# User configuration部分，在下面添加，并保存
+1source ~/.bash_profile
+3、返回到zsh下面，执行下面命令后，问题解决。
+1source .zshrc
+
+        </p>
+        <p class="article-more-link">
+          <a href="/2019/11/02/zsh-command not found-tensorboard/#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-String_format"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -794,90 +852,12 @@ RDD：
 
 
   
-    <article id="post-Spark-RDD"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
+
+
+  <nav id="page-nav">
     
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/08/11/Spark-RDD/">PySpark之RDD</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/08/11/Spark-RDD/" class="article-date">
-	  <time datetime="2019-08-11T08:37:03.783Z" itemprop="datePublished">2019-08-11</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/科学分析工具/">科学分析工具</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p class="article-excerpt-content">
-          首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图：
-1 思维导图
-2 正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表：
-验证正则表达式写的对不对的小工具网页：https://regexr.com/
-
-
-
-
-表达式
-含义
-表达式
-含义
-
-
-
-
-[abcd]
-匹配候选集
-(re)su(lt)
-分组，group按照从1编序
-
-
-\.
-匹配”.”
-.
-除\n之外所有的字符
-
-
-\d
-所有数字
-\D
-所有非数字...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/08/11/Spark-RDD/#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+  </nav>
 
 </section>
         
