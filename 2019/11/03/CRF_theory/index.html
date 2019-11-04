@@ -26,7 +26,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191103234823.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191103233706.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191103233837.png">
-<meta property="og:updated_time" content="2019-11-03T16:43:56.546Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191104155457.png">
+<meta property="og:updated_time" content="2019-11-04T13:54:27.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NLP】条件随机场(CRF)(上)--理论基础">
 <meta name="twitter:description" content="在马尔科夫假设中，当前时刻的状态只与其前一时刻的状态有关。但是，在序列标注任务中，当前时刻的状态，应该同该时刻的前后的状态均相关。于是，在很多序列标注任务中，引入了条件随机场（CRF）。 现在处理序列标注任务（NER）常见的深度学习模型一般为：biLSTM-CRF、biLSTM-CNN-CRF，肯定都离不来CRF，先整理一波CRF的笔记，条件随机场（Conditional Random Fiel">
@@ -330,7 +331,7 @@ P(y_1=1,y_2=2,y_3=2|x)&\propto exp(\lambda_1+\lambda_5+\mu_1+\mu_2+\mu_4)\\
 \end{align}</script><h2 id="Linear-CRF的简化表示"><a href="#Linear-CRF的简化表示" class="headerlink" title="Linear-CRF的简化表示"></a>Linear-CRF的简化表示</h2><blockquote>
 <p>其实从示例也可以看出，这才是一个3个字短语的特征函数，就给我整这么复杂，那我要是老长老长一句话，那得麻烦到啥程度啊，所以，还是要对特征函数进行整理，统一起来。</p>
 </blockquote>
-<p>假设，共有$K=K_1+K_2$个特征函数，其中，$K_1$个局部特征函数$t_k$，$K_2$个节点特征函数$s_l$。我们用1个特征函数$f_k(y_{i-1},y_i,x,i)$来统一表示：</p>
+<h3 id="数值表示"><a href="#数值表示" class="headerlink" title="数值表示"></a>数值表示</h3><p>假设，共有$K=K_1+K_2$个特征函数，其中，$K_1$个局部特征函数$t_k$，$K_2$个节点特征函数$s_l$。我们用1个特征函数$f_k(y_{i-1},y_i,x,i)$来统一表示：</p>
 <script type="math/tex; mode=display">
 f_k(y_{i-1},y_i,x,i)=
 \left\{
@@ -352,7 +353,7 @@ w_k=
 <script type="math/tex; mode=display">
 P(y|x)=\frac{1}{Z(x)}exp\sum_{k=1}^K w_kf_k(y,x)</script><p>其中，规范化因子：</p>
 <script type="math/tex; mode=display">
-Z(x)=\sum_y exp\sum_{k=1}^Kw_kf_k(y,x)</script><p>如果对$f_k(y,x)$和$w_k$进行向量化表示：</p>
+Z(x)=\sum_y exp\sum_{k=1}^Kw_kf_k(y,x)</script><h3 id="向量表示"><a href="#向量表示" class="headerlink" title="向量表示"></a>向量表示</h3><p>如果对$f_k(y,x)$和$w_k$进行向量化表示：</p>
 <script type="math/tex; mode=display">
 \begin{align}
    w   &= (w_1,w_2,...,w_K)^T\\
@@ -362,10 +363,147 @@ F(y,x) &= (f_1(y,x),f_2(y,x),...,f_K(y,x))^T
 \begin{align}
 P_w(y|x) &= \frac{exp(w \bullet F(y,x))}{Z_w(x)}\\\\
          &= \frac{exp(w \bullet F(y,x))}{\sum_y exp(w \bullet F(y,x))}
-\end{align}</script><h2 id="Linear-CRF前向后向概率计算"><a href="#Linear-CRF前向后向概率计算" class="headerlink" title="Linear-CRF前向后向概率计算"></a>Linear-CRF前向后向概率计算</h2><blockquote>
+\end{align}</script><h3 id="矩阵表示"><a href="#矩阵表示" class="headerlink" title="矩阵表示"></a>矩阵表示</h3><p>现定义一个$m \times m$的矩阵$M$，$m$为$y$所有可能得状态个数。$M$定义如下：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+M_i(x) &= \bigg[M_i(y_{i-1},y_i|x)\bigg]\\
+       &= \bigg[exp(W_i(y_{i-1},y_i|x))\bigg]\\
+       &= \bigg[exp(\sum_{k=1}^K w_k f_k (y_{i-1},y_i,x,i))\bigg]
+\end{align}</script><blockquote>
+<p>有没有发现矩阵$M$和定义马尔科夫链的状态转移矩阵，非常的类似？</p>
+<ul>
+<li>马尔科夫链：就是状态与状态之间的转移概率</li>
+<li>Linear-CRF：转移的概率是由节点特征函数、局部特征函数分别与其可信度乘积并加和得到的</li>
+</ul>
+</blockquote>
+<p>引入起点和终点标记：$y_0=start,y_{n+1}=stop$</p>
+<p>那么，标记序列$y$的规范化概率可以通过$n+1$个矩阵元素的乘积得到，即：</p>
+<script type="math/tex; mode=display">
+P_w(y|x)=\frac{1}{Z_w(x)}\prod_{i=1}^{n+1} M_i(y_{i-1},y_i|x)</script><p>其中，$Z_w(x)$为规范化因子。</p>
+<script type="math/tex; mode=display">
+Z_w(x)=\sum_{y}exp\sum_{k=1}^K w_kf_k(y,x)</script><blockquote>
+<p>矩阵运算，这不刚好满足了：概率连成并加和的任务，妙啊！而且在实际的运算实现上，又有着非常高的效率。</p>
+</blockquote>
+<h2 id="问题一：Linear-CRF前向后向概率"><a href="#问题一：Linear-CRF前向后向概率" class="headerlink" title="问题一：Linear-CRF前向后向概率"></a>问题一：Linear-CRF前向后向概率</h2><blockquote>
+<p>问题一要解决的问题是：在给定输入序列x和输出序列y时，计算条件概率$P(y_i|x)$和$P(y_{i-1},y_i|x)$以及对应期望。</p>
 <p>要计算条件概率$P(y_i|x)$和$P(y_{i-1},y_i|x)$，可以使用和HMM类似的方法，使用前向后向算法完成。这里对Linear-CRF的前向后向算法进行整理归纳。</p>
 </blockquote>
+<h3 id="前向-后向概率定义"><a href="#前向-后向概率定义" class="headerlink" title="前向-后向概率定义"></a>前向-后向概率定义</h3><p>定义：</p>
+<p>$\alpha_i(y_i|x)$：序列位置$i$的标记是$y_i$时，在<strong>位置$i$之前</strong>的部分标记序列的非规范化概率；【前向】</p>
+<p>$\beta_i(y_i|x)$：序列位置$i$的标记是$y_i$时，在<strong>位置$i$之后</strong>的部分标记序列的非规范化概率；【后向】</p>
+<p>$M_i(y_{i-1},y_i|x)$：在给定$y_{i-1}$时，从$y_{i-1}$转移到$y_i$的非规范化概率；</p>
+<p>$n$：序列的长度，（在0处增加起始标记，在n+1处增加终止标记）</p>
+<p>$m$：$y_i$的取值个数（类比考虑词性共有$m$种）</p>
+<p>我们很容易得到序列位置$i$的标记是$y_{i}$时，在位置$i$之前的部分标记序列的非规范化概率$\alpha_{i}(y_{i}|x)$的递推公式：</p>
+<script type="math/tex; mode=display">
+\alpha_{i+1}(y_{i+1}|x) = \alpha_{i}(y_{i}|x) M_{i+1}(y_{i},y_{i+1}|x) ,i=1,2,..</script><p>我们定义序列的起点处：</p>
+<script type="math/tex; mode=display">
+\alpha_0(y_0|x)=
+\left\{
+    \begin{align}
+        & 1 & y_0 = start\\
+        & 0 & else  
+    \end{align}
+\right.</script><p>用$\alpha_i(x)$表示$m$个可能取值的向量为：</p>
+<script type="math/tex; mode=display">
+\alpha_i(x)=\bigg[\alpha_i(y_i=1|x),\alpha_i(y_i=2|x),...,\alpha_i(y_i=m|x)\bigg]^T</script><p>同时用矩阵$M_i(x)$表示由$M_i(y_{i-1},y_i|x)$形成的$m \times m$阶矩阵：</p>
+<script type="math/tex; mode=display">
+M_i(x)=\bigg[M_i(y_{i-1},y_i|x)\bigg]</script><p>这样，递推公式可以表示为：</p>
+<script type="math/tex; mode=display">
+\alpha_{i+1}^T(x)=\alpha_i^T(x)M_{i+1}(x)</script><p>同理：</p>
+<p>我们定义序列的终点处：</p>
+<script type="math/tex; mode=display">
+\beta_{n+1}=\left\{
+    \begin{align}
+        & 1 & y_{n+1}=stop\\
+        & 0 & else
+    \end{align}
+\right.</script><p>向量化表示：</p>
+<script type="math/tex; mode=display">
+\beta_i(x)=M_{i+1}(x)\beta_{i+1}(x)</script><p>规范化因子$Z(x)$的表达式：</p>
+<script type="math/tex; mode=display">
+Z(x)=\sum_{c=1}^m a_n(y_c|x)</script><p>用向量表示$Z(x)$:</p>
+<script type="math/tex; mode=display">
+Z(x)=\alpha_n^T(x) \bullet \textbf{1}</script><h3 id="前向-后向概率计算"><a href="#前向-后向概率计算" class="headerlink" title="前向-后向概率计算"></a>前向-后向概率计算</h3><p>根据前向、后向的定义:</p>
+<ul>
+<li>序列位置为$i$的标记是$y_i$时的条件概率$P(y_i|x)$：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+P(y_i|x) &= \frac{\alpha_i^T(y_i|x)\beta_i(y_i|x)}{Z(x)}\\\\
+         &= \frac{\alpha_{i}^T(y_i|x)\beta_i(y_i|x)}{\alpha_n^T(x) \bullet \textbf{1}}
+\end{align}</script><ul>
+<li>序列位置为$i$的标记为$y_i$，位置为$i-1$的标记为$y_{i-1}$时的条件概率$P(y_{i-1},y_i|x)$：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+P(y_{i-1},y_i|x) &= \frac{\alpha_{i-1}^T M_i(y_{i-1},y_i|x)\beta_i(y_i|x)}{Z(x)}\\\\
+                 &= \frac{\alpha_{i-1}^T M_i(y_{i-1},y_i|x)\beta_i(y_i|x)}{\alpha_n^T(x) \bullet \textbf{1}}
+\end{align}</script><h3 id="前向-后向期望计算"><a href="#前向-后向期望计算" class="headerlink" title="前向-后向期望计算"></a>前向-后向期望计算</h3><p>根据上面的条件概率，可很容易计算出联合分布$P(x,y)$与条件分布$P(y|x)$的期望。</p>
+<p>特征函数$f_k(y,x)$关于条件分布$P(y|x)$的期望表达式：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+E_{P(y|x)}[f_k] &= E_{P(y|x)}[f_k(y,x)]\\\\
+                &= \sum_{i=1}^{n+1} 
+                   \sum_{y_{i-1},y_i} P(y_{i-1},y_i|x)f_k(y_{i-1},y_i,x,i)\\\\
+                &= \sum_{i=1}^{n+1} 
+                   \sum_{y_{i-1}} f_k(y_{i-1},y_i,x,i)
+                   \frac{\alpha_{i-1}^T M_i(y_{i-1},y_i|x)\beta_i(y_i|x)}
+                        {\alpha_n^T(x) \bullet \textbf{1}}
+\end{align}</script><p>联合分布$P(x,y)$的期望表达式：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+E_{P(x,y)}[f_k] &= \sum_{x,y}P(x,y)\sum_{i=1}^{n+1} f_k(y_{i-1},y_i,x,i)\\\\
+                &= \sum_{x} \bar{P}(x) \sum_{y}P(y|x)
+                   \sum_{i=1}^{n+1} f_k(y_{i-1},y_i,x,i)\\\\
+                &= \sum_{x} \bar{P}(x) \sum_{i=1}^{n+1} 
+                   \sum_{y_{i-1},y_i} f_k(y_{i-1},y_i,x,i)
+                   \frac{\alpha_{i-1}^T M_i(y_{i-1},y_i|x)\beta_i(y_i|x)}
+                        {\alpha_n^T(x) \bullet \textbf{1}}
+\end{align}</script><h2 id="问题二：Linear-CRF训练学习"><a href="#问题二：Linear-CRF训练学习" class="headerlink" title="问题二：Linear-CRF训练学习"></a>问题二：Linear-CRF训练学习</h2><blockquote>
+<p>问题二要解决的问题是：在给定训练数据集$X$和对应的标记序列$Y$，$K$个特征函数$f_k(x,y)$。需要训练学习到$K$个特征函数的权重参数$w_k$。</p>
+</blockquote>
+<p>由于模型参数$w_k$和条件概率$P_w(y|x)$满足y一定的关系，所以，通过权重参数$w_k$是可以直接计算出条件概率$P_w(y|x)$。</p>
+<p>条件概率$P_w(y|x)$与模型参数$w_k$之间的满足以下关系：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+P_w(y|x) = P(y|x) &= \frac{1}{Z_w(x)} exp \sum_{k=1}^K w_k f_k(y,x)\\\\
+         &= \frac{exp \sum_{k=1}^K w_k f_k(y,x)}{\sum_{y} exp \sum_{k=1}^K w_k f_k(y,x)}
+\end{align}</script><p>求解这个问题有很多思路，比如梯度下降法，牛顿法，拟牛顿法。</p>
+<h3 id="梯度下降求解"><a href="#梯度下降求解" class="headerlink" title="梯度下降求解"></a>梯度下降求解</h3><p>这里我采用<font color="red">梯度下降法</font>进行求解。</p>
+<p>在求解模型参数之前，我们需要定义我们的优化函数，一般极大化条件分布$P_w(y|x)$的对数似然函数，这里给其增加了一个指数，$\bar{P}(x,y)$，对数似然函数如下：</p>
+<script type="math/tex; mode=display">
+L(w)=log\prod_{x,y}P_w(y|x)^{\bar{P}(x,y)}=\sum_{x,y}\bar{P}(x,y)log P_w(y|x)</script><blockquote>
+<p><strong>疑问：</strong>加上这个指数的意义是什么呢？</p>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191104155457.png" style="zoom:50%;"></p>
+</blockquote>
+<p>极小化$f(w)=-L(w)$对数似然函数：(公式带入进行整理)</p>
+<script type="math/tex; mode=display">
+\begin{align}
+    f(w) &= -L(w) = -\sum_{x,y}\bar{P}(x,y)log P_w(y|x) &(1)\\
+    将P_w&(y|x)= \frac{1}{Z_w(x)}\prod_{i=1}^{n+1} M_i(y_{i-1},y_i|x)带入式(1):\\
+    f(w) &= -\sum_{x,y}
+                            \bar{P}(x,y) 
+                log\bigg(\frac{1}{Z_w(x)}
+                         \prod_{i=1}^{n+1} M_i(y_{i-1},y_i|x)\bigg) &(2)\\
+       &= \sum_{x,y}\bar{P}(x,y)log Z_w(x) -
+          \sum_{x,y}\bar{P}(x,y)
+                    log\bigg(\prod_{i=1}^{n+1} M_i(y_{i-1},y_i|x)\bigg) &(3)\\
+  将M_i & (y_{i-1},y_i|x) = exp(\sum_{k=1}^K w_k f_k (y_{i-1},y_i,x,i))带入式(3):\\
+  f(w) &=  \sum_{x,y}\bar{P}(x,y)log Z_w(x) -
+           \sum_{x,y}\bar{P}(x,y) 
+                     \bigg[log\bigg(exp\sum_{k=1}^K w_k f_k(y,x)\bigg)\bigg] &(4)\\
+       &= \sum_{x,y}\bar{P}(x,y) log Z_w(x) -
+          \sum_{x,y}\bar{P}(x,y) \sum_{k=1}^K w_k f_k(y,x) &(5)\\
+  将Z_w&(x)=\sum_{y}exp\sum_{k=1}^K w_kf_k(y,x)带入式(5):\\
+  f(w) &= \sum_{x,y}\bar{P}(x,y)\bigg[log 
+                      \bigg( \sum_{y}exp\sum_{k=1}^K w_kf_k(y,x) \bigg) \bigg] -
+          \sum_{x,y}\bar{P}(x,y) \sum_{k=1}^K w_k f_k(y,x) &(6)\\
+       &= \sum_{x}\bar{P}(x)\bigg[log 
+                      \bigg( \sum_{y}exp\sum_{k=1}^K w_kf_k(y,x) \bigg) \bigg] -
+          \sum_{x,y}\bar{P}(x,y) \sum_{k=1}^K w_k f_k(y,x) &(7)\\
 
+\end{align}</script>
       
     </div>
     <footer class="article-footer">
@@ -426,7 +564,7 @@ P_w(y|x) &= \frac{exp(w \bullet F(y,x))}{Z_w(x)}\\\\
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#随机场-RF"><span class="nav-number">1.</span> <span class="nav-text">随机场(RF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔科夫随机场-MRF"><span class="nav-number">2.</span> <span class="nav-text">马尔科夫随机场(MRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场-CRF"><span class="nav-number">3.</span> <span class="nav-text">条件随机场(CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性链条件随机场-Linear-CRF"><span class="nav-number">4.</span> <span class="nav-text">线性链条件随机场(Linear-CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-CRF的参数化形式"><span class="nav-number">5.</span> <span class="nav-text">Linear-CRF的参数化形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-CRF示例"><span class="nav-number">6.</span> <span class="nav-text">Linear-CRF示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-CRF的简化表示"><span class="nav-number">7.</span> <span class="nav-text">Linear-CRF的简化表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-CRF前向后向概率计算"><span class="nav-number">8.</span> <span class="nav-text">Linear-CRF前向后向概率计算</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#随机场-RF"><span class="nav-number">1.</span> <span class="nav-text">随机场(RF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔科夫随机场-MRF"><span class="nav-number">2.</span> <span class="nav-text">马尔科夫随机场(MRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场-CRF"><span class="nav-number">3.</span> <span class="nav-text">条件随机场(CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性链条件随机场-Linear-CRF"><span class="nav-number">4.</span> <span class="nav-text">线性链条件随机场(Linear-CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-CRF的参数化形式"><span class="nav-number">5.</span> <span class="nav-text">Linear-CRF的参数化形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-CRF示例"><span class="nav-number">6.</span> <span class="nav-text">Linear-CRF示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-CRF的简化表示"><span class="nav-number">7.</span> <span class="nav-text">Linear-CRF的简化表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数值表示"><span class="nav-number">7.1.</span> <span class="nav-text">数值表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量表示"><span class="nav-number">7.2.</span> <span class="nav-text">向量表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵表示"><span class="nav-number">7.3.</span> <span class="nav-text">矩阵表示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题一：Linear-CRF前向后向概率"><span class="nav-number">8.</span> <span class="nav-text">问题一：Linear-CRF前向后向概率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前向-后向概率定义"><span class="nav-number">8.1.</span> <span class="nav-text">前向-后向概率定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前向-后向概率计算"><span class="nav-number">8.2.</span> <span class="nav-text">前向-后向概率计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前向-后向期望计算"><span class="nav-number">8.3.</span> <span class="nav-text">前向-后向期望计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题二：Linear-CRF训练学习"><span class="nav-number">9.</span> <span class="nav-text">问题二：Linear-CRF训练学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降求解"><span class="nav-number">9.1.</span> <span class="nav-text">梯度下降求解</span></a></li></ol></li></ol>
     
     </div>
   </aside>
