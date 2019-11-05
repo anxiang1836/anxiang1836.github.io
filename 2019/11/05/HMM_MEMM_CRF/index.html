@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191105170757.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191105171629.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/MEMM.jpg">
-<meta property="og:updated_time" content="2019-11-05T13:33:18.339Z">
+<meta property="og:updated_time" content="2019-11-05T13:46:12.045Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NLP】从HMM到MEMM再到CRF理论串联">
 <meta name="twitter:description" content="在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。 下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。 对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。  硬模型：即为输出即为确值（对于二分类就是0 or 1）  SVM（支持向量机）：最大支持向量的几何间隔驱动的； PLA（感知机模型）：误分类驱动的，$f(w)=sign">
@@ -228,18 +228,16 @@
 <ul>
 <li><p><strong>概率生成模型</strong>。是对$P(X,Y)$进行建模。</p>
 <ul>
-<li><strong>朴素贝叶斯（Naive Bayes）</strong>，朴素贝叶斯这里之所以叫“朴素”，是因为这里做了一个比较强的假设，即$x_i \perp x_j|y （i \ne j）$，就是在给定y的情况下，$x_i$与$x_j$是相互独立的，因此可以简写NB假设为：$P(X|y=1/0)=\prod P(x_i|y=1/0)$</li>
-</ul>
+<li><p><strong>朴素贝叶斯（Naive Bayes）</strong>，朴素贝叶斯这里之所以叫“朴素”，是因为这里做了一个比较强的假设，即$x_i \perp x_j|y （i \ne j）$，就是在给定y的情况下，$x_i$与$x_j$是相互独立的，因此可以简写NB假设为：$P(X|y=1/0)=\prod P(x_i|y=1/0)$</p>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/NB.bmp" style="zoom:50%;"></p>
-<p>如上，用概率图表示NB模型，这里就是也是可以解释道：由于$x_2$与$x_1$间受到$Y$的阻隔，因此，在给定y的情况下，$x_i$与$x_j$是相互独立的。</p>
-<ul>
-<li><strong>隐马尔科夫（Hidden Markov Model）</strong>，当朴素贝叶斯模型中的Y从0/1扩展到Seq(序列)，那么，模型便扩展为了隐马尔科夫模型（HMM）。这里面也有2个假设：<ol>
+<p> 如上，用概率图表示NB模型，这里就是也是可以解释道：由于$x_2$与$x_1$间受到$Y$的阻隔，因此，在给定y的情况下，$x_i$与$x_j$是相互独立的。</p>
+</li>
+<li><p><strong>隐马尔科夫（Hidden Markov Model）</strong>，当朴素贝叶斯模型中的Y从0/1扩展到Seq(序列)，那么，模型便扩展为了隐马尔科夫模型（HMM）。这里面也有2个假设：</p>
+<ol>
 <li>齐次Markov假设</li>
 <li>观测独立假设</li>
 </ol>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/%E7%BB%98%E5%9B%BE1.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/%E7%BB%98%E5%9B%BE1.jpg" style="zoom:50%;"></p>
 </li>
 <li><p><strong>概率判别模型。</strong>是对$P(Y|X)$进行建模。</p>
 <p>例如：逻辑回归（Logistics Regression）/SoftMax Regression。这类问题是对于$P(y|x)$进行建模的，利用最大熵思想（Maximum Entropy Model）驱动模型。（PS：在最大熵原则下，如果给定均值和方差，那么Gaussian Dist熵最大）</p>
@@ -248,17 +246,17 @@
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/MEMM.jpg" style="zoom:50%;"></p>
 <p>PS：这与HMM的模型有点像，但是区别在于：</p>
 <ol>
-<li><p>HMM是生成模型，是对$P(X,Y)$进行建模；MEMM是判别模型，是对$P(Y|X)$进行建模；</p>
-</li>
-<li><p>在HMM中，观测变量是隐变量的输出；在MEMM中，观测变量变成输入了；</p>
-</li>
-<li>HMM中是有观测独立假设的；在MEMM中，并不是观测独立的（直观理解：在词性标注任务上，给$x_2$标注的词性$y_2$并不单单与$x_2$有关，也与上下文$x_1$、$x_3$有关，因此假设更加合理）</li>
+<li>HMM是生成模型，是对$P(X,Y)$进行建模；MEMM是判别模型，是对$P(Y|X)$进行建模；</li>
+<li>在HMM中，观测变量是隐变量的输出；在MEMM中，观测变量变成输入了；</li>
+<li>HMM中是有观测独立假设的；在MEMM中，并不是观测独立的（直观理解：在词性标注任务上，给$x_2$标注的词性$y_2$并不单单与$x_2$有关，也与上下文$x_1$、$x_3$有关，因此假设更加合理。</li>
 </ol>
 <p>MEMM的著名问题（缺点）：</p>
 <p>Label Bias Problem（标注偏差问题）：原因是因为局部归一化。</p>
 </li>
 <li><p><strong>CRF（Condition Random Field）条件随机场模型</strong>。为了打破MEMM的标注偏差问题，将MEMM中的有向变成了无向，解决了局部归一化问题，变成了<strong>全局归一化</strong>。</p>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191103233706.png" style="zoom:80%;"></p>
+</li>
+</ul>
 </li>
 </ul>
 </li>
