@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191103233706.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191103233837.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191104155457.png">
-<meta property="og:updated_time" content="2019-11-04T13:54:27.009Z">
+<meta property="og:updated_time" content="2019-11-05T03:35:07.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NLP】条件随机场(CRF)(上)--理论基础">
 <meta name="twitter:description" content="在马尔科夫假设中，当前时刻的状态只与其前一时刻的状态有关。但是，在序列标注任务中，当前时刻的状态，应该同该时刻的前后的状态均相关。于是，在很多序列标注任务中，引入了条件随机场（CRF）。 现在处理序列标注任务（NER）常见的深度学习模型一般为：biLSTM-CRF、biLSTM-CNN-CRF，肯定都离不来CRF，先整理一波CRF的笔记，条件随机场（Conditional Random Fiel">
@@ -225,7 +225,7 @@
 P\{X_{n+1}=i_{n+1}|X_0=i_0,...,X_n=i_n\}=P\{X_{n+1}=i_{n+1}|X_n=i_n\}</script><p>称$\{X_n,n\in T\}$为马尔科夫过程，该随机过程的统计特性完全由条件概率所决定。</p>
 <blockquote>
 <p><strong>隐马尔科夫模型</strong></p>
-<p>PS：说到了马尔科夫，就不禁想到隐马尔科夫，就稍微扩展一下HMM。</p>
+<p>PS：说到了马尔科夫，就不禁想到隐马尔科夫，就稍微扩展一下HMM。（生成模型）</p>
 <p>这里就要带入一个很经典的例子。MaxMa在天气比较晴朗的时候有极大的可能是高兴的，而在下雨的时候有一定可能是郁闷的。<strong>而现在我们要做的就是根据MaxMa的心情情况来猜测当前的天气信息。</strong></p>
 <p>转自：<a href="https://oldpan.me/archives/markov-random-field-deeplearning" target="_blank" rel="noopener">https://oldpan.me/archives/markov-random-field-deeplearning</a></p>
 </blockquote>
@@ -546,6 +546,15 @@ L(w)=log\prod_{x,y}P_w(y|x)^{\bar{P}(x,y)}=\sum_{x,y}\bar{P}(x,y)log P_w(y|x)</s
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/11/05/HMM_MEMM_CRF/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          【NLP】从HMM到MEMM再到CRF理论串联
+        
+      </div>
+    </a>
   
   
     <a href="/2019/11/02/zsh-command not found-tensorboard/" id="article-nav-older" class="article-nav-link-wrap">
