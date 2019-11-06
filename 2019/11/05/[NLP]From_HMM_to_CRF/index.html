@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191103233837.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/CRF_MaxTuan.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/Calculate_Py_X.png">
-<meta property="og:updated_time" content="2019-11-06T15:19:17.775Z">
+<meta property="og:updated_time" content="2019-11-06T17:01:51.448Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NLP】从隐马尔科夫到条件随机场">
 <meta name="twitter:description" content="在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。 下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。 笔记整理自：Bilibili站上shuhuai008强势手推讲解的白板推导CRF系列课程，课程质量很高！  前序知识串联对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。  硬模型：即为输出即为确值（对于二分类就是0 or">
@@ -606,7 +606,7 @@ P_W(Y|X) &= \frac{exp(W \bullet F(Y,X))}{Z(X,W)}\\\\
 <li><p>Decoding：给定X序列，找到一个最有可能的标注序列，即：$\hat{Y}=argmax P(Y|X)$，其中，$Y=y_1y_2..y_T$</p>
 </li>
 </ul>
-<h4 id="问题一：计算条件概率"><a href="#问题一：计算条件概率" class="headerlink" title="问题一：计算条件概率"></a>问题一：计算条件概率</h4><blockquote>
+<h4 id="问题一：计算条件概率（前向-后向）"><a href="#问题一：计算条件概率（前向-后向）" class="headerlink" title="问题一：计算条件概率（前向-后向）"></a>问题一：计算条件概率（前向-后向）</h4><blockquote>
 <p>问题要解决的问题是：给定$P(Y|X)$，求出$P(y_t=i|X)$</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/Calculate_Py_X.png" style="zoom:40%;"></p>
@@ -619,7 +619,7 @@ P(y_t=i|X) &= \sum_{y_1y_2..y_T}P(Y|X) &(1)\\\\
 P(y_t=i|X) &= \sum_{y<1:t-1>} 
             \sum_{y<t+1,T>} 
                 \frac{1}{Z(X)}\prod_{t'=1}^T \psi_{t'}(y_{t'-1},t_{t'},X) &(2)
-\end{align}</script><p>可以看到，如果按照上式进行求解的话，不加任何的技巧，计算量实在是太大了，实际是不可行的。因此，我们要对式子进行简化。仔细分析一下，尽管后面是一个连乘，但是，每一个乘子的势函数只与2个状态有关，例如：在时刻$t=5$，那么乘子就应该是$\psi_5(y_4,y_5,X)$。所以，我们可以从这里下手，调整运算的次序，进而简化计算的。</p>
+\end{align}</script><p>可以看到，如果按照上式进行求解的话，不加任何的技巧，计算量实在是太大了，复杂度极高，实际是不可行的。因此，我们要对式子进行简化。仔细分析一下，尽管后面是一个连乘，但是，每一个乘子的势函数只与2个状态有关，例如：在时刻$t=5$，那么乘子就应该是$\psi_5(y_4,y_5,X)$。所以，我们可以从这里下手，调整运算的次序，进而简化计算的。</p>
 <p>下面将公式(2)进行整理展开，展开的思路为，我们以$y_t$为核心点，将序列Y切成2段，$<y_0:y_{t-1}>$是一段，$<y_{t+1},y_t>$是一段：</y_{t+1},y_t></y_0:y_{t-1}></p>
 <script type="math/tex; mode=display">
 \begin{align}
@@ -628,8 +628,43 @@ P(y_t=i|X) &= \sum_{y<1:t-1>}
                   \psi_t(y_{t-1},y_t=i,X)\\\\
   \triangle_右 &= \sum_{y<t+1:T>} \psi_t(y_t,y_{t+1},X)\cdot \psi_{t+1}(y_{t+1},y_{t+2},X)         
                         \cdot ... \psi_T(y_{T-1},y_T,X)\\\\
-\end{align}</script><p>我们看，加入是对$y_0$求和，那么在连乘式中，只有$\psi_1$是包含$y_0$的，因此，做$\sum_{y_0} \psi_1(y_0,y_1,X)$。再看$y_1$，由于$y_1$在$\psi_1$和$\psi_2$中都存在，因此，对$y_1$进行求和要在上一个求和基础上把$\psi_2$乘进去，然后进行叠加求和，即：$\sum_{y_1}\bigg(\psi_2(y_1,y_2,X) \cdot \sum_{y_0}[\psi_1(y_0,y_1,X)]\bigg)$。那么，以此类推，可以对$\triangle_左$和$\triangle_右$进行简化，将加和符号分配到其所对应的位置了。</p>
-
+\end{align}</script><p>我们先看对$y_0$求和的部分。在连乘式中，只有$\psi_1$是包含$y_0$的，因此，因此可以将对$y_0$的求和分配到$\psi_1$，即为：$\sum_{y_0} \psi_1(y_0,y_1,X)$。再看$y_1$，由于$y_1$在$\psi_1$和$\psi_2$中都存在，因此，对$y_1$的求和要在上一个求和基础上把$\psi_2$乘进去，然后进行叠加求和，即：$\sum_{y_1}\bigg(\psi_2(y_1,y_2,X) \cdot \sum_{y_0}[\psi_1(y_0,y_1,X)]\bigg)$。那么，以此类推，可以对$\triangle_左$和$\triangle_右$进行简化，将加和符号分配到其所对应的位置。</p>
+<p>然后，我们尝试将其改写为递推公式。为了能够方便简洁书写，引入2个概念定义：</p>
+<blockquote>
+<p>开始写前向的递推公式咯~！</p>
+</blockquote>
+<p>$\alpha_t(y_t=i|X)$：序列位置$t$的标记是$i$时，在<strong>位置$t$之前</strong>的部分标记序列的非规范化概率；【前向】</p>
+<p>我们定义序列的起点处：</p>
+<script type="math/tex; mode=display">
+\alpha_0(y_0|X)=
+\left\{
+    \begin{align}
+        & 1 & y_0 = start\\
+        & 0 & else  
+    \end{align}
+\right.</script><p>结合着$\triangle_左$的展开形式和$\alpha_t$的定义，我们还是从$t=1$开始写起：</p>
+<script type="math/tex; mode=display">
+\alpha_1(y_1=i|X)= \sum_{j \in S} \bigg(\psi_1(y_0=j,y_1=i,X) \cdot\alpha_0(y_0=j|X) \bigg)</script><p>其中，$S$表示$y_t$可以取到的值，比如在词性标注中，$S$就是表示所有的词性集合。（PS：上式中的$\alpha_0=1$，可以再带入进行一步整理，不过为了能够找到递推感觉，我就不再做整理了）。怎么样，怎么样，看到有什么规律了没有，递推的感觉是不是就上来了，很容易就可以写出在$t$位置/时刻的递推公式为，这也是<strong>【前向递推公式】：</strong></p>
+<script type="math/tex; mode=display">
+\alpha_t(y_t=i|X)=\sum_{j \in S} \bigg(\psi_t(y_{t-1}=j,y_t=i,X) \cdot\alpha_{t-1}(y_{t-1}=j|X) \bigg)</script><blockquote>
+<p>然后是后向的递推公式哦~！</p>
+</blockquote>
+<p>$\beta_t(y_t=i|X)$：序列位置$t$的标记是$i$时，在<strong>位置$t$之后</strong>的部分标记序列的非规范化概率；【后向】</p>
+<p>我们定义序列的终点处：</p>
+<script type="math/tex; mode=display">
+\beta_{T+1}=\left\{
+    \begin{align}
+        & 1 & y_{T+1}=stop\\
+        & 0 & else
+    \end{align}
+\right.</script><p>结合着$\triangle_右$的展开形式和$\beta_t$的定义，我们从$t$开始写起：</p>
+<script type="math/tex; mode=display">
+\beta_{t}(y_t=i|X)=\sum_{j \in S} \bigg(\psi_t(y_t=i,y_{t+1}=j,X) \cdot \beta_{t+1}(y_{t+1}=j|X) \bigg)</script><blockquote>
+<p>最后，终于可以下结论咯！！</p>
+</blockquote>
+<p>因此，根据上面的前向-后向递推公式，我们就可以把$P(y_t=i|X)$进行公式表示为：</p>
+<script type="math/tex; mode=display">
+P(y_t=i|X)=\frac{1}{Z(X)} \alpha_t(y_t=i|X) \cdot \beta_t(y_t=i|X)</script>
       
     </div>
     <footer class="article-footer">
@@ -690,7 +725,7 @@ P(y_t=i|X) &= \sum_{y<1:t-1>}
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前序知识串联"><span class="nav-number">1.</span> <span class="nav-text">前序知识串联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HMM-VS-MEMM"><span class="nav-number">2.</span> <span class="nav-text">HMM VS MEMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM模型理解"><span class="nav-number">2.1.</span> <span class="nav-text">HMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM建模"><span class="nav-number">2.2.</span> <span class="nav-text">HMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM示例"><span class="nav-number">2.3.</span> <span class="nav-text">HMM示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM模型理解"><span class="nav-number">2.4.</span> <span class="nav-text">MEMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM建模"><span class="nav-number">2.5.</span> <span class="nav-text">MEMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM特点"><span class="nav-number">2.6.</span> <span class="nav-text">MEMM特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM的缺点"><span class="nav-number">2.7.</span> <span class="nav-text">MEMM的缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机场-RF"><span class="nav-number">3.</span> <span class="nav-text">随机场(RF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔科夫随机场-MRF"><span class="nav-number">4.</span> <span class="nav-text">马尔科夫随机场(MRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MRF因子分解定理"><span class="nav-number">4.1.</span> <span class="nav-text">MRF因子分解定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场-CRF"><span class="nav-number">5.</span> <span class="nav-text">条件随机场(CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性链条件随机场-Linear-CRF"><span class="nav-number">6.</span> <span class="nav-text">线性链条件随机场(Linear-CRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的参数化形式"><span class="nav-number">6.1.</span> <span class="nav-text">Linear-CRF的参数化形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF示例"><span class="nav-number">6.2.</span> <span class="nav-text">Linear-CRF示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的简化表示"><span class="nav-number">6.3.</span> <span class="nav-text">Linear-CRF的简化表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数值表示"><span class="nav-number">6.3.1.</span> <span class="nav-text">数值表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量表示"><span class="nav-number">6.3.2.</span> <span class="nav-text">向量表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF要解决的3个问题"><span class="nav-number">6.4.</span> <span class="nav-text">Linear-CRF要解决的3个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：计算条件概率"><span class="nav-number">6.4.1.</span> <span class="nav-text">问题一：计算条件概率</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前序知识串联"><span class="nav-number">1.</span> <span class="nav-text">前序知识串联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HMM-VS-MEMM"><span class="nav-number">2.</span> <span class="nav-text">HMM VS MEMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM模型理解"><span class="nav-number">2.1.</span> <span class="nav-text">HMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM建模"><span class="nav-number">2.2.</span> <span class="nav-text">HMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM示例"><span class="nav-number">2.3.</span> <span class="nav-text">HMM示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM模型理解"><span class="nav-number">2.4.</span> <span class="nav-text">MEMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM建模"><span class="nav-number">2.5.</span> <span class="nav-text">MEMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM特点"><span class="nav-number">2.6.</span> <span class="nav-text">MEMM特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM的缺点"><span class="nav-number">2.7.</span> <span class="nav-text">MEMM的缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机场-RF"><span class="nav-number">3.</span> <span class="nav-text">随机场(RF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔科夫随机场-MRF"><span class="nav-number">4.</span> <span class="nav-text">马尔科夫随机场(MRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MRF因子分解定理"><span class="nav-number">4.1.</span> <span class="nav-text">MRF因子分解定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场-CRF"><span class="nav-number">5.</span> <span class="nav-text">条件随机场(CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性链条件随机场-Linear-CRF"><span class="nav-number">6.</span> <span class="nav-text">线性链条件随机场(Linear-CRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的参数化形式"><span class="nav-number">6.1.</span> <span class="nav-text">Linear-CRF的参数化形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF示例"><span class="nav-number">6.2.</span> <span class="nav-text">Linear-CRF示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的简化表示"><span class="nav-number">6.3.</span> <span class="nav-text">Linear-CRF的简化表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数值表示"><span class="nav-number">6.3.1.</span> <span class="nav-text">数值表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量表示"><span class="nav-number">6.3.2.</span> <span class="nav-text">向量表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF要解决的3个问题"><span class="nav-number">6.4.</span> <span class="nav-text">Linear-CRF要解决的3个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：计算条件概率（前向-后向）"><span class="nav-number">6.4.1.</span> <span class="nav-text">问题一：计算条件概率（前向-后向）</span></a></li></ol></li></ol></li></ol>
     
     </div>
   </aside>
