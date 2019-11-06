@@ -11,13 +11,13 @@
   
   
   
-  <meta name="description" content="在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。 下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。  前序知识串联对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。  硬模型：即为输出即为确值（对于二分类就是0 or 1）  SVM（支持向量机）：最大支持向量的几何间隔驱动的； PLA（感知机模型）：误分类驱动的，$f(">
+  <meta name="description" content="在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。 下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。 笔记整理自：Bilibili站上shuhuai008强势手推讲解的白板推导CRF系列课程，课程质量很高！  前序知识串联对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。  硬模型：即为输出即为确值（对于二分类就是0 or">
 <meta name="keywords" content="CRF,HMM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【NLP】从隐马尔科夫到条件随机场">
-<meta property="og:url" content="https://anxiang1836.github.io/2019/11/05/HMM_CRF/index.html">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/11/05/[NLP]From_HMM_to_CRF/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。 下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。  前序知识串联对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。  硬模型：即为输出即为确值（对于二分类就是0 or 1）  SVM（支持向量机）：最大支持向量的几何间隔驱动的； PLA（感知机模型）：误分类驱动的，$f(">
+<meta property="og:description" content="在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。 下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。 笔记整理自：Bilibili站上shuhuai008强势手推讲解的白板推导CRF系列课程，课程质量很高！  前序知识串联对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。  硬模型：即为输出即为确值（对于二分类就是0 or">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/NB.bmp">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/%E7%BB%98%E5%9B%BE1.jpg">
@@ -41,10 +41,11 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/CRF_local.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191103233837.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/CRF_MaxTuan.png">
-<meta property="og:updated_time" content="2019-11-06T11:07:53.789Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/Calculate_Py_X.png">
+<meta property="og:updated_time" content="2019-11-06T15:19:17.775Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NLP】从隐马尔科夫到条件随机场">
-<meta name="twitter:description" content="在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。 下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。  前序知识串联对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。  硬模型：即为输出即为确值（对于二分类就是0 or 1）  SVM（支持向量机）：最大支持向量的几何间隔驱动的； PLA（感知机模型）：误分类驱动的，$f(">
+<meta name="twitter:description" content="在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。 下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。 笔记整理自：Bilibili站上shuhuai008强势手推讲解的白板推导CRF系列课程，课程质量很高！  前序知识串联对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。  硬模型：即为输出即为确值（对于二分类就是0 or">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/NB.bmp">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
@@ -185,7 +186,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-HMM_CRF" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-[NLP]From_HMM_to_CRF" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -201,7 +202,7 @@
     
     <div class="article-meta">
       
-	<a href="/2019/11/05/HMM_CRF/" class="article-date">
+	<a href="/2019/11/05/[NLP]From_HMM_to_CRF/" class="article-date">
 	  <time datetime="2019-11-05T02:26:52.821Z" itemprop="datePublished">2019-11-05</time>
 	</a>
 
@@ -223,6 +224,7 @@
         <blockquote>
 <p>在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。</p>
 <p>下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。</p>
+<p>笔记整理自：Bilibili站上<a href="https://space.bilibili.com/97068901" target="_blank" rel="noopener">shuhuai008</a>强势手推讲解的<a href="https://www.bilibili.com/video/av34444816/?p=1" target="_blank" rel="noopener">白板推导CRF系列课程</a>，课程质量很高！</p>
 </blockquote>
 <h2 id="前序知识串联"><a href="#前序知识串联" class="headerlink" title="前序知识串联"></a>前序知识串联</h2><p>对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。</p>
 <ul>
@@ -420,6 +422,7 @@ P(Y|X,\lambda)=\prod_{t=1}^T P(y_t|y_{t-1},x_{1:T},\lambda)</script><h3 id="MEMM
 <p>所以，为了解决局部归一化的问题，CRF取消了$Y$序列的转移方向，也就是取消了局部归一化，改变为了全局归一化。</p>
 <blockquote>
 <p>在引入条件随机场（CRF）之前，我们再看一下，有关于随机场的相关概念。</p>
+<p>以下部分概念定义转载自：刘建平老师的<a href="https://www.cnblogs.com/pinard/p/7048333.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/7048333.html</a></p>
 </blockquote>
 <h2 id="随机场-RF"><a href="#随机场-RF" class="headerlink" title="随机场(RF)"></a>随机场(RF)</h2><p>“随机场”的名字取的很玄乎，其实理解起来不难。随机场是由若干个位置组成的整体，当给每一个位置中按照某种分布（或者是某种概率）随机赋予一个值之后，其全体就叫做随机场。</p>
 <p>以词性标注为例：</p>
@@ -592,7 +595,41 @@ F(Y,X) =
 \begin{align}
 P_W(Y|X) &= \frac{exp(W \bullet F(Y,X))}{Z(X,W)}\\\\
          &= \frac{exp(W \bullet F(Y,X))}{\sum_Y exp(W \bullet F(Y,X))}
-\end{align}</script><h3 id="Linear-CRF要解决的3个问题"><a href="#Linear-CRF要解决的3个问题" class="headerlink" title="Linear-CRF要解决的3个问题"></a>Linear-CRF要解决的3个问题</h3>
+\end{align}</script><blockquote>
+<p>向量化的意义：</p>
+<p>就是为了干掉连加的形式，为后面的训练提供更加合理的计算支持。</p>
+</blockquote>
+<h3 id="Linear-CRF要解决的3个问题"><a href="#Linear-CRF要解决的3个问题" class="headerlink" title="Linear-CRF要解决的3个问题"></a>Linear-CRF要解决的3个问题</h3><ul>
+<li>Inference：计算条件概率分布，即给定X序列，算出序列中每个位置所对应标注的概率，即：$P(y_t|X)$</li>
+<li><p>Learning：把参数学习出来（parameter estimation），也就是给定$N$个训练数据，求上面向量表示的$W$的参数值，即：$\hat{W}=argmax\prod_{i=1}^N P(Y^{(i)}|X^{(i)})$</p>
+</li>
+<li><p>Decoding：给定X序列，找到一个最有可能的标注序列，即：$\hat{Y}=argmax P(Y|X)$，其中，$Y=y_1y_2..y_T$</p>
+</li>
+</ul>
+<h4 id="问题一：计算条件概率"><a href="#问题一：计算条件概率" class="headerlink" title="问题一：计算条件概率"></a>问题一：计算条件概率</h4><blockquote>
+<p>问题要解决的问题是：给定$P(Y|X)$，求出$P(y_t=i|X)$</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/Calculate_Py_X.png" style="zoom:40%;"></p>
+<p>我们把Linear-CRF参数化形式中的初始公式拿过来，因为$P(Y|X)$的概率值是给定的，所以我们可以用这个公式来计算$P(y_t=i|X)$</p>
+<script type="math/tex; mode=display">
+P(Y|X) = \frac{1}{Z} \prod_{t=1}^T \psi_t(y_{t-1},y_t,x_{1:T})</script><p>其中，$X$与$x_{1:T}$是表达相同含义。那么，我们如何利用该公式进行计算呢？</p>
+<script type="math/tex; mode=display">
+\begin{align}
+P(y_t=i|X) &= \sum_{y_1y_2..y_T}P(Y|X) &(1)\\\\
+P(y_t=i|X) &= \sum_{y<1:t-1>} 
+            \sum_{y<t+1,T>} 
+                \frac{1}{Z(X)}\prod_{t'=1}^T \psi_{t'}(y_{t'-1},t_{t'},X) &(2)
+\end{align}</script><p>可以看到，如果按照上式进行求解的话，不加任何的技巧，计算量实在是太大了，实际是不可行的。因此，我们要对式子进行简化。仔细分析一下，尽管后面是一个连乘，但是，每一个乘子的势函数只与2个状态有关，例如：在时刻$t=5$，那么乘子就应该是$\psi_5(y_4,y_5,X)$。所以，我们可以从这里下手，调整运算的次序，进而简化计算的。</p>
+<p>下面将公式(2)进行整理展开，展开的思路为，我们以$y_t$为核心点，将序列Y切成2段，$<y_0:y_{t-1}>$是一段，$<y_{t+1},y_t>$是一段：</y_{t+1},y_t></y_0:y_{t-1}></p>
+<script type="math/tex; mode=display">
+\begin{align}
+  P(y_t=i|X) &=\frac{1}{Z(X)} \triangle_左 \cdot \triangle_右 \\\\
+  \triangle_左 &= \sum_{y<1:t-1>} \psi_1(y_0,y_1,X)\cdot \psi_2(y_1,y_2,X) \cdot ...
+                  \psi_t(y_{t-1},y_t=i,X)\\\\
+  \triangle_右 &= \sum_{y<t+1:T>} \psi_t(y_t,y_{t+1},X)\cdot \psi_{t+1}(y_{t+1},y_{t+2},X)         
+                        \cdot ... \psi_T(y_{T-1},y_T,X)\\\\
+\end{align}</script><p>我们看，加入是对$y_0$求和，那么在连乘式中，只有$\psi_1$是包含$y_0$的，因此，做$\sum_{y_0} \psi_1(y_0,y_1,X)$。再看$y_1$，由于$y_1$在$\psi_1$和$\psi_2$中都存在，因此，对$y_1$进行求和要在上一个求和基础上把$\psi_2$乘进去，然后进行叠加求和，即：$\sum_{y_1}\bigg(\psi_2(y_1,y_2,X) \cdot \sum_{y_0}[\psi_1(y_0,y_1,X)]\bigg)$。那么，以此类推，可以对$\triangle_左$和$\triangle_右$进行简化，将加和符号分配到其所对应的位置了。</p>
+
       
     </div>
     <footer class="article-footer">
@@ -637,7 +674,7 @@ P_W(Y|X) &= \frac{exp(W \bullet F(Y,X))}{Z(X,W)}\\\\
 <nav id="article-nav">
   
   
-    <a href="/2019/11/02/zsh-command not found-tensorboard/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/11/02/[Tools]zsh_command_not_found_tensorboard/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">【工具篇】解决安装oh-my-zsh后出现command not found的问题</div>
     </a>
@@ -653,7 +690,7 @@ P_W(Y|X) &= \frac{exp(W \bullet F(Y,X))}{Z(X,W)}\\\\
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前序知识串联"><span class="nav-number">1.</span> <span class="nav-text">前序知识串联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HMM-VS-MEMM"><span class="nav-number">2.</span> <span class="nav-text">HMM VS MEMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM模型理解"><span class="nav-number">2.1.</span> <span class="nav-text">HMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM建模"><span class="nav-number">2.2.</span> <span class="nav-text">HMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM示例"><span class="nav-number">2.3.</span> <span class="nav-text">HMM示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM模型理解"><span class="nav-number">2.4.</span> <span class="nav-text">MEMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM建模"><span class="nav-number">2.5.</span> <span class="nav-text">MEMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM特点"><span class="nav-number">2.6.</span> <span class="nav-text">MEMM特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM的缺点"><span class="nav-number">2.7.</span> <span class="nav-text">MEMM的缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机场-RF"><span class="nav-number">3.</span> <span class="nav-text">随机场(RF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔科夫随机场-MRF"><span class="nav-number">4.</span> <span class="nav-text">马尔科夫随机场(MRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MRF因子分解定理"><span class="nav-number">4.1.</span> <span class="nav-text">MRF因子分解定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场-CRF"><span class="nav-number">5.</span> <span class="nav-text">条件随机场(CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性链条件随机场-Linear-CRF"><span class="nav-number">6.</span> <span class="nav-text">线性链条件随机场(Linear-CRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的参数化形式"><span class="nav-number">6.1.</span> <span class="nav-text">Linear-CRF的参数化形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF示例"><span class="nav-number">6.2.</span> <span class="nav-text">Linear-CRF示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的简化表示"><span class="nav-number">6.3.</span> <span class="nav-text">Linear-CRF的简化表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数值表示"><span class="nav-number">6.3.1.</span> <span class="nav-text">数值表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量表示"><span class="nav-number">6.3.2.</span> <span class="nav-text">向量表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF要解决的3个问题"><span class="nav-number">6.4.</span> <span class="nav-text">Linear-CRF要解决的3个问题</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前序知识串联"><span class="nav-number">1.</span> <span class="nav-text">前序知识串联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HMM-VS-MEMM"><span class="nav-number">2.</span> <span class="nav-text">HMM VS MEMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM模型理解"><span class="nav-number">2.1.</span> <span class="nav-text">HMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM建模"><span class="nav-number">2.2.</span> <span class="nav-text">HMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM示例"><span class="nav-number">2.3.</span> <span class="nav-text">HMM示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM模型理解"><span class="nav-number">2.4.</span> <span class="nav-text">MEMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM建模"><span class="nav-number">2.5.</span> <span class="nav-text">MEMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM特点"><span class="nav-number">2.6.</span> <span class="nav-text">MEMM特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM的缺点"><span class="nav-number">2.7.</span> <span class="nav-text">MEMM的缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机场-RF"><span class="nav-number">3.</span> <span class="nav-text">随机场(RF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔科夫随机场-MRF"><span class="nav-number">4.</span> <span class="nav-text">马尔科夫随机场(MRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MRF因子分解定理"><span class="nav-number">4.1.</span> <span class="nav-text">MRF因子分解定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场-CRF"><span class="nav-number">5.</span> <span class="nav-text">条件随机场(CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性链条件随机场-Linear-CRF"><span class="nav-number">6.</span> <span class="nav-text">线性链条件随机场(Linear-CRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的参数化形式"><span class="nav-number">6.1.</span> <span class="nav-text">Linear-CRF的参数化形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF示例"><span class="nav-number">6.2.</span> <span class="nav-text">Linear-CRF示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的简化表示"><span class="nav-number">6.3.</span> <span class="nav-text">Linear-CRF的简化表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数值表示"><span class="nav-number">6.3.1.</span> <span class="nav-text">数值表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量表示"><span class="nav-number">6.3.2.</span> <span class="nav-text">向量表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF要解决的3个问题"><span class="nav-number">6.4.</span> <span class="nav-text">Linear-CRF要解决的3个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：计算条件概率"><span class="nav-number">6.4.1.</span> <span class="nav-text">问题一：计算条件概率</span></a></li></ol></li></ol></li></ol>
     
     </div>
   </aside>

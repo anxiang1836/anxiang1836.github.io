@@ -3,26 +3,28 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>【工具篇】python格式字符串(string.format) | MaxMa</title>
+  <title>【spark】pyspark之dataframe | MaxMa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="string.format">
+  <meta name="keywords" content="sparkDataFrame">
   
   
   
   
-  <meta name="description" content="原文：Python String Format 译者：youngsterxyf 转载自：http://blog.xiayf.cn/2013/01/26/python-string-format/  每次使用Python的格式字符串（string formatter）我都贼懵圈，并且我都没有认真地理解它们的文档，所以着手编写自己的格式字符串手册。 数字格式化下面的表格展示了使用Python的后起新">
-<meta name="keywords" content="string.format">
+  <meta name="description" content="1 思维导图首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。 DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于： 可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……  2 数据的读入（比较RDD与DataFrame）12import findsparkfindspark.init()">
+<meta name="keywords" content="spark,DataFrame">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【工具篇】Python格式字符串(string.format)">
-<meta property="og:url" content="https://anxiang1836.github.io/2019/11/02/String_format/index.html">
+<meta property="og:title" content="【Spark】PySpark之DataFrame">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/08/11/[Spark]DataFrame/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="原文：Python String Format 译者：youngsterxyf 转载自：http://blog.xiayf.cn/2013/01/26/python-string-format/  每次使用Python的格式字符串（string formatter）我都贼懵圈，并且我都没有认真地理解它们的文档，所以着手编写自己的格式字符串手册。 数字格式化下面的表格展示了使用Python的后起新">
+<meta property="og:description" content="1 思维导图首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。 DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于： 可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……  2 数据的读入（比较RDD与DataFrame）12import findsparkfindspark.init()">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-02T09:11:54.783Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222604.png">
+<meta property="og:updated_time" content="2019-11-05T17:31:47.086Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【工具篇】Python格式字符串(string.format)">
-<meta name="twitter:description" content="原文：Python String Format 译者：youngsterxyf 转载自：http://blog.xiayf.cn/2013/01/26/python-string-format/  每次使用Python的格式字符串（string formatter）我都贼懵圈，并且我都没有认真地理解它们的文档，所以着手编写自己的格式字符串手册。 数字格式化下面的表格展示了使用Python的后起新">
+<meta name="twitter:title" content="【Spark】PySpark之DataFrame">
+<meta name="twitter:description" content="1 思维导图首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。 DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于： 可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……  2 数据的读入（比较RDD与DataFrame）12import findsparkfindspark.init()">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222604.png">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
   
@@ -162,7 +164,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-String_format" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-[Spark]DataFrame" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -170,7 +172,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      【工具篇】Python格式字符串(string.format)
+      【Spark】PySpark之DataFrame
     </h1>
   
 
@@ -178,12 +180,12 @@
     
     <div class="article-meta">
       
-	<a href="/2019/11/02/String_format/" class="article-date">
-	  <time datetime="2019-11-02T09:09:59.798Z" itemprop="datePublished">2019-11-02</time>
+	<a href="/2019/08/11/[Spark]DataFrame/" class="article-date">
+	  <time datetime="2019-08-11T10:05:58.673Z" itemprop="datePublished">2019-08-11</time>
 	</a>
 
       
-    <a class="article-category-link" href="/categories/实用工具/">实用工具</a>
+    <a class="article-category-link" href="/categories/Spark/">Spark</a>
 
       
 	<a class="article-views">
@@ -197,124 +199,90 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>原文：<a href="http://mkaz.com/solog/python-string-format" target="_blank" rel="noopener">Python String Format</a></p>
-<p>译者：<a href="https://github.com/youngsterxyf" target="_blank" rel="noopener">youngsterxyf</a></p>
-<p>转载自：<a href="http://blog.xiayf.cn/2013/01/26/python-string-format/" target="_blank" rel="noopener">http://blog.xiayf.cn/2013/01/26/python-string-format/</a></p>
-</blockquote>
-<p>每次使用Python的格式字符串（string formatter）我都贼懵圈，并且我都没有认真地理解它们的文档，所以着手编写自己的格式字符串手册。</p>
-<h2 id="数字格式化"><a href="#数字格式化" class="headerlink" title="数字格式化"></a><strong>数字格式化</strong></h2><p>下面的表格展示了使用Python的后起新秀str.format()格式化数字的多种方法，包含浮点数格式化与整数格式化示例。可使用 <code>print(&quot;FORMAT&quot;.format(NUMBER));</code> 来运行示例，因此你可以运行： <code>print(&quot;{:.2f}&quot;.format(3.1415926));</code> 来得到第一个示例的输出。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>数字</th>
-<th>格式</th>
-<th>输出</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3.1415926</td>
-<td>{:.2f}</td>
-<td>3.14</td>
-<td>保留小数点后两位</td>
-</tr>
-<tr>
-<td>3.1415926</td>
-<td>{:+.2f}</td>
-<td>+3.14</td>
-<td>带符号保留小数点后两位</td>
-</tr>
-<tr>
-<td>-1</td>
-<td>{:+.2f}</td>
-<td>-1.00</td>
-<td>带符号保留小数点后两位</td>
-</tr>
-<tr>
-<td>2.71828</td>
-<td>{:.0f}</td>
-<td>3</td>
-<td>不带小数</td>
-</tr>
-<tr>
-<td>5</td>
-<td>{:0&gt;2d}</td>
-<td>05</td>
-<td>数字补零 (填充左边, 宽度为2)</td>
-</tr>
-<tr>
-<td>5</td>
-<td>{:x&lt;4d}</td>
-<td>5xxx</td>
-<td>数字补x (填充右边, 宽度为4)</td>
-</tr>
-<tr>
-<td>10</td>
-<td>{:x&lt;4d}</td>
-<td>10xx</td>
-<td>数字补x (填充右边, 宽度为4)</td>
-</tr>
-<tr>
-<td>1000000</td>
-<td>{:,}</td>
-<td>1,000,000</td>
-<td>以逗号分隔的数字格式</td>
-</tr>
-<tr>
-<td>0.25</td>
-<td>{:.2%}</td>
-<td>25.00%</td>
-<td>百分比格式</td>
-</tr>
-<tr>
-<td>1000000000</td>
-<td>{:.2e}</td>
-<td>1.00e+09</td>
-<td>指数记法</td>
-</tr>
-<tr>
-<td>13</td>
-<td>{:10d}</td>
-<td>13</td>
-<td>右对齐 (默认, 宽度为10)</td>
-</tr>
-<tr>
-<td>13</td>
-<td>{:&lt;10d}</td>
-<td>13</td>
-<td>左对齐 (宽度为10)</td>
-</tr>
-<tr>
-<td>13</td>
-<td>{:^10d}</td>
-<td>13</td>
-<td>中间对齐 (宽度为10)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="string-format-基础"><a href="#string-format-基础" class="headerlink" title="string.format()基础"></a>string.format()基础</h2><p>如下是两个基本字符串替换的示例，符号 <code>{}</code> 是替换变量的占位符。若没有指定格式，则直接将变量值作为字符串插入。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">"so much depends upon &#123;&#125;"</span>.format(<span class="string">"a red wheel barrow"</span>)</span><br><span class="line">s2 = <span class="string">"glazed with &#123;&#125; water beside the &#123;&#125; chickens"</span>.format(<span class="string">"rain"</span>, <span class="string">"white"</span>)</span><br></pre></td></tr></table></figure>
-<p>你也可以使用变量的位置数值，在字符串中改变它们，进行格式化时，会更加灵活。如果搞错了顺序，你可以轻易地修正而不需要打乱所有的变量。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">" &#123;0&#125; is better than &#123;1&#125; "</span>.format(<span class="string">"emacs"</span>, <span class="string">"vim"</span>)</span><br><span class="line">s2 = <span class="string">" &#123;1&#125; is better than &#123;0&#125; "</span>.format(<span class="string">"emacs"</span>, <span class="string">"vim"</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="更多-format-的格式字符串方法"><a href="#更多-format-的格式字符串方法" class="headerlink" title="更多.format()的格式字符串方法"></a>更多.format()的格式字符串方法</h2><p><strong>命名参数</strong></p>
-<p>你可以将新的格式字符串用作模板引擎，使用命名参数，这样就不要求有严格的顺序。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">madlib = <span class="string">" I &#123;verb&#125; the &#123;object&#125; off the &#123;place&#125; "</span>.format(verb=<span class="string">"took"</span>, object=<span class="string">"cheese"</span>, place=<span class="string">"table"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>I took the cheese off the table</span><br></pre></td></tr></table></figure>
-<p><strong>多次复用同一个变量</strong></p>
-<p>使用<code>%</code> 格式字符串，要求变量有严格的次序，而.format()方法允许如上所示那样任意排列参数，也允许复用。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">str = <span class="string">"Oh &#123;0&#125;, &#123;0&#125;! wherefore art thou &#123;0&#125;?"</span>.format(<span class="string">"Romeo"</span>)</span><br><span class="line">&gt;&gt;&gt; Oh Romeo, Romeo! wherefore art thou Romeo?</span><br></pre></td></tr></table></figure>
-<p><strong>将数值转换为不同的进制</strong></p>
-<p>可以使用如下字母来将数字转换成字母代表的进制，<strong>d</strong>ecimal，he<strong>x</strong>，<strong>o</strong>ctal, <strong>b</strong>inary。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"&#123;0:d&#125; - &#123;0:x&#125; - &#123;0:o&#125; - &#123;0:b&#125; "</span>.format(<span class="number">21</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">21</span> - <span class="number">15</span> - <span class="number">25</span> <span class="number">-10101</span></span><br></pre></td></tr></table></figure>
-<p><strong>将格式作为函数来使用</strong></p>
-<p>可以将.format()用作函数，这就允许在代码中将普通文本和格式区分开来。例如，你可以在程序的开头包含所有需要使用的格式，然后在后面使用。这也是一种处理国际化的好方法，国际化不仅要求不同的文本，且常常要求不同的数字格式。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 定义格式</span></span><br><span class="line">email_f = <span class="string">"Your email address was &#123;email&#125;"</span>.format</span><br><span class="line"></span><br><span class="line"><span class="comment">### 在另一个地方使用</span></span><br><span class="line">print(email_f(email=<span class="string">"bob@example.com"</span>))</span><br></pre></td></tr></table></figure>
-<h2 id="其他技巧"><a href="#其他技巧" class="headerlink" title="其他技巧"></a>其他技巧</h2><p><strong>转义大括号</strong></p>
-<p>使用str.format()时，若你需要使用大括号，只要写两次就可以了：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">" The &#123;&#125; set is often represented as &#123; &#123;0&#125; &#125; "</span>.format(<span class="string">"empty"</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>The empty set <span class="keyword">is</span> often represented <span class="keyword">as</span> &#123;<span class="number">0</span>&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="1-思维导图"><a href="#1-思维导图" class="headerlink" title="1 思维导图"></a>1 思维导图</h2><p>首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。</p>
+<p>DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于：</p>
+<p>可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……</p>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222604.png" alt></p>
+<h2 id="2-数据的读入（比较RDD与DataFrame）"><a href="#2-数据的读入（比较RDD与DataFrame）" class="headerlink" title="2 数据的读入（比较RDD与DataFrame）"></a>2 数据的读入（比较RDD与DataFrame）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> findspark</span><br><span class="line">findspark.init()</span><br></pre></td></tr></table></figure>
+<h3 id="2-1-是使用RDD还是使用DataFrame？"><a href="#2-1-是使用RDD还是使用DataFrame？" class="headerlink" title="2.1.是使用RDD还是使用DataFrame？"></a>2.1.是使用RDD还是使用DataFrame？</h3><ul>
+<li><p>RDD：</p>
+<p>  RDD开始于SparkContext，如下：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf</span><br><span class="line">conf = SparkConf().setAppName(<span class="string">'MyProject_1'</span>)</span><br><span class="line">spark_rdd = SparkContext.getOrCreate(conf)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DataFrame:DataFrame开始与SparkSession，如下：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line">spark_dataframe = SparkSession.builder.appName(<span class="string">"Python Spark Log Analysis"</span>).getOrCreate()</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-从外部文件导入？"><a href="#2-2-从外部文件导入？" class="headerlink" title="2.2 从外部文件导入？"></a>2.2 从外部文件导入？</h3><ul>
+<li><p><strong>RDD：</strong></p>
+<p>  用spark_rdd.textFile(logFile)</p>
+</li>
+<li><p><strong>DataFrame：</strong></p>
+<p> 用spark_dataframe.read.text(logFile)</p>
+<p> 或者借助pd，用spark_dataframe.createDataFrame(df)</p>
+</li>
+</ul>
+<p>【补充】：Row的用法（这个是在RDD和DataFrame都通用的用法）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Row</span><br><span class="line"></span><br><span class="line">data = (Row(</span><br><span class="line">        <span class="comment"># group的的计数是从1开始计数的</span></span><br><span class="line">        host          = match.group(<span class="number">1</span>),</span><br><span class="line">        client_identd = match.group(<span class="number">2</span>),</span><br><span class="line">        user_id       = match.group(<span class="number">3</span>),</span><br><span class="line">        date_time     = parse_apache_time(match.group(<span class="number">4</span>)),</span><br><span class="line">        method        = match.group(<span class="number">5</span>),</span><br><span class="line">        endpoint      = match.group(<span class="number">6</span>),</span><br><span class="line">        protocol      = match.group(<span class="number">7</span>),</span><br><span class="line">        response_code = int(match.group(<span class="number">8</span>)),</span><br><span class="line">        content_size  = size</span><br><span class="line">    ), <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="3-数据操作（分析）"><a href="#3-数据操作（分析）" class="headerlink" title="3 数据操作（分析）"></a>3 数据操作（分析）</h2><p>这里面其实主要分成两种吧：</p>
+<ul>
+<li><p><strong>DataFrame的各种API：</strong></p>
+<p>  用特别丰富的DataFrame的API去进行各种数据的操作；</p>
+</li>
+<li><p><strong>DataFrame支持的sql：</strong></p>
+<p>  在我的心理，不用SQL处理的数据都不是个好数据，幸福点就在，可以再Spark里面写各种你想写的SQL，这就美滋滋了！</p>
+</li>
+</ul>
+<h3 id="3-1-DataFrame的各种API"><a href="#3-1-DataFrame的各种API" class="headerlink" title="3.1 DataFrame的各种API"></a>3.1 DataFrame的各种API</h3><p>这里面，我还是想按照pandas的操作种类，给Spark进行大致分成3种操作吧：</p>
+<p><strong>1.选择和筛选:</strong></p>
+<p>   这个算是对于数据的最近本操作吧，对应于pandas中的.loc[]。</p>
+<ul>
+<li>df.select()</li>
+<li>df.filter()</li>
+</ul>
+<p><strong>2.分组和聚合：</strong></p>
+<ul>
+<li><p>df.groupby(“某一列”).agg((“A列”,”count”),(“B列”，”sum”))</p>
+<p>当然还有其他的聚合操作，可以直接上来对于某一列进行操作的，这里面，对于DataFrame的操作，都在pyspark.sql.functions中，具体就查看去吧，内容是在太丰富，感觉根本记不住！！尴尬……</p>
+</li>
+</ul>
+<p><strong>3.对于列进行操作：</strong></p>
+<p>   对于列进行操作这个就比较广义理解，可以是：</p>
+<ul>
+<li>新建一列；</li>
+<li>给列改名;</li>
+<li>修改列数据的数据类型格式；</li>
+<li><p>……</p>
+<p>用到的就是：</p>
+</li>
+<li><p>df.withColumn(参数1，参数2)</p>
+<p>参数1：表示的是欲操作的列</p>
+<p>参数2：表示的是欲操作的动作</p>
+</li>
+<li><p>df.withColumnRenamed(‘count’, ‘hostperday’)</p>
+</li>
+</ul>
+<p><strong>4.表间操作：</strong></p>
+<p>   表间操作其实主要还是表连接：</p>
+<ul>
+<li><p>df_1.join(df_2, ‘day’, ‘inner’)</p>
+<p>参数1：表示欲连接的表</p>
+<p>参数2：表示连接on的字段</p>
+<p>参数3：连接的方式</p>
+</li>
+</ul>
+<h3 id="3-2-DataFrame支持的sql"><a href="#3-2-DataFrame支持的sql" class="headerlink" title="3.2 DataFrame支持的sql"></a>3.2 DataFrame支持的sql</h3><p>【兴奋点来了】！！</p>
+<p>想要在Spark中使用sql语句，步骤总共分为2步：</p>
+<p><strong>1.为欲操作的表创建视图</strong></p>
+<ul>
+<li>df.createOrReplaceTempView(“TABLE”)</li>
+</ul>
+<p><strong>2.为所欲为的写SQL语句</strong></p>
+<ul>
+<li>spark.sql(“select * from DESCRIBE”).show()</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
@@ -348,7 +316,7 @@
       
       
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string-format/">string.format</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
 
       
 
@@ -358,19 +326,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/11/02/zsh-command not found-tensorboard/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/17/[ML]Supervised_Learning/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          【工具篇】解决安装oh-my-zsh后出现command not found的问题
+          【机器学习】监督学习理论整理
         
       </div>
     </a>
   
   
-    <a href="/2019/10/21/ML-Ask_Anwser/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/08/11/[Spark]RDD/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">【机器学习】灵魂19问</div>
+      <div class="article-nav-title">【Spark】PySpark之RDD</div>
     </a>
   
 </nav>
@@ -384,7 +352,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数字格式化"><span class="nav-number">1.</span> <span class="nav-text">数字格式化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string-format-基础"><span class="nav-number">2.</span> <span class="nav-text">string.format()基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多-format-的格式字符串方法"><span class="nav-number">3.</span> <span class="nav-text">更多.format()的格式字符串方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他技巧"><span class="nav-number">4.</span> <span class="nav-text">其他技巧</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-思维导图"><span class="nav-number">1.</span> <span class="nav-text">1 思维导图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据的读入（比较RDD与DataFrame）"><span class="nav-number">2.</span> <span class="nav-text">2 数据的读入（比较RDD与DataFrame）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-是使用RDD还是使用DataFrame？"><span class="nav-number">2.1.</span> <span class="nav-text">2.1.是使用RDD还是使用DataFrame？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-从外部文件导入？"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 从外部文件导入？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据操作（分析）"><span class="nav-number">3.</span> <span class="nav-text">3 数据操作（分析）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-DataFrame的各种API"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 DataFrame的各种API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-DataFrame支持的sql"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 DataFrame支持的sql</span></a></li></ol></li></ol>
     
     </div>
   </aside>

@@ -3,26 +3,28 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>【工具篇】解决安装oh-my-zsh后出现command not found的问题 | MaxMa</title>
+  <title>【spark】pyspark之rdd | MaxMa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="zsh">
+  <meta name="keywords" content="sparkRDDpyecharts正则表达式">
   
   
   
   
-  <meta name="description" content="1、由于.zshrc 没有配置相关环境变量设置，需要将bash 中.bash_profile 全部环境变量加入 1open .zshrc 2、下拉找到# User configuration部分，在下面添加，并保存 1source ~/.bash_profile 3、返回到zsh下面，执行下面命令后，问题解决。 1source .zshrc">
-<meta name="keywords" content="zsh">
+  <meta name="description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： 1 思维导图 2 正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/     表达式 含义 表达式 含义     [abcd] 匹配候选集 (re)su(lt) 分组，group按照">
+<meta name="keywords" content="spark,RDD,pyecharts,正则表达式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【工具篇】解决安装oh-my-zsh后出现command not found的问题">
-<meta property="og:url" content="https://anxiang1836.github.io/2019/11/02/zsh-command not found-tensorboard/index.html">
+<meta property="og:title" content="【Spark】PySpark之RDD">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/08/11/[Spark]RDD/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="1、由于.zshrc 没有配置相关环境变量设置，需要将bash 中.bash_profile 全部环境变量加入 1open .zshrc 2、下拉找到# User configuration部分，在下面添加，并保存 1source ~/.bash_profile 3、返回到zsh下面，执行下面命令后，问题解决。 1source .zshrc">
+<meta property="og:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： 1 思维导图 2 正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/     表达式 含义 表达式 含义     [abcd] 匹配候选集 (re)su(lt) 分组，group按照">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-02T11:50:46.804Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222536.png">
+<meta property="og:updated_time" content="2019-11-05T17:32:02.099Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【工具篇】解决安装oh-my-zsh后出现command not found的问题">
-<meta name="twitter:description" content="1、由于.zshrc 没有配置相关环境变量设置，需要将bash 中.bash_profile 全部环境变量加入 1open .zshrc 2、下拉找到# User configuration部分，在下面添加，并保存 1source ~/.bash_profile 3、返回到zsh下面，执行下面命令后，问题解决。 1source .zshrc">
+<meta name="twitter:title" content="【Spark】PySpark之RDD">
+<meta name="twitter:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： 1 思维导图 2 正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/     表达式 含义 表达式 含义     [abcd] 匹配候选集 (re)su(lt) 分组，group按照">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222536.png">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
   
@@ -162,7 +164,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-zsh-command not found-tensorboard" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-[Spark]RDD" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -170,7 +172,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      【工具篇】解决安装oh-my-zsh后出现command not found的问题
+      【Spark】PySpark之RDD
     </h1>
   
 
@@ -178,12 +180,12 @@
     
     <div class="article-meta">
       
-	<a href="/2019/11/02/zsh-command not found-tensorboard/" class="article-date">
-	  <time datetime="2019-11-02T11:48:51.529Z" itemprop="datePublished">2019-11-02</time>
+	<a href="/2019/08/11/[Spark]RDD/" class="article-date">
+	  <time datetime="2019-08-11T08:37:03.783Z" itemprop="datePublished">2019-08-11</time>
 	</a>
 
       
-    <a class="article-category-link" href="/categories/实用工具/">实用工具</a>
+    <a class="article-category-link" href="/categories/Spark/">Spark</a>
 
       
 	<a class="article-views">
@@ -197,12 +199,91 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1、由于.zshrc 没有配置相关环境变量设置，需要将bash 中.bash_profile 全部环境变量加入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open .zshrc</span><br></pre></td></tr></table></figure>
-<p>2、下拉找到# User configuration部分，在下面添加，并保存</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<p>3、返回到zsh下面，执行下面命令后，问题解决。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .zshrc</span><br></pre></td></tr></table></figure>
+        <p>首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图：</p>
+<h2 id="1-思维导图"><a href="#1-思维导图" class="headerlink" title="1 思维导图"></a>1 思维导图</h2><p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222536.png" alt></p>
+<h2 id="2-正则表达式"><a href="#2-正则表达式" class="headerlink" title="2 正则表达式"></a>2 正则表达式</h2><p>从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表：</p>
+<p>验证正则表达式写的对不对的小工具网页：<a href="https://regexr.com/" target="_blank" rel="noopener">https://regexr.com/</a></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>含义</th>
+<th>表达式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[abcd]</td>
+<td>匹配候选集</td>
+<td>(re)su(lt)</td>
+<td>分组，group按照从1编序</td>
+</tr>
+<tr>
+<td>\.</td>
+<td>匹配”.”</td>
+<td>.</td>
+<td>除\n之外所有的字符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>所有数字</td>
+<td>\D</td>
+<td>所有非数字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>所有空白符</td>
+<td>\S</td>
+<td>所有非空白符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>A-Z a-z 0-9</td>
+<td>\w</td>
+<td>除A-Z a-z 0-9之外</td>
+</tr>
+<tr>
+<td>m{3}</td>
+<td>匹配3个m</td>
+<td>m*</td>
+<td>0个或多个</td>
+</tr>
+<tr>
+<td>m+</td>
+<td>1个或多个</td>
+<td>m?</td>
+<td>0个或1个</td>
+</tr>
+<tr>
+<td>^the</td>
+<td>匹配开头</td>
+<td>$</td>
+<td>匹配结尾</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-读入数据"><a href="#3-读入数据" class="headerlink" title="3 读入数据"></a>3 读入数据</h2><p>调用textFile的API，这里需要划重点的是，需要多次反复用的数据，要记得.cache()进行缓存，从而减少不必要的I/O时间。</p>
+<h2 id="4-RDD操作"><a href="#4-RDD操作" class="headerlink" title="4 RDD操作"></a>4 RDD操作</h2><p>这里面需要注意的有一点：那就是Transformation和action的区别：</p>
+<ul>
+<li>Transformation：这个是惰性计算，当在程序中写完的时候，并不执行；</li>
+<li>Action：会激活上面没有完成的计算的Transformation。</li>
+</ul>
+<p>在思维导图中，列举的大部分常见的操作，如果还有需求的话，那就查API的速查表好了！！</p>
+<h2 id="5-数据统计可视化"><a href="#5-数据统计可视化" class="headerlink" title="5 数据统计可视化"></a>5 数据统计可视化</h2><p>这里我补充了一下pyecharts的工具库，可以支持在notebook中，json立可交互图形可视化。</p>
+<p>官方GitHub为：<a href="https://github.com/pyecharts/pyecharts" target="_blank" rel="noopener">https://github.com/pyecharts/pyecharts</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyecharts -U</span><br></pre></td></tr></table></figure>
+<p>如果不显示图的话，那么需要安装html5lib。</p>
+<p>pyecharts 的地图库</p>
+<p>【Anaconda Prompt命令行】pip install echarts-countries-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-provinces-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-cities-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-counties-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-misc-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-united-kingdom-pypkg</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts.charts <span class="keyword">import</span> Pie</span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> options <span class="keyword">as</span> opts</span><br><span class="line">%config InlineBackend.figure_format = <span class="string">'svg'</span></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">labels = [<span class="number">200</span>, <span class="number">500</span>, <span class="number">501</span>, <span class="number">302</span>, <span class="number">403</span>, <span class="number">304</span>, <span class="number">404</span>]</span><br><span class="line">fracs = [<span class="number">0.891149538976086</span>, <span class="number">1.911904537331848e-06</span>, <span class="number">1.720714083598663e-05</span>, <span class="number">0.01685025198901802</span>, </span><br><span class="line">         <span class="number">0.00010897855862791534</span>, <span class="number">0.08548635027620648</span>, <span class="number">0.006385761154688373</span>]</span><br><span class="line"></span><br><span class="line">pie = (</span><br><span class="line">        Pie()</span><br><span class="line">        .add(<span class="string">""</span>, [list(z) <span class="keyword">for</span> z <span class="keyword">in</span> zip(labels, [<span class="string">'%.4f'</span> % (x*<span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> fracs])])</span><br><span class="line">        .set_global_opts(title_opts=opts.TitleOpts(title=<span class="string">"返回状态码分析"</span>))</span><br><span class="line">        .set_series_opts(label_opts=opts.LabelOpts(formatter=<span class="string">"【&#123;b&#125;】: &#123;c&#125;%"</span>))</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">pie.render_notebook()</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -237,7 +318,7 @@
       
       
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zsh/">zsh</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RDD/">RDD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pyecharts/">pyecharts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则表达式/">正则表达式</a></li></ul>
 
       
 
@@ -247,20 +328,15 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/11/05/HMM_CRF/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/11/[Spark]DataFrame/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          【NLP】从隐马尔科夫到条件随机场
+          【Spark】PySpark之DataFrame
         
       </div>
     </a>
   
-  
-    <a href="/2019/11/02/String_format/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">【工具篇】Python格式字符串(string.format)</div>
-    </a>
   
 </nav>
 
@@ -273,7 +349,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav">无</ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-思维导图"><span class="nav-number">1.</span> <span class="nav-text">1 思维导图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-正则表达式"><span class="nav-number">2.</span> <span class="nav-text">2 正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-读入数据"><span class="nav-number">3.</span> <span class="nav-text">3 读入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-RDD操作"><span class="nav-number">4.</span> <span class="nav-text">4 RDD操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-数据统计可视化"><span class="nav-number">5.</span> <span class="nav-text">5 数据统计可视化</span></a></li></ol>
     
     </div>
   </aside>
