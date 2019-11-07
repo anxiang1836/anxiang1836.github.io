@@ -42,7 +42,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191103233837.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/CRF_MaxTuan.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/Calculate_Py_X.png">
-<meta property="og:updated_time" content="2019-11-06T17:10:05.794Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191107195520.png">
+<meta property="og:updated_time" content="2019-11-07T15:05:52.362Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NLP】从隐马尔科夫到条件随机场">
 <meta name="twitter:description" content="在监督学习下，分类是非常经典的一类问题，也是在实际当中遇到的最多一类任务。 下面对于整个分类模型的相关知识点进行一个贯连，作为学习条件随机场（CRF）的前序导引知识。 笔记整理自：Bilibili站上shuhuai008强势手推讲解的白板推导CRF系列课程，课程质量很高！  前序知识串联对于解决分类任务的模型，我们可以将其划分为硬模型和软模型。  硬模型：即为输出即为确值（对于二分类就是0 or">
@@ -606,8 +607,8 @@ P_W(Y|X) &= \frac{exp(W \bullet F(Y,X))}{Z(X,W)}\\\\
 <li><p>Decoding：给定X序列，找到一个最有可能的标注序列，即：$\hat{Y}=argmax P(Y|X)$，其中，$Y=y_1y_2..y_T$</p>
 </li>
 </ul>
-<h4 id="问题一：计算条件概率（前向-后向）"><a href="#问题一：计算条件概率（前向-后向）" class="headerlink" title="问题一：计算条件概率（前向-后向）"></a>问题一：计算条件概率（前向-后向）</h4><blockquote>
-<p>问题要解决的问题是：给定$P(Y|X)$，求出$P(y_t=i|X)$</p>
+<h4 id="问题一：计算条件概率-前向-后向"><a href="#问题一：计算条件概率-前向-后向" class="headerlink" title="问题一：计算条件概率(前向-后向)"></a>问题一：计算条件概率(前向-后向)</h4><blockquote>
+<p>问题一要解决的问题是：给定$P(Y|X)$，求出$P(y_t=i|X)$</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/Calculate_Py_X.png" style="zoom:40%;"></p>
 <p>我们把Linear-CRF参数化形式中的初始公式拿过来，因为$P(Y|X)$的概率值是给定的，所以我们可以用这个公式来计算$P(y_t=i|X)$</p>
@@ -664,7 +665,95 @@ P(y_t=i|X) &= \sum_{y<1:t-1>}
 </blockquote>
 <p>因此，根据上面的前向-后向递推公式，我们就可以把$P(y_t=i|X)$进行公式表示为：</p>
 <script type="math/tex; mode=display">
-P(y_t=i|X)=\frac{1}{Z(X)} \alpha_t(y_t=i|X) \cdot \beta_t(y_t=i|X)</script>
+P(y_t=i|X)=\frac{1}{Z(X)} \alpha_t(y_t=i|X) \cdot \beta_t(y_t=i|X)</script><h4 id="问题二：训练学习-参数估计问题"><a href="#问题二：训练学习-参数估计问题" class="headerlink" title="问题二：训练学习(参数估计问题)"></a>问题二：训练学习(参数估计问题)</h4><blockquote>
+<p>问题二解决的问题是：给定$N$个训练数据$(Y^{(i)},X^{(i)}),1 \le i \le N $，训练求出模型的参数$W$的值，即：$\hat{W}=\mathop{argmax}_W \prod_{i=1}^N P(Y^{(i)}|X^{(i)})$</p>
+</blockquote>
+<p>我们这里用简化后的Linear-CRF参数化形式进行分析。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+P_W(Y|X) &= \frac{exp(W \bullet F(Y,X))}{Z(X,W)} &(1)\\
+\hat{W} &= \mathop{argmax}_W \prod_{i=1}^N P(Y^{(i)}|X^{(i)}) &(2)
+\end{align}</script><p>将式(1)带入到式(2)中，由于是连乘不好计算，所以我们取log将其转换成连加形式（并不影响argmax的结果）：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+    \hat{W} &= \mathop{argmax}_W \bigg(log\prod_{i=1}^N P(Y^{(i)}|X^{(i)})\bigg)
+             = \mathop{argmax}_W \sum_{i=1}^N log \bigg[P(Y^{(i)}|X^{(i)})\bigg] &(3)\\\\
+            把&式(1)带入式(3)，可得：\\\\
+    \hat{W} &= \mathop{argmax}_W \sum_{i=1}^N \bigg(-logZ(X^{(i)},W) +
+                        W \bullet F(Y^{(i)},X^{(i)}) \bigg) &(4)\\\\
+    \hat{W} &= \mathop{argmax}_W \sum_{i=1}^N \bigg[-log \bigg( 
+                     \sum_Y exp(W \bullet F(Y,X^{(i)})\bigg) +
+                        W \bullet F(Y^{(i)},X^{(i)}) \bigg] &(4)\\\\
+    \hat{W} &= \mathop{argmax}_W L(W,X^{(i)},Y^{(i)})  &(5)
+\end{align}</script><blockquote>
+<p>Q:为什么式(4)中的一大坨可以看成是$L(W,X^{(i)})$？</p>
+<p>我们来开$F(Y,X)$，它的表达式是：$F(Y,X)=[f_1(Y,X),f_2(Y,X),…,f_K(Y,X)]^T$。这里面$K$是所有特征函数个数，而每一个$f_k(Y,X)$的表达式是：</p>
+<script type="math/tex; mode=display">
+f_k(Y,X)=\sum_{i=1}^T f_k(y_{i-1},y_i,X,i)</script><p>【注】：这里是特征函数的规则，可以举个小例子，$f_k(y_2=名词,y_3=动词,X,3)=1$。</p>
+<p>这样，问题就落入了经典的最优化问题。。</p>
+</blockquote>
+<p>下面，我们用梯度上升法进行求解，对L求参数W的偏导数：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+    \nabla_W L &= \sum_{i=1}^N\bigg(-E[F(Y,X^{(i)})]+ 
+                      \textbf{1} \bullet F(Y,X^{(i)})\bigg) &(6)\\\\
+               &= \sum_{i=1}^N\bigg[-\sum_Y \bigg( P(Y|X^{(i)}) \cdot 
+                     F(Y,X^{(i)})\bigg)+ \textbf{1} \bullet F(Y,X^{(i)})
+                     \bigg] &(7)
+\end{align}</script><blockquote>
+<p>Q:$-logZ(X^{(i)},W)$是怎么运算得来的$-E(F(Y,X^{(i)}))$？</p>
+<p>这里引入一个新的概念：log-partition Function。这里是对这个log-partition Function进行求导，具体理论来源于指数族分布相关知识（有时间再补一补吧）。</p>
+<p>转载自：<a href="http://www.doc88.com/p-2781062025129.html" target="_blank" rel="noopener">http://www.doc88.com/p-2781062025129.html</a></p>
+<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20191107195520.png" style="zoom:50%;"></p>
+</blockquote>
+<p>我们看公式(7)的前半部分$\sum_Y\bigg(P(Y|X^{(i)}) \cdot F(Y,X^{(i)})\bigg)$，我们试图将其进行简化。先看，最外的求和：是对于序列$Y$的每个位置$y_1:y_T$进行的求和操作；再看内层的$F(Y,X^{(i)})$，它是由$K$个$f_k(Y,X)$组成的，每个$f_k(Y,X)$可以表示成：$\sum_{t=1}^T f_k(y_{t-1},y_t,X,i)$。也就是说，每一步的加和只涉及到$y_{t-1}$和$y_t$，哎呦，简化思路是不是就来了？</p>
+<p>下面再对这部分的简化进行推导一下，为了能够进行整理，我们将$F(Y,X^{(i)})$进行写开：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\sum_Y \bigg( P(Y|X^{(i)}) \cdot F(Y,X^{(i)})\bigg) &=
+   \sum_{k=1}^K \bigg[ 
+      \sum_Y \bigg(
+           P(Y|X^{(i)}) \cdot \sum_{t=1}^T f_k(y_{t-1},y_t,X^{(i)},i)
+             \bigg)
+                \bigg] &(1)\\\\
+将对于t的加和提出来，整理得：\\
+&= \sum_{k=1}^K \bigg[
+   \sum_{t=1}^T \bigg(
+     \sum_Y P(Y|X^{(i)}) \cdot f_k(y_{t-1},y_t,X^{(i)},i)
+                \bigg)
+                \bigg] &(2)\\\\
+\end{align}</script><p>接下来，按照上文说到，我们要对$y_{t-1},y_t$进行动手，所以，这里将$\sum_Y$进行拆解成4部分：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+ 式(2) &= \sum_{k=1}^K \bigg[ \sum_{t=1}^T \bigg(
+   \sum_{y<1:t-2>} \sum_{y_{t-1}} \sum_{y_t} \sum_{y<t+1:T>}
+     P(Y|X^{(i)}) \cdot f_k(y_{t-1},y_t,X^{(i)},i)
+\bigg) \bigg] &(3)\\\\
+将y_{t-1} & ,y_t提出来，得：\\
+&= \sum_{k=1}^K \bigg[ \sum_{t=1}^T \sum_{y_{t-1}} \sum_{y_t} \bigg(
+   \sum_{y<1:t-2>} \sum_{y<t+1:T>}
+     P(Y|X^{(i)}) \cdot f_k(y_{t-1},y_t,X^{(i)},i)
+\bigg) \bigg] &(4)\\\\
+整理内&层的概率分布可以得到一个联合概率分布，得：\\
+&= \sum_{k=1}^K \bigg[ \sum_{t=1}^T \sum_{y_{t-1}} \sum_{y_t} \bigg(
+     P(y_{t-1},y_t|X^{(i)}) \cdot f_k(y_{t-1},y_t,X^{(i)},i)
+\bigg) \bigg] &(5)\\\\
+\end{align}</script><p>这里，概率联合概率分布的推导与$P(y_t|X)$基本完全类似，也是考虑叠加前向的概率和后向概率的递推，最后得出，而$f_k$是我们定义的特征函数，拿到数据也是可以计算的，因此，这样一个复杂的式子就化简得到了。</p>
+<p>剩下的就是按照梯度上升法进行计算了，（PS：实际的使用中，梯度上升法收敛速度太慢，我们会采用其他的计算方式，这里仅做理论指引了）。</p>
+<blockquote>
+<p>Q：整个公式推导中，大面上看都是$X^{(i)}$。那么，$Y^{(i)}$在哪里监督了？</p>
+<p>监督就是监督在了计算前向后向递推里面，我们是已知$P(Y|X)$，但是我们没有办法对其进行描述和表述，那么，Linear-CRF参数化表示就是解决这个问题，从监督数据出发，设计了一些特征函数，但是这表示的不充分；进而，结合着特征函数、目前的参数值以及已知的数据$X^{(i)},Y^{(i)}$，通过前向后向的递推，是可计算得出$P(y_{t-1},y_t|X^{(i)})$；最后，这个计算得到的联合概率分布被用到了梯度的计算中，我们得到了从监督数据出发的梯度计算公式根据梯度上升法，一步一步最后做梯度上升，修正参数。</p>
+<p>因此，训练的步骤大致就是：</p>
+<p>1.初始化参数；</p>
+<p>2.计算当前数据和参数下的梯度；</p>
+<p>3.根据梯度，做小步幅的参数调整；</p>
+<p>4.用这套参数去做评估：IF：效果不是很好，那么重新返回步骤2；ELSE：效果不错咯，保存参数了，退出。</p>
+</blockquote>
+<h4 id="问题三：Vitebi解码，模型预测序列的标注"><a href="#问题三：Vitebi解码，模型预测序列的标注" class="headerlink" title="问题三：Vitebi解码，模型预测序列的标注"></a>问题三：Vitebi解码，模型预测序列的标注</h4><blockquote>
+<p>这个问题，所要解决的问题是：给定条件随机场的条件概率$P(Y|X)$和一个观测序列$X$，求出满足$P(Y|X)$最大的序列$Y$。</p>
+<p>维特比算法本身是一个动态规划算法，利用了两个局部状态和对应的递推公式，从局部递推到整体，进而得解。对于具体不同的问题，仅仅是这两个局部状态的定义和对应的递推公式不同而已。</p>
+</blockquote>
+
       
     </div>
     <footer class="article-footer">
@@ -725,7 +814,7 @@ P(y_t=i|X)=\frac{1}{Z(X)} \alpha_t(y_t=i|X) \cdot \beta_t(y_t=i|X)</script>
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前序知识串联"><span class="nav-number">1.</span> <span class="nav-text">前序知识串联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HMM-VS-MEMM"><span class="nav-number">2.</span> <span class="nav-text">HMM VS MEMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM模型理解"><span class="nav-number">2.1.</span> <span class="nav-text">HMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM建模"><span class="nav-number">2.2.</span> <span class="nav-text">HMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM示例"><span class="nav-number">2.3.</span> <span class="nav-text">HMM示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM模型理解"><span class="nav-number">2.4.</span> <span class="nav-text">MEMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM建模"><span class="nav-number">2.5.</span> <span class="nav-text">MEMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM特点"><span class="nav-number">2.6.</span> <span class="nav-text">MEMM特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM的缺点"><span class="nav-number">2.7.</span> <span class="nav-text">MEMM的缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机场-RF"><span class="nav-number">3.</span> <span class="nav-text">随机场(RF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔科夫随机场-MRF"><span class="nav-number">4.</span> <span class="nav-text">马尔科夫随机场(MRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MRF因子分解定理"><span class="nav-number">4.1.</span> <span class="nav-text">MRF因子分解定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场-CRF"><span class="nav-number">5.</span> <span class="nav-text">条件随机场(CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性链条件随机场-Linear-CRF"><span class="nav-number">6.</span> <span class="nav-text">线性链条件随机场(Linear-CRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的参数化形式"><span class="nav-number">6.1.</span> <span class="nav-text">Linear-CRF的参数化形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF示例"><span class="nav-number">6.2.</span> <span class="nav-text">Linear-CRF示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的简化表示"><span class="nav-number">6.3.</span> <span class="nav-text">Linear-CRF的简化表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数值表示"><span class="nav-number">6.3.1.</span> <span class="nav-text">数值表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量表示"><span class="nav-number">6.3.2.</span> <span class="nav-text">向量表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF要解决的3个问题"><span class="nav-number">6.4.</span> <span class="nav-text">Linear-CRF要解决的3个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：计算条件概率（前向-后向）"><span class="nav-number">6.4.1.</span> <span class="nav-text">问题一：计算条件概率（前向-后向）</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前序知识串联"><span class="nav-number">1.</span> <span class="nav-text">前序知识串联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HMM-VS-MEMM"><span class="nav-number">2.</span> <span class="nav-text">HMM VS MEMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM模型理解"><span class="nav-number">2.1.</span> <span class="nav-text">HMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM建模"><span class="nav-number">2.2.</span> <span class="nav-text">HMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMM示例"><span class="nav-number">2.3.</span> <span class="nav-text">HMM示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM模型理解"><span class="nav-number">2.4.</span> <span class="nav-text">MEMM模型理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM建模"><span class="nav-number">2.5.</span> <span class="nav-text">MEMM建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM特点"><span class="nav-number">2.6.</span> <span class="nav-text">MEMM特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMM的缺点"><span class="nav-number">2.7.</span> <span class="nav-text">MEMM的缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机场-RF"><span class="nav-number">3.</span> <span class="nav-text">随机场(RF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔科夫随机场-MRF"><span class="nav-number">4.</span> <span class="nav-text">马尔科夫随机场(MRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MRF因子分解定理"><span class="nav-number">4.1.</span> <span class="nav-text">MRF因子分解定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场-CRF"><span class="nav-number">5.</span> <span class="nav-text">条件随机场(CRF)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性链条件随机场-Linear-CRF"><span class="nav-number">6.</span> <span class="nav-text">线性链条件随机场(Linear-CRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的参数化形式"><span class="nav-number">6.1.</span> <span class="nav-text">Linear-CRF的参数化形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF示例"><span class="nav-number">6.2.</span> <span class="nav-text">Linear-CRF示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF的简化表示"><span class="nav-number">6.3.</span> <span class="nav-text">Linear-CRF的简化表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数值表示"><span class="nav-number">6.3.1.</span> <span class="nav-text">数值表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量表示"><span class="nav-number">6.3.2.</span> <span class="nav-text">向量表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-CRF要解决的3个问题"><span class="nav-number">6.4.</span> <span class="nav-text">Linear-CRF要解决的3个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一：计算条件概率-前向-后向"><span class="nav-number">6.4.1.</span> <span class="nav-text">问题一：计算条件概率(前向-后向)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题二：训练学习-参数估计问题"><span class="nav-number">6.4.2.</span> <span class="nav-text">问题二：训练学习(参数估计问题)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题三：Vitebi解码，模型预测序列的标注"><span class="nav-number">6.4.3.</span> <span class="nav-text">问题三：Vitebi解码，模型预测序列的标注</span></a></li></ol></li></ol></li></ol>
     
     </div>
   </aside>
@@ -914,20 +1003,5 @@ P(y_t=i|X)=\frac{1}{Z(X)} \alpha_t(y_t=i|X) \cdot \beta_t(y_t=i|X)</script>
   
     <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
