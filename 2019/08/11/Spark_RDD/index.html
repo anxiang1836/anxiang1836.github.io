@@ -3,28 +3,28 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>【spark】pyspark之dataframe | MaxMa</title>
+  <title>【spark】pyspark之rdd | MaxMa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="sparkDataFrame">
+  <meta name="keywords" content="sparkRDDpyecharts正则表达式">
   
   
   
   
-  <meta name="description" content="1 思维导图首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。 DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于： 可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……  2 数据的读入（比较RDD与DataFrame）12import findsparkfindspark.init()">
-<meta name="keywords" content="spark,DataFrame">
+  <meta name="description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： 1 思维导图 2 正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/     表达式 含义 表达式 含义     [abcd] 匹配候选集 (re)su(lt) 分组，group按照">
+<meta name="keywords" content="spark,RDD,pyecharts,正则表达式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Spark】PySpark之DataFrame">
-<meta property="og:url" content="https://anxiang1836.github.io/2019/08/11/[Spark]DataFrame/index.html">
+<meta property="og:title" content="【Spark】PySpark之RDD">
+<meta property="og:url" content="https://anxiang1836.github.io/2019/08/11/Spark_RDD/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="1 思维导图首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。 DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于： 可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……  2 数据的读入（比较RDD与DataFrame）12import findsparkfindspark.init()">
+<meta property="og:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： 1 思维导图 2 正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/     表达式 含义 表达式 含义     [abcd] 匹配候选集 (re)su(lt) 分组，group按照">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222604.png">
-<meta property="og:updated_time" content="2019-11-05T17:31:47.086Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222536.png">
+<meta property="og:updated_time" content="2019-11-05T17:32:02.099Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Spark】PySpark之DataFrame">
-<meta name="twitter:description" content="1 思维导图首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。 DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于： 可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……  2 数据的读入（比较RDD与DataFrame）12import findsparkfindspark.init()">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222604.png">
+<meta name="twitter:title" content="【Spark】PySpark之RDD">
+<meta name="twitter:description" content="首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图： 1 思维导图 2 正则表达式从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表： 验证正则表达式写的对不对的小工具网页：https://regexr.com/     表达式 含义 表达式 含义     [abcd] 匹配候选集 (re)su(lt) 分组，group按照">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222536.png">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
   
@@ -164,7 +164,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-[Spark]DataFrame" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Spark_RDD" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -172,7 +172,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      【Spark】PySpark之DataFrame
+      【Spark】PySpark之RDD
     </h1>
   
 
@@ -180,8 +180,8 @@
     
     <div class="article-meta">
       
-	<a href="/2019/08/11/[Spark]DataFrame/" class="article-date">
-	  <time datetime="2019-08-11T10:05:58.673Z" itemprop="datePublished">2019-08-11</time>
+	<a href="/2019/08/11/Spark_RDD/" class="article-date">
+	  <time datetime="2019-08-11T08:37:03.783Z" itemprop="datePublished">2019-08-11</time>
 	</a>
 
       
@@ -199,89 +199,91 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-思维导图"><a href="#1-思维导图" class="headerlink" title="1 思维导图"></a>1 思维导图</h2><p>首先先上一个整理的思维导图，这个与之前整理的RDD相类似，所以可视化的部分这里我就略去了。</p>
-<p>DataFrame的API以及操作要比RDD复杂的多，可能功能更加强大吧，但是，很幸福的事情在于：</p>
-<p>可以用SQL完成看起来超级复杂的操作，就问你幸不幸福，开不开心！！爽爆了……</p>
-<p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222604.png" alt></p>
-<h2 id="2-数据的读入（比较RDD与DataFrame）"><a href="#2-数据的读入（比较RDD与DataFrame）" class="headerlink" title="2 数据的读入（比较RDD与DataFrame）"></a>2 数据的读入（比较RDD与DataFrame）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> findspark</span><br><span class="line">findspark.init()</span><br></pre></td></tr></table></figure>
-<h3 id="2-1-是使用RDD还是使用DataFrame？"><a href="#2-1-是使用RDD还是使用DataFrame？" class="headerlink" title="2.1.是使用RDD还是使用DataFrame？"></a>2.1.是使用RDD还是使用DataFrame？</h3><ul>
-<li><p>RDD：</p>
-<p>  RDD开始于SparkContext，如下：</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf</span><br><span class="line">conf = SparkConf().setAppName(<span class="string">'MyProject_1'</span>)</span><br><span class="line">spark_rdd = SparkContext.getOrCreate(conf)</span><br></pre></td></tr></table></figure>
+        <p>首先，先给出用Spark（RDD）进行数据分析的思维导图，如下图：</p>
+<h2 id="1-思维导图"><a href="#1-思维导图" class="headerlink" title="1 思维导图"></a>1 思维导图</h2><p><img src="https://raw.githubusercontent.com/anxiang1836/FigureBed/master/img/20190821222536.png" alt></p>
+<h2 id="2-正则表达式"><a href="#2-正则表达式" class="headerlink" title="2 正则表达式"></a>2 正则表达式</h2><p>从原始文本数据中，按照一定的规则形式，提取出我们想要的数据字段，正则表达式很关键咯！！下面是正则表达式通配符表：</p>
+<p>验证正则表达式写的对不对的小工具网页：<a href="https://regexr.com/" target="_blank" rel="noopener">https://regexr.com/</a></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>含义</th>
+<th>表达式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[abcd]</td>
+<td>匹配候选集</td>
+<td>(re)su(lt)</td>
+<td>分组，group按照从1编序</td>
+</tr>
+<tr>
+<td>\.</td>
+<td>匹配”.”</td>
+<td>.</td>
+<td>除\n之外所有的字符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>所有数字</td>
+<td>\D</td>
+<td>所有非数字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>所有空白符</td>
+<td>\S</td>
+<td>所有非空白符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>A-Z a-z 0-9</td>
+<td>\w</td>
+<td>除A-Z a-z 0-9之外</td>
+</tr>
+<tr>
+<td>m{3}</td>
+<td>匹配3个m</td>
+<td>m*</td>
+<td>0个或多个</td>
+</tr>
+<tr>
+<td>m+</td>
+<td>1个或多个</td>
+<td>m?</td>
+<td>0个或1个</td>
+</tr>
+<tr>
+<td>^the</td>
+<td>匹配开头</td>
+<td>$</td>
+<td>匹配结尾</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-读入数据"><a href="#3-读入数据" class="headerlink" title="3 读入数据"></a>3 读入数据</h2><p>调用textFile的API，这里需要划重点的是，需要多次反复用的数据，要记得.cache()进行缓存，从而减少不必要的I/O时间。</p>
+<h2 id="4-RDD操作"><a href="#4-RDD操作" class="headerlink" title="4 RDD操作"></a>4 RDD操作</h2><p>这里面需要注意的有一点：那就是Transformation和action的区别：</p>
 <ul>
-<li>DataFrame:DataFrame开始与SparkSession，如下：</li>
+<li>Transformation：这个是惰性计算，当在程序中写完的时候，并不执行；</li>
+<li>Action：会激活上面没有完成的计算的Transformation。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line">spark_dataframe = SparkSession.builder.appName(<span class="string">"Python Spark Log Analysis"</span>).getOrCreate()</span><br></pre></td></tr></table></figure>
-<h3 id="2-2-从外部文件导入？"><a href="#2-2-从外部文件导入？" class="headerlink" title="2.2 从外部文件导入？"></a>2.2 从外部文件导入？</h3><ul>
-<li><p><strong>RDD：</strong></p>
-<p>  用spark_rdd.textFile(logFile)</p>
-</li>
-<li><p><strong>DataFrame：</strong></p>
-<p> 用spark_dataframe.read.text(logFile)</p>
-<p> 或者借助pd，用spark_dataframe.createDataFrame(df)</p>
-</li>
-</ul>
-<p>【补充】：Row的用法（这个是在RDD和DataFrame都通用的用法）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Row</span><br><span class="line"></span><br><span class="line">data = (Row(</span><br><span class="line">        <span class="comment"># group的的计数是从1开始计数的</span></span><br><span class="line">        host          = match.group(<span class="number">1</span>),</span><br><span class="line">        client_identd = match.group(<span class="number">2</span>),</span><br><span class="line">        user_id       = match.group(<span class="number">3</span>),</span><br><span class="line">        date_time     = parse_apache_time(match.group(<span class="number">4</span>)),</span><br><span class="line">        method        = match.group(<span class="number">5</span>),</span><br><span class="line">        endpoint      = match.group(<span class="number">6</span>),</span><br><span class="line">        protocol      = match.group(<span class="number">7</span>),</span><br><span class="line">        response_code = int(match.group(<span class="number">8</span>)),</span><br><span class="line">        content_size  = size</span><br><span class="line">    ), <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="3-数据操作（分析）"><a href="#3-数据操作（分析）" class="headerlink" title="3 数据操作（分析）"></a>3 数据操作（分析）</h2><p>这里面其实主要分成两种吧：</p>
-<ul>
-<li><p><strong>DataFrame的各种API：</strong></p>
-<p>  用特别丰富的DataFrame的API去进行各种数据的操作；</p>
-</li>
-<li><p><strong>DataFrame支持的sql：</strong></p>
-<p>  在我的心理，不用SQL处理的数据都不是个好数据，幸福点就在，可以再Spark里面写各种你想写的SQL，这就美滋滋了！</p>
-</li>
-</ul>
-<h3 id="3-1-DataFrame的各种API"><a href="#3-1-DataFrame的各种API" class="headerlink" title="3.1 DataFrame的各种API"></a>3.1 DataFrame的各种API</h3><p>这里面，我还是想按照pandas的操作种类，给Spark进行大致分成3种操作吧：</p>
-<p><strong>1.选择和筛选:</strong></p>
-<p>   这个算是对于数据的最近本操作吧，对应于pandas中的.loc[]。</p>
-<ul>
-<li>df.select()</li>
-<li>df.filter()</li>
-</ul>
-<p><strong>2.分组和聚合：</strong></p>
-<ul>
-<li><p>df.groupby(“某一列”).agg((“A列”,”count”),(“B列”，”sum”))</p>
-<p>当然还有其他的聚合操作，可以直接上来对于某一列进行操作的，这里面，对于DataFrame的操作，都在pyspark.sql.functions中，具体就查看去吧，内容是在太丰富，感觉根本记不住！！尴尬……</p>
-</li>
-</ul>
-<p><strong>3.对于列进行操作：</strong></p>
-<p>   对于列进行操作这个就比较广义理解，可以是：</p>
-<ul>
-<li>新建一列；</li>
-<li>给列改名;</li>
-<li>修改列数据的数据类型格式；</li>
-<li><p>……</p>
-<p>用到的就是：</p>
-</li>
-<li><p>df.withColumn(参数1，参数2)</p>
-<p>参数1：表示的是欲操作的列</p>
-<p>参数2：表示的是欲操作的动作</p>
-</li>
-<li><p>df.withColumnRenamed(‘count’, ‘hostperday’)</p>
-</li>
-</ul>
-<p><strong>4.表间操作：</strong></p>
-<p>   表间操作其实主要还是表连接：</p>
-<ul>
-<li><p>df_1.join(df_2, ‘day’, ‘inner’)</p>
-<p>参数1：表示欲连接的表</p>
-<p>参数2：表示连接on的字段</p>
-<p>参数3：连接的方式</p>
-</li>
-</ul>
-<h3 id="3-2-DataFrame支持的sql"><a href="#3-2-DataFrame支持的sql" class="headerlink" title="3.2 DataFrame支持的sql"></a>3.2 DataFrame支持的sql</h3><p>【兴奋点来了】！！</p>
-<p>想要在Spark中使用sql语句，步骤总共分为2步：</p>
-<p><strong>1.为欲操作的表创建视图</strong></p>
-<ul>
-<li>df.createOrReplaceTempView(“TABLE”)</li>
-</ul>
-<p><strong>2.为所欲为的写SQL语句</strong></p>
-<ul>
-<li>spark.sql(“select * from DESCRIBE”).show()</li>
-</ul>
+<p>在思维导图中，列举的大部分常见的操作，如果还有需求的话，那就查API的速查表好了！！</p>
+<h2 id="5-数据统计可视化"><a href="#5-数据统计可视化" class="headerlink" title="5 数据统计可视化"></a>5 数据统计可视化</h2><p>这里我补充了一下pyecharts的工具库，可以支持在notebook中，json立可交互图形可视化。</p>
+<p>官方GitHub为：<a href="https://github.com/pyecharts/pyecharts" target="_blank" rel="noopener">https://github.com/pyecharts/pyecharts</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyecharts -U</span><br></pre></td></tr></table></figure>
+<p>如果不显示图的话，那么需要安装html5lib。</p>
+<p>pyecharts 的地图库</p>
+<p>【Anaconda Prompt命令行】pip install echarts-countries-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-provinces-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-cities-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-counties-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-china-misc-pypkg</p>
+<p>【Anaconda Prompt命令行】pip install echarts-united-kingdom-pypkg</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts.charts <span class="keyword">import</span> Pie</span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> options <span class="keyword">as</span> opts</span><br><span class="line">%config InlineBackend.figure_format = <span class="string">'svg'</span></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">labels = [<span class="number">200</span>, <span class="number">500</span>, <span class="number">501</span>, <span class="number">302</span>, <span class="number">403</span>, <span class="number">304</span>, <span class="number">404</span>]</span><br><span class="line">fracs = [<span class="number">0.891149538976086</span>, <span class="number">1.911904537331848e-06</span>, <span class="number">1.720714083598663e-05</span>, <span class="number">0.01685025198901802</span>, </span><br><span class="line">         <span class="number">0.00010897855862791534</span>, <span class="number">0.08548635027620648</span>, <span class="number">0.006385761154688373</span>]</span><br><span class="line"></span><br><span class="line">pie = (</span><br><span class="line">        Pie()</span><br><span class="line">        .add(<span class="string">""</span>, [list(z) <span class="keyword">for</span> z <span class="keyword">in</span> zip(labels, [<span class="string">'%.4f'</span> % (x*<span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> fracs])])</span><br><span class="line">        .set_global_opts(title_opts=opts.TitleOpts(title=<span class="string">"返回状态码分析"</span>))</span><br><span class="line">        .set_series_opts(label_opts=opts.LabelOpts(formatter=<span class="string">"【&#123;b&#125;】: &#123;c&#125;%"</span>))</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">pie.render_notebook()</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -316,7 +318,7 @@
       
       
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RDD/">RDD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pyecharts/">pyecharts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则表达式/">正则表达式</a></li></ul>
 
       
 
@@ -326,20 +328,15 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/08/17/[ML]Supervised_Learning/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/11/Spark_DataFrame/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          【机器学习】监督学习理论整理
+          【Spark】PySpark之DataFrame
         
       </div>
     </a>
   
-  
-    <a href="/2019/08/11/[Spark]RDD/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">【Spark】PySpark之RDD</div>
-    </a>
   
 </nav>
 
@@ -352,7 +349,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-思维导图"><span class="nav-number">1.</span> <span class="nav-text">1 思维导图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据的读入（比较RDD与DataFrame）"><span class="nav-number">2.</span> <span class="nav-text">2 数据的读入（比较RDD与DataFrame）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-是使用RDD还是使用DataFrame？"><span class="nav-number">2.1.</span> <span class="nav-text">2.1.是使用RDD还是使用DataFrame？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-从外部文件导入？"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 从外部文件导入？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据操作（分析）"><span class="nav-number">3.</span> <span class="nav-text">3 数据操作（分析）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-DataFrame的各种API"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 DataFrame的各种API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-DataFrame支持的sql"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 DataFrame支持的sql</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-思维导图"><span class="nav-number">1.</span> <span class="nav-text">1 思维导图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-正则表达式"><span class="nav-number">2.</span> <span class="nav-text">2 正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-读入数据"><span class="nav-number">3.</span> <span class="nav-text">3 读入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-RDD操作"><span class="nav-number">4.</span> <span class="nav-text">4 RDD操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-数据统计可视化"><span class="nav-number">5.</span> <span class="nav-text">5 数据统计可视化</span></a></li></ol>
     
     </div>
   </aside>
