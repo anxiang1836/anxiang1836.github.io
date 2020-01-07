@@ -3,22 +3,23 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>tag: tf.keras | MaxMa</title>
+  <title>MaxMa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
   
   
-  <meta name="description" content="日常学习与兴趣交流，记录自己的点点滴滴">
-<meta property="og:type" content="website">
+  <meta name="description" content="文本相似度-bm25算法原理概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。 BM25一般公式 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$">
+<meta property="og:type" content="article">
 <meta property="og:title" content="MaxMa">
-<meta property="og:url" content="https://anxiang1836.github.io/tags/tf-keras/index.html">
+<meta property="og:url" content="https://anxiang1836.github.io/2020/01/07/NLP_BM25/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="日常学习与兴趣交流，记录自己的点点滴滴">
+<meta property="og:description" content="文本相似度-bm25算法原理概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。 BM25一般公式 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-07T08:40:56.492Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MaxMa">
-<meta name="twitter:description" content="日常学习与兴趣交流，记录自己的点点滴滴">
+<meta name="twitter:description" content="文本相似度-bm25算法原理概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。 BM25一般公式 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
   
@@ -59,8 +60,6 @@
   
 
   
-    <link rel="stylesheet" href="/css/archive.css">
-  
   
   
 
@@ -68,7 +67,7 @@
 </html>
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   
@@ -91,7 +90,7 @@
             
               <a class="brand" style="
                  margin-top: 0px;"  
-                 >
+                href="#" data-toggle="modal" data-target="#myModal" >
                   <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
               </a>
             
@@ -160,43 +159,116 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;">
-  
-  
-  
+          <section id="main" style="float:none;"><article id="post-NLP_BM25" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
     
     
+    <div class="article-meta">
       
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <h1><a href="/archives/2019" class="archive-year">2019</a></h1>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-	<a href="/2019/08/31/TF2_Tensorflow2_Keras/" class="archive-article-date">
-	  <time datetime="2019-08-31T14:39:46.000Z" itemprop="datePublished">2019-08-31</time>
+	<a href="/2020/01/07/NLP_BM25/" class="article-date">
+	  <time datetime="2020-01-07T02:39:58.970Z" itemprop="datePublished">2020-01-07</time>
 	</a>
 
       
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2019/08/31/TF2_Tensorflow2_Keras/">【日月光华】TensorFlow2.0(一)--tf.keras</a>
-    </h1>
-  
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
 
-    </header>
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="文本相似度-bm25算法原理"><a href="#文本相似度-bm25算法原理" class="headerlink" title="文本相似度-bm25算法原理"></a>文本相似度-bm25算法原理</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。</p>
+<h2 id="BM25一般公式"><a href="#BM25一般公式" class="headerlink" title="BM25一般公式"></a>BM25一般公式</h2><script type="math/tex; mode=display">
+Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)</script><p>其中，$Q$表示Query，$q_i$表示$Q$解析之后的一个语素；</p>
+<blockquote>
+<p>可以理解为对于$Q$进行分词后去停用词的内容List</p>
+</blockquote>
+<p>$d$表示候选文档；</p>
+<p>$W_i$表示$Q$中的语素$q_i$的权重；$R(q_i,d)$表示语素$q_i$与$d$的相关性得分</p>
+<h2 id="BM25进一步理解"><a href="#BM25进一步理解" class="headerlink" title="BM25进一步理解"></a>BM25进一步理解</h2><h3 id="W-i-的计算方式"><a href="#W-i-的计算方式" class="headerlink" title="$W_i$的计算方式"></a>$W_i$的计算方式</h3><p>在上文已经提及到了，$W_i$是表示一个词与一个文档的相关性的权重，较为常用的是IDF。IDF的公式如下：</p>
+<script type="math/tex; mode=display">
+IDF(q_i)=log\frac{N-n(q_i)+0.5}{n(q_i)+0.5}</script><p>其中，$N$为候选集文章集合中的文章的数量；$n(q_i)$表示包含$q_i$的文档数。</p>
+<blockquote>
+<p>根据IDF的定义可以看出，对于给定候选文章集合，包含了$q_i$的文档数越多，$q_i$的权重则越低。这个从熵的角度理解，如果一个词语基本在大部分文章都出现，那么该词对于文章的区分度贡献就趋近于0，进而用于计算$q_i$和$d$的相关性时的权重当然就很较低咯。</p>
+</blockquote>
+<h3 id="R-q-i-d-的计算方式"><a href="#R-q-i-d-的计算方式" class="headerlink" title="$R(q_i,d)$的计算方式"></a>$R(q_i,d)$的计算方式</h3><p>相关性得分的一般形式为：</p>
+<script type="math/tex; mode=display">
+R(q_i,d)=\frac{f_{i}\cdot(k_{1}+1)}{f_{i}+K}\cdot 
+    \frac{qf_{i}\cdot (k_2+1)}{qf_i+k_2}</script><script type="math/tex; mode=display">
+K=k_1\cdot(1-b+b \cdot \frac{len(d)}{avg\_len(D)})</script><p>其中，$k_1，k_2,b$为调节因子，通常根据经验设置，$k_1=2,k_2=1,b=0.75$；</p>
+<p>$f_i$为$q_i$在$d$中出现的频率；$qf_i$为$q_i$在Query中出现的频率。</p>
+<p>$len(d)$为文档$d$的长度；$avg_len(D)$为$D$中所有文档的平均长度。</p>
+<blockquote>
+<p>参数b的意义：调整文章长度对于相关性的影响的大小。b越大，文档的长度对于相关性的影响越大</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80NTk2OS8yMjQ4MA==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+      
+
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/11/05/NLP_From_HMM_to_CRF/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">【NLP】从隐马尔科夫到条件随机场</div>
+    </a>
   
+</nav>
 
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文本相似度-bm25算法原理"><span class="nav-number">1.</span> <span class="nav-text">文本相似度-bm25算法原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BM25一般公式"><span class="nav-number">1.2.</span> <span class="nav-text">BM25一般公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BM25进一步理解"><span class="nav-number">1.3.</span> <span class="nav-text">BM25进一步理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#W-i-的计算方式"><span class="nav-number">1.3.1.</span> <span class="nav-text">$W_i$的计算方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R-q-i-d-的计算方式"><span class="nav-number">1.3.2.</span> <span class="nav-text">$R(q_i,d)$的计算方式</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
 
 </section>
         
@@ -294,6 +366,8 @@
 
 
 
+  <script src="/js/dialog.js"></script>
+
 
 
 
@@ -377,6 +451,8 @@
   
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
