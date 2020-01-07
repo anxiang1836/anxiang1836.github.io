@@ -3,23 +3,26 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>MaxMa</title>
+  <title>【nlp】相似度检索-bm25 | MaxMa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="BM25">
   
   
   
-  <meta name="description" content="文本相似度-bm25算法原理概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。 BM25一般公式 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$">
+  
+  <meta name="description" content="概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。 BM25一般公式 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$表示Query，$q_i$表">
+<meta name="keywords" content="BM25">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MaxMa">
+<meta property="og:title" content="【NLP】相似度检索-BM25">
 <meta property="og:url" content="https://anxiang1836.github.io/2020/01/07/NLP_BM25/index.html">
 <meta property="og:site_name" content="MaxMa">
-<meta property="og:description" content="文本相似度-bm25算法原理概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。 BM25一般公式 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$">
+<meta property="og:description" content="概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。 BM25一般公式 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$表示Query，$q_i$表">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-07T08:40:56.492Z">
+<meta property="og:updated_time" content="2020-01-07T08:44:52.492Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MaxMa">
-<meta name="twitter:description" content="文本相似度-bm25算法原理概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。 BM25一般公式 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$">
+<meta name="twitter:title" content="【NLP】相似度检索-BM25">
+<meta name="twitter:description" content="概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。 BM25一般公式 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$表示Query，$q_i$表">
   
     <link rel="alternate" href="/atom.xml" title="MaxMa" type="application/atom+xml">
   
@@ -163,6 +166,16 @@
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      【NLP】相似度检索-BM25
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
 	<a href="/2020/01/07/NLP_BM25/" class="article-date">
@@ -170,6 +183,8 @@
 	</a>
 
       
+    <a class="article-category-link" href="/categories/NLP/">NLP</a>
+
       
 	<a class="article-views">
 	<span id="busuanzi_container_page_pv">
@@ -182,7 +197,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="文本相似度-bm25算法原理"><a href="#文本相似度-bm25算法原理" class="headerlink" title="文本相似度-bm25算法原理"></a>文本相似度-bm25算法原理</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。</p>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。</p>
 <h2 id="BM25一般公式"><a href="#BM25一般公式" class="headerlink" title="BM25一般公式"></a>BM25一般公式</h2><script type="math/tex; mode=display">
 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)</script><p>其中，$Q$表示Query，$q_i$表示$Q$解析之后的一个语素；</p>
 <blockquote>
@@ -240,6 +255,8 @@ K=k_1\cdot(1-b+b \cdot \frac{len(d)}{avg\_len(D)})</script><p>其中，$k_1，k_
       
       
         
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BM25/">BM25</a></li></ul>
+
       
 
     </footer>
@@ -265,7 +282,7 @@ K=k_1\cdot(1-b+b \cdot \frac{len(d)}{avg\_len(D)})</script><p>其中，$k_1，k_
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文本相似度-bm25算法原理"><span class="nav-number">1.</span> <span class="nav-text">文本相似度-bm25算法原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BM25一般公式"><span class="nav-number">1.2.</span> <span class="nav-text">BM25一般公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BM25进一步理解"><span class="nav-number">1.3.</span> <span class="nav-text">BM25进一步理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#W-i-的计算方式"><span class="nav-number">1.3.1.</span> <span class="nav-text">$W_i$的计算方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R-q-i-d-的计算方式"><span class="nav-number">1.3.2.</span> <span class="nav-text">$R(q_i,d)$的计算方式</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BM25一般公式"><span class="nav-number">2.</span> <span class="nav-text">BM25一般公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BM25进一步理解"><span class="nav-number">3.</span> <span class="nav-text">BM25进一步理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#W-i-的计算方式"><span class="nav-number">3.1.</span> <span class="nav-text">$W_i$的计算方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R-q-i-d-的计算方式"><span class="nav-number">3.2.</span> <span class="nav-text">$R(q_i,d)$的计算方式</span></a></li></ol></li></ol>
     
     </div>
   </aside>

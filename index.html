@@ -243,6 +243,16 @@
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/01/07/NLP_BM25/">【NLP】相似度检索-BM25</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
 	<a href="/2020/01/07/NLP_BM25/" class="article-date">
@@ -250,6 +260,8 @@
 	</a>
 
       
+    <a class="article-category-link" href="/categories/NLP/">NLP</a>
+
       
       
 
@@ -257,11 +269,13 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p class="article-excerpt-content">
-          文本相似度-bm25算法原理概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。
+          概述BM25算法，通常用来作搜索相关性平分。一句话概况其主要思想：对Query进行语素解析，生成语素；然后，对于候选集D中的每个d，计算每个语素qi与d的相关性得分，最后，将qi相对于d的相关性得分进行加权求和，从而得到Query与d的相关性得分。
 BM25一般公式
 Score(Q,d)=\sum^{n}_{i} W_{i} \cdot R(q_{i},d)其中，$Q$表示Query，$q_i$表示$Q$解析之后的一个语素；
 
-可以理解为对于$Q$进行分词后去停...
+可以理解为对于$Q$进行分词后去停用词的内容List
+
+$d$...
         </p>
         <p class="article-more-link">
           <a href="/2020/01/07/NLP_BM25/#more">阅读全文</a>
